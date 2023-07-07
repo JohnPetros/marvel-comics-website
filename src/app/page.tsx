@@ -1,6 +1,6 @@
 import { EventsShowcase } from "./components/EventsShowcase";
-import { SeriesShowcase } from "./components/SeriesShowcase";
 import { HeroesShowcase } from "./components/HeroesShowcase";
+import { SeriesShowcase } from "./components/SeriesShowcase";
 
 export default function Home() {
   return (
