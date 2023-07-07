@@ -91,8 +91,11 @@ export function HeroesShowcase() {
                     <div className="flex gap-3">
                       {heroes.map(({ id }) => (
                         <button
+                          key={String(id)}
                           className={`block h-2 rounded-full transition-[width] duration-200 ${
-                            activeHero.id === id ? "w-4 bg-red" : "w-2 bg-white"
+                            activeHero.id === id
+                              ? "w-4 bg-red-600"
+                              : "w-2 bg-white"
                           }`}
                           onClick={() => changeActiveHero(id)}
                         ></button>
@@ -127,10 +130,13 @@ export function HeroesShowcase() {
         <div className="max-w-[1200px] w-full mx-auto flex items-center justify-between p-6">
           {heroes.map(({ id, image, name }, index) => (
             <button
+              key={String(id)}
               className={`relative w-12 h-12 hover:scale-110 transition-transform duration-200 rounded-full bg-transparent border border-l-4 overflow-hidden bg-[url('/images/${
                 activeHero.image
               }')] bg-top ${
-                activeHero.id === id ? "border-red/70" : "border-yellow-500/80"
+                activeHero.id === id
+                  ? "border-red-600/70"
+                  : "border-yellow-500/80"
               }`}
               style={{ backgroundSize: "300%" }}
               onClick={() => changeActiveHero(index)}
