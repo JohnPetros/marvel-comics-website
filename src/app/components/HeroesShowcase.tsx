@@ -34,7 +34,7 @@ export function HeroesShowcase() {
   }, [activeHeroIndex]);
 
   return (
-    <section id="heroes" className="mt-32">
+    <section id="heroes">
       <div
         key={activeHero.id}
         style={{ backgroundImage: `url('/images/${activeHero.cover}')` }}

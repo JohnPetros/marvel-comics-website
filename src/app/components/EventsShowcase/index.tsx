@@ -12,9 +12,8 @@ async function getEvents() {
   return events;
 }
 
-export async function EventsSchowcase() {
+export async function EventsShowcase() {
   const events = await getEvents();
-  console.log(events.data.results);
 
   return (
     <section
