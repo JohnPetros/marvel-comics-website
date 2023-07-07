@@ -20,14 +20,25 @@ export function HeroesShowcase() {
   }
 
   useEffect(() => {
-    // const timer = setInterval(() => {});
-  }, []);
+    const timer = setInterval(() => {
+      const isLastHero = activeHeroIndex === heroes.length - 1;
+
+      if (isLastHero) {
+        changeActiveHero(0);
+      } else {
+        changeActiveHero(activeHeroIndex + 1);
+      }
+    }, 2500);
+
+    return () => clearInterval(timer);
+  }, [activeHeroIndex]);
 
   return (
     <div>
       <div
+        key={activeHero.id}
         style={{ backgroundImage: `url('/images/${activeHero.cover}')` }}
-        className={`h-[540px] bg-black/70 bg-no-repeat bg-cover bg-center bg-blend-color`}
+        className={`h-[540px] bg-black/70 bg-no-repeat bg-cover bg-center bg-blend-color transition-all duration-200`}
       >
         <div className="max-w-[1200px] w-full h-full mx-auto flex justify-between items-center p-2">
           <div>
@@ -45,8 +56,8 @@ export function HeroesShowcase() {
           <div className="relative flex flex-col items-end h-full w-full">
             <motion.div
               key={activeHero.id}
-              animate={{ x: [40, 0] }}
-              transition={{ duration: 0.2 }}
+              animate={{ x: [40, 0], opacity: [0, 1] }}
+              transition={{ duration: 0.25 }}
               className="absolute -top-[108px] w-[640px] h-[640px]"
             >
               <Image
