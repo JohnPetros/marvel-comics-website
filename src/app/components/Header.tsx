@@ -25,12 +25,12 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="container bg-purple borde">
-      <div className="flex items-center w-[1200px] mx-auto py-6 relative">
+    <header className="w-full bg-black borde">
+      <div className="flex items-center max-w-[1200px] w-full mx-auto py-6 relative">
         <nav>
           <ul className="flex gap-1">
             {links.map(({ path, name }) => (
-              <li>
+              <li key={path}>
                 <Link path={path} name={name} isActive={pathname == name} />
               </li>
             ))}
