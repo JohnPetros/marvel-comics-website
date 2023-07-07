@@ -13,7 +13,7 @@ export function HeroesShowcase() {
   function changeActiveHero(heroIndex: number) {
     const hero = heroes[heroIndex];
 
-    if (hero.id) {
+    if (hero?.id) {
       setActiveHero(hero);
       setActiveHeroIndex(heroIndex);
     }
@@ -34,7 +34,7 @@ export function HeroesShowcase() {
   }, [activeHeroIndex]);
 
   return (
-    <div>
+    <section id="heroes" className="mt-32">
       <div
         key={activeHero.id}
         style={{ backgroundImage: `url('/images/${activeHero.cover}')` }}
@@ -42,11 +42,11 @@ export function HeroesShowcase() {
       >
         <div className="max-w-[1200px] w-full h-full mx-auto flex justify-between items-center p-2">
           <div>
-            <h1 className="text-white text-4xl leading- font-bold uppercase ">
+            <h2 className="text-white text-4xl leading- font-bold uppercase ">
               Best characters
               <br /> ever made in
               <br /> comics
-            </h1>
+            </h2>
             <p className="text-white/90 max-w-md text-sm my-8">
               Get hooked on a hearty helping of heroes and villains from the
               humble House of Ideas!
@@ -91,7 +91,7 @@ export function HeroesShowcase() {
                     <div className="flex gap-3">
                       {heroes.map(({ id }) => (
                         <button
-                          className={`block h-2 rounded-full transition-all duration-200 ${
+                          className={`block h-2 rounded-full transition-[width] duration-200 ${
                             activeHero.id === id ? "w-4 bg-red" : "w-2 bg-white"
                           }`}
                           onClick={() => changeActiveHero(id)}
@@ -101,7 +101,7 @@ export function HeroesShowcase() {
                     <div className="flex gap-7">
                       <button
                         disabled={activeHeroIndex === 0}
-                        onClick={() => changeActiveHero(activeHeroIndex + 1)}
+                        onClick={() => changeActiveHero(activeHeroIndex - 1)}
                         className="text-white disabled:text-white/40"
                       >
                         <ArrowLeft size={20} weight="bold" />
@@ -109,7 +109,7 @@ export function HeroesShowcase() {
 
                       <button
                         disabled={activeHeroIndex === heroes.length - 1}
-                        onClick={() => changeActiveHero(activeHeroIndex - 1)}
+                        onClick={() => changeActiveHero(activeHeroIndex + 1)}
                         className="text-white disabled:text-white/40"
                       >
                         <ArrowRight size={20} weight="bold" />
@@ -140,6 +140,6 @@ export function HeroesShowcase() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
