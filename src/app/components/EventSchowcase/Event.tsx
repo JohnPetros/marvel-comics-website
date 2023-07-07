@@ -45,7 +45,7 @@ export function Event({
       </div>
       <a
         href={`/events/${data.id}`}
-        className={`w-[140px] h-96 p-4 group grid place-content-center border ${
+        className={`w-[280px] h-72 p-4 group grid place-content-center border ${
           isYellow
             ? `bg-yellow-500 absolute -left-[156px] bottom-14 border-yellow-900`
             : `bg-red/80 border-red`
@@ -54,8 +54,8 @@ export function Event({
         <Image
           src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
           className="group-hover:scale-[1.01] transition-all duration-250"
-          width={224}
-          height={220}
+          width={240}
+          height={240}
           alt="Comic"
         />
       </a>
