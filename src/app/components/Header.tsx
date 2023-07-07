@@ -31,7 +31,7 @@ export function Header() {
           <ul className="flex gap-1">
             {links.map(({ path, name }) => (
               <li key={path}>
-                <Link path={path} name={name} isActive={pathname == name} />
+                <Link path={path} name={name} isActive={Boolean(pathname === name)} />
               </li>
             ))}
           </ul>
