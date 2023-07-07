@@ -47,7 +47,7 @@ export function HeroesShowcase() {
               <br /> ever made in
               <br /> comics
             </h1>
-            <p className="text-white/90 max-w-sm  text-sm uppercase my-8">
+            <p className="text-white/90 max-w-md text-sm my-8">
               Get hooked on a hearty helping of heroes and villains from the
               humble House of Ideas!
             </p>
