@@ -1,41 +1,27 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Link } from "./Link";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { Hero, heroes } from "@/utils/heroes";
+import { motion } from "framer-motion";
 
 export function HeroesShowcase() {
   const [activeHero, setActiveHero] = useState<Hero>(heroes[0]);
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
 
-  function handleHeroButtonClick(heroId: number) {
-    const hero = heroes.find(({ id }) => id === heroId)!;
-    const index = heroes.findIndex(({ id }) => id === heroId);
+  function changeActiveHero(heroIndex: number) {
+    const hero = heroes[heroIndex];
 
-    setActiveHero(hero);
-    setActiveHeroIndex(index);
-  }
-
-  function handleNextHeroButtonClick() {
-    const nextHeroIndex = activeHeroIndex + 1;
-    const nextHero = heroes[nextHeroIndex];
-
-    if (nextHero.id) {
-      setActiveHero(nextHero);
-      setActiveHeroIndex(nextHeroIndex);
+    if (hero.id) {
+      setActiveHero(hero);
+      setActiveHeroIndex(heroIndex);
     }
   }
 
-  function handlePrevHeroButtonClick() {
-    const prevHeroIndex = activeHeroIndex - 1;
-    const prevHero = heroes[prevHeroIndex];
-
-    if (prevHero.id) {
-      setActiveHero(prevHero);
-      setActiveHeroIndex(prevHeroIndex);
-    }
-  }
+  useEffect(() => {
+    // const timer = setInterval(() => {});
+  }, []);
 
   return (
     <div>
@@ -57,14 +43,19 @@ export function HeroesShowcase() {
             <Link path="/characters" name="Explore our universe" />
           </div>
           <div className="relative flex flex-col items-end h-full w-full">
-            <div className="absolute -top-[108px] w-[640px] h-[640px]">
+            <motion.div
+              key={activeHero.id}
+              animate={{ x: [40, 0] }}
+              transition={{ duration: 0.2 }}
+              className="absolute -top-[108px] w-[640px] h-[640px]"
+            >
               <Image
                 src={`/images/${activeHero.image}`}
                 fill
                 className="absolute"
                 alt="Spider-man"
               />
-            </div>
+            </motion.div>
             <div className="mt-auto w-96">
               <div className="p-2 backdrop-blur-xl">
                 <div className="pb-10 px-6 pt-5 border border-gray-200 ">
@@ -92,14 +83,14 @@ export function HeroesShowcase() {
                           className={`block h-2 rounded-full transition-all duration-200 ${
                             activeHero.id === id ? "w-4 bg-red" : "w-2 bg-white"
                           }`}
-                          onClick={() => handleHeroButtonClick(id)}
+                          onClick={() => changeActiveHero(id)}
                         ></button>
                       ))}
                     </div>
                     <div className="flex gap-7">
                       <button
                         disabled={activeHeroIndex === 0}
-                        onClick={handlePrevHeroButtonClick}
+                        onClick={() => changeActiveHero(activeHeroIndex + 1)}
                         className="text-white disabled:text-white/40"
                       >
                         <ArrowLeft size={20} weight="bold" />
@@ -107,7 +98,7 @@ export function HeroesShowcase() {
 
                       <button
                         disabled={activeHeroIndex === heroes.length - 1}
-                        onClick={handleNextHeroButtonClick}
+                        onClick={() => changeActiveHero(activeHeroIndex - 1)}
                         className="text-white disabled:text-white/40"
                       >
                         <ArrowRight size={20} weight="bold" />
@@ -123,7 +114,7 @@ export function HeroesShowcase() {
 
       <div className="bg-black">
         <div className="max-w-[1200px] w-full mx-auto flex items-center justify-between p-6">
-          {heroes.map(({ id, image, name }) => (
+          {heroes.map(({ id, image, name }, index) => (
             <button
               className={`relative w-12 h-12 hover:scale-110 transition-transform duration-200 rounded-full bg-transparent border border-l-4 overflow-hidden bg-[url('/images/${
                 activeHero.image
@@ -131,7 +122,7 @@ export function HeroesShowcase() {
                 activeHero.id === id ? "border-red/70" : "border-yellow-500/80"
               }`}
               style={{ backgroundSize: "300%" }}
-              onClick={() => handleHeroButtonClick(id)}
+              onClick={() => changeActiveHero(index)}
             >
               <Image src={`/images/${image}`} fill alt={name} />
             </button>
