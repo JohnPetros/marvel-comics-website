@@ -5,5 +5,5 @@ type ParagraphProps = {
 };
 
 export function Paragraph({ children }: ParagraphProps) {
-  return <p className="text-md">{children}</p>;
+  return <p className="text-md text-black/60">{children}</p>;
 }

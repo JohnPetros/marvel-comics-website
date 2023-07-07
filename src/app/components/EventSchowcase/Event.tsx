@@ -1,17 +1,37 @@
-import Image from "next/image";
-import { Pillar } from "./Pillar";
+import Image from 'next/image'
+import { Pillar } from './Pillar'
+
+type Thumbnail = {
+  path: string
+  extension:
+    | 'jpg'
+    | 'png'
+    | 'jpeg'
+}
 
 type EventProps = {
-  isYellow?: boolean;
-};
+  data: {
+    id: number
+    thumbnail: Thumbnail
+  }
+  isYellow?: boolean
+}
 
-export function Event({ isYellow = false }: EventProps) {
+export function Event({
+  data,
+  isYellow = false,
+}: EventProps) {
   return (
     <div className="relative flex flex-col justify-between">
       <div className="flex gap-2">
         {isYellow ? (
           <>
-            <Pillar color="yellow-500" isSmall />
+            <Pillar
+              color="yellow-500"
+              isSmall={
+                true
+              }
+            />
             <Pillar color="yellow-500" />
           </>
         ) : (
@@ -23,15 +43,22 @@ export function Event({ isYellow = false }: EventProps) {
           </>
         )}
       </div>
-      <div
-        className={`w-[280px] h-96 p-4 grid place-content-center border ${
+      <a
+        href={`/events/${data.id}`}
+        className={`w-[140px] h-96 p-4 group grid place-content-center border ${
           isYellow
             ? `bg-yellow-500 absolute -left-[156px] bottom-14 border-yellow-900`
             : `bg-red/80 border-red`
         }`}
       >
-        <Image src="/images/event.png" width={224} height={360} alt="Comic" />
-      </div>
+        <Image
+          src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
+          className="group-hover:scale-[1.01] transition-all duration-250"
+          width={224}
+          height={220}
+          alt="Comic"
+        />
+      </a>
       {!isYellow && (
         <div className="flex gap-2">
           <Pillar color="black" />
@@ -41,5 +68,5 @@ export function Event({ isYellow = false }: EventProps) {
         </div>
       )}
     </div>
-  );
+  )
 }
