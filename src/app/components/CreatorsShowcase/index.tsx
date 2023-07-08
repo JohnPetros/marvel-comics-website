@@ -18,8 +18,8 @@ export function CreatorsShowcase() {
       </div>
 
       <div className="grid grid-cols-3 gap-x-24 gap-y-12">
-        {creators.map(({ id, name, image }) => (
-          <Creator key={id} name={name} image={image} />
+        {creators.map(({ id, name, image, link }) => (
+          <Creator key={id} name={name} image={image} link={link} />
         ))}
       </div>
     </section>
