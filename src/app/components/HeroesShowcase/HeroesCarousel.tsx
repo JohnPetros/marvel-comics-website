@@ -10,7 +10,7 @@ type HeroesCarrouselProps = {
   changeActiveHero: (heroIndex: number) => void;
 };
 
-export function HeroesCarrousel({
+export function HeroesCarousel({
   activeHero,
   activeHeroIndex,
   changeActiveHero,

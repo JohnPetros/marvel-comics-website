@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Hero, heroes } from "@/utils/heroes";
 import HeroesButtons from "./HeroesButtons";
-import { HeroesCarrousel } from "./HeroesCarrousel";
+import { HeroesCarousel } from "./HeroesCarousel";
 
 export function HeroesShowcase() {
   const [activeHero, setActiveHero] = useState<Hero>(heroes[0]);
@@ -33,8 +33,8 @@ export function HeroesShowcase() {
 
   return (
     <section id="heroes">
-      <HeroesCarrousel
-        activeHero={activeHero}
+      <HeroesCarousel
+        activeHero={activeHero} 
         activeHeroIndex={activeHeroIndex}
         changeActiveHero={changeActiveHero}
       />
