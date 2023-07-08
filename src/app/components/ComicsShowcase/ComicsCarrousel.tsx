@@ -12,12 +12,14 @@ type ComicsCarrouselProps = {
 type Direction = "next" | "prev";
 
 export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
-  const [visibleComics, setVisibleComics] = useState<Comic[]>(
-    comics.slice(0, 4)
-  );
   const [[initialIndex, direction], setCarousel] = useState<
     [number, Direction]
   >([0, "next"]);
+
+  const [visibleComics, setVisibleComics] = useState<Comic[]>(
+    comics.slice(0, 4)
+  );
+  const [activeComic, setActiveComic] = useState<Comic>(comics[0]);
 
   function handleCarrouselButtonClick(direction: Direction) {
     let newIndex = initialIndex;
@@ -45,6 +47,8 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
       const firstComics = comics.slice(0, firstIndexes);
       visibleComics = [...visibleComics, ...firstComics];
     }
+
+    setActiveComic(visibleComics[0]);
     setVisibleComics(visibleComics);
   }
 
@@ -52,7 +56,13 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
     initial: { scale: 0.8, opacity: 0 },
     enter: { scale: 1, opacity: 1 },
     exit: (direction: Direction) => {
-      return { x: direction === "next" ? -256 : 256 };
+      return { x: direction === "next" ? -256 : 256, scale: 0.8, opacity: 0 };
+    },
+    active: {
+      opacity: 1,
+      scale: 1.05,
+      zIndex: 15,
+      boxShadow: "0 0 12px 8px rgba(234, 179, 8, .8)",
     },
     hover: {
       scale: 1.05,
@@ -61,22 +71,22 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
   };
 
   return (
-    <div className="flex flex-col relative overflow-x-hidden">
+    <div className="flex flex-col relative pl-8 pt-8 overflow-x-hidden">
       <div className="flex">
         <AnimatePresence initial={false} mode="popLayout" custom={direction}>
-          {visibleComics.map(({ id, title, thumbnail }) => (
+          {visibleComics.map(({ id, title, thumbnail }, index) => (
             <motion.a
               key={id}
               layout
               variants={comicVariants}
               custom={direction}
               initial="initial"
-              animate="enter"
+              animate={index === 0 ? "active" : "enter"}
               exit="exit"
               whileHover="hover"
               transition={{ type: "tween" }}
               href="#"
-              className={`relative block bg-red-400 w-64 h-64`}
+              className={`relative block w-64 h-64`}
             >
               <Image
                 src={`${thumbnail.path}.${thumbnail.extension}`}
