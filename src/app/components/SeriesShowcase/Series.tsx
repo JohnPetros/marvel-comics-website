@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { Variants, motion } from "framer-motion";
 
 type Thumbnail = {
   path: string;
@@ -17,7 +17,7 @@ type SeriesProps = {
 };
 
 export function Series({ data, index }: SeriesProps) {
-  const seriesVariants = {
+  const seriesVariants: Variants = {
     offscreen: {
       y: 100,
       opacity: 0,
@@ -25,6 +25,16 @@ export function Series({ data, index }: SeriesProps) {
     onscreen: {
       y: 0,
       opacity: 1,
+      transition: {
+        duration: 0.4,
+        delay: 0.2 * index,
+      },
+    },
+    hover: {
+      y: -8,
+      transition: {
+        duration: 0.2,
+      },
     },
   };
 
@@ -34,8 +44,8 @@ export function Series({ data, index }: SeriesProps) {
       initial="offscreen"
       whileInView="onscreen"
       viewport={{ once: true, amount: 0.8 }}
-      transition={{ duration: 0.4, delay: 0.2 * index }}
-      className="bg-yellow-500 h-96 p-6 flex items-center justify-center cursor-pointer hover:-translate-y-2 transition-all duration-500"
+      whileHover="hover"
+      className="bg-yellow-500 h-96 p-6 flex items-center justify-center cursor-pointer"
     >
       <div className="relative w-full h-full">
         <Image
