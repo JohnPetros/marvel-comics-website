@@ -1,11 +1,7 @@
-import { Series as SeriesType } from "@/@types/series";
 import { Heading } from "../Heading";
 import { Link } from "../Link";
 import { Series } from "./Series";
-
-function verifyImageAvailability(series: SeriesType) {
-  return !series.thumbnail.path.includes("image_not_available");
-}
+import { checkImageAvailability } from "@/utils/checkImageAvailability";
 
 async function getSeries() {
   const response = await fetch(
@@ -18,7 +14,7 @@ async function getSeries() {
 
 export async function SeriesShowcase() {
   const series = await getSeries();
-  const filteredSeries = series.data.results.filter(verifyImageAvailability);
+  const filteredSeries = series.data.results.filter(checkImageAvailability);
 
   const date = new Date();
   const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
