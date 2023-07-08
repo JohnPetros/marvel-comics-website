@@ -24,7 +24,7 @@ export async function SeriesShowcase() {
   return (
     <section
       id="series"
-      className="w-[1200px] max-w-full mx-auto flex flex-col items-center justify-center"
+      className="w-[1200px] max-w-full mx-auto flex flex-col items-center justify-center mt-32"
     >
       <Heading
         title={`${month} ${date.getDate()}: New series releases`}

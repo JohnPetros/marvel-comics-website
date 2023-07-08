@@ -32,9 +32,9 @@ export function HeroesShowcase() {
   }, [activeHeroIndex]);
 
   return (
-    <section id="heroes">
+    <section id="heroes" className="mt-32">
       <HeroesCarousel
-        activeHero={activeHero} 
+        activeHero={activeHero}
         activeHeroIndex={activeHeroIndex}
         changeActiveHero={changeActiveHero}
       />

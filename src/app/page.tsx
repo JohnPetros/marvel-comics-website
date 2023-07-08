@@ -5,11 +5,11 @@ import { ComicsShowcase } from "./components/ComicsShowcase";
 
 export default function Home() {
   return (
-    <main className="h-full grid gap-32">
+    <main className="h-full">
+      <HeroesShowcase />
       <EventsShowcase />
       <SeriesShowcase />
       <ComicsShowcase />
-      <HeroesShowcase />
     </main>
   );
 }
