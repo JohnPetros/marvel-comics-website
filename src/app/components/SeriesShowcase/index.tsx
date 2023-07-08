@@ -32,9 +32,9 @@ export async function SeriesShowcase() {
       />
 
       <div className="my-12 grid w-full grid-cols-3 gap-6">
-        <Series data={filteredSeries[0]} />
-        <Series data={filteredSeries[1]} />
-        <Series data={filteredSeries[2]} />
+        <Series data={filteredSeries[0]} index={0} />
+        <Series data={filteredSeries[1]} index={1} />
+        <Series data={filteredSeries[2]} index={2} />
       </div>
 
       <div className="">
