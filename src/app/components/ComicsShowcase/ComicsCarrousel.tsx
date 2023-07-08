@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Comic } from "@/@types/comic";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 
 type ComicsCarrouselProps = {
@@ -69,6 +69,14 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
       transition: { duration: 0.25 },
     },
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleCarrouselButtonClick("next");
+    }, 2500);
+
+    return () => clearInterval(timer);
+  }, [activeComic.id, initialIndex, direction]);
 
   return (
     <div className="flex flex-col relative pl-8 pt-8 overflow-x-hidden">
