@@ -5,7 +5,7 @@ import { socialLinks } from "@/utils/socialLinks";
 
 export function Footer() {
   return (
-    <footer className="bg-black py-10">
+    <footer className="bg-black mt-32 py-10">
       <div className="max-w-[1200px] w-full h-full mx-auto flex justify-between items-start">
         <Image
           src="/images/logo.svg"
