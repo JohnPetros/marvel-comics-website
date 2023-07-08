@@ -5,7 +5,7 @@ import { ComicsShowcase } from "./components/ComicsShowcase";
 
 export default function Home() {
   return (
-    <main className="h-full">
+    <main className="">
       <HeroesShowcase />
       <EventsShowcase />
       <SeriesShowcase />
