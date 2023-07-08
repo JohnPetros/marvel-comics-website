@@ -12,6 +12,9 @@ type ComicsCarrouselProps = {
 type Direction = "next" | "prev";
 
 export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
+  const [visibleComics, setVisibleComics] = useState<Comic[]>(
+    comics.slice(0, 4)
+  );
   const [[initialIndex, direction], setCarousel] = useState<
     [number, Direction]
   >([0, "next"]);
@@ -25,9 +28,24 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
       newIndex--;
     }
 
-    if (newIndex < 0 || newIndex > comics.length - 1) return;
+    const lastIndex = comics.length - 1;
+
+    if (newIndex < 0) {
+      newIndex = lastIndex;
+    } else if (newIndex > lastIndex) {
+      newIndex = 0;
+    }
 
     setCarousel([newIndex, direction]);
+
+    let visibleComics = comics.slice(initialIndex, initialIndex + 4);
+
+    if (visibleComics.length < 4) {
+      const firstIndexes = 4 - visibleComics.length;
+      const firstComics = comics.slice(0, firstIndexes);
+      visibleComics = [...visibleComics, ...firstComics];
+    }
+    setVisibleComics(visibleComics);
   }
 
   const comicVariants: Variants = {
@@ -37,7 +55,7 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
       return { x: direction === "next" ? -256 : 256 };
     },
     hover: {
-      y: -12,
+      scale: 1.05,
       transition: { duration: 0.25 },
     },
   };
@@ -46,36 +64,33 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
     <div className="flex flex-col relative overflow-x-hidden">
       <div className="flex">
         <AnimatePresence initial={false} mode="popLayout" custom={direction}>
-          {comics
-            .slice(initialIndex, initialIndex + 4)
-            .map(({ id, title, thumbnail }) => (
-              <motion.a
-                key={id}
-                layout
-                variants={comicVariants}
-                custom={direction}
-                initial="initial"
-                animate="enter"
-                exit="exit"
-                whileHover="hover"
-                transition={{ type: "tween" }}
-                href="#"
-                className={`relative block bg-red-400 w-64 h-64`}
-              >
-                <Image
-                  src={`${thumbnail.path}.${thumbnail.extension}`}
-                  alt={title}
-                  fill
-                />
-              </motion.a>
-            ))}
+          {visibleComics.map(({ id, title, thumbnail }) => (
+            <motion.a
+              key={id}
+              layout
+              variants={comicVariants}
+              custom={direction}
+              initial="initial"
+              animate="enter"
+              exit="exit"
+              whileHover="hover"
+              transition={{ type: "tween" }}
+              href="#"
+              className={`relative block bg-red-400 w-64 h-64`}
+            >
+              <Image
+                src={`${thumbnail.path}.${thumbnail.extension}`}
+                alt={title}
+                fill
+              />
+            </motion.a>
+          ))}
         </AnimatePresence>
       </div>
 
       <div className="flex gap-2 w-full items-center mt-8">
         <button
           className="rounded-full w-8 h-8 grid place-content-center bg-red-600 text-white hover:bg-red-600/60  transition-all duration-200 disabled:bg-red-600/60"
-          disabled={initialIndex === 0}
           onClick={() => handleCarrouselButtonClick("prev")}
         >
           <ArrowLeft />
@@ -83,7 +98,6 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
         <span className="h-1 bg-gray-300 flex-1 rounded pl-2" />
         <button
           className="rounded-full w-8 h-8 grid place-content-center bg-red-600 text-white hover:bg-red-600/60 transition-colors duration-200 disabled:bg-red-600/60"
-          disabled={initialIndex === comics.length - 4}
           onClick={() => handleCarrouselButtonClick("next")}
         >
           <ArrowRight />
