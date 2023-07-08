@@ -26,7 +26,7 @@ export async function EventsShowcase() {
       </div>
 
       <div className="flex justify-center flex-col items-center gap-5">
-        <Heading title={"New on Marvel unlimited"} subtitle={"Available now"} />
+        <Heading title={"New on Marvel unlimited"} subtitle={"Events"} />
         <Paragraph>
           Read these plus 29,000+ digital comics for $9.99 a month!
         </Paragraph>

@@ -28,7 +28,7 @@ export async function SeriesShowcase() {
     >
       <Heading
         title={`${month} ${date.getDate()}: New series releases`}
-        subtitle="available now"
+        subtitle="Series"
       />
 
       <div className="my-12 grid w-full grid-cols-3 gap-6">
