@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
 import { Pillar } from "./Pillar";
+import { Variants, motion } from "framer-motion";
 
 type Thumbnail = {
   path: string;
@@ -15,8 +17,23 @@ type EventProps = {
 };
 
 export function Event({ data, isYellow = false }: EventProps) {
+  const eventVariants: Variants = {
+    offscreen: {
+      opacity: 0,
+    },
+    onscreen: {
+      opacity: 1,
+    },
+  };
+
   return (
-    <div className="relative flex flex-col justify-between">
+    <motion.div
+      variants={eventVariants}
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: 0.8 }}
+      className="relative flex flex-col justify-between"
+    >
       <div className="flex gap-2">
         {isYellow ? (
           <>
@@ -55,6 +72,6 @@ export function Event({ data, isYellow = false }: EventProps) {
           <Pillar color="black" />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
