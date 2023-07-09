@@ -28,7 +28,9 @@ export function Pillar({ color, isSmall = false }: PillarProps) {
       initial="offscreen"
       whileInView="onscreen"
       viewport={{ once: true, amount: 0.8 }}
-      className={`${isSmall ? "h-12" : "h-32"} w-16 bg-${color} border border-${
+      className={`${
+        isSmall ? "h-12" : "h-32"
+      } xsm:w-16 w-12  bg-${color} border border-${
         color === "yellow-500" ? "yellow-900" : "black"
       }`}
     ></motion.span>

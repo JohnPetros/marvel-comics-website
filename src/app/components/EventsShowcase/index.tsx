@@ -18,7 +18,7 @@ export async function EventsShowcase() {
   return (
     <section
       id="events"
-      className="w-[1200px] max-w-full mx-auto flex justify-between"
+      className="w-[1200px] max-w-full mx-auto flex flex-col items-center gap-24 lg:gap-0 lg:justify-between lg:flex-row"
     >
       <div className="flex gap-2">
         <Event data={events.data.results[1]} />
@@ -32,7 +32,7 @@ export async function EventsShowcase() {
         </Paragraph>
       </div>
 
-      <div className="mt-auto flex gap-2 w-32 items-end">
+      <div className="mt-auto flex gap-2 w-32 self-end items-end lg:self-auto">
         <Pillar color="yellow-500" />
         <Pillar color="yellow-500" isSmall={true} />
       </div>

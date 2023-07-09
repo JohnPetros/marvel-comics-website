@@ -51,7 +51,7 @@ export function Event({ data, isYellow = false }: EventProps) {
       </div>
       <a
         href={`/events/${data.id}`}
-        className={`w-[280px] h-72 p-4 hover:scale-105 transition-all duration-500 grid place-content-center border ${
+        className={`xsm:w-[280px] w-[240px] h-72 p-4 hover:scale-105 transition-all duration-500 grid place-content-center border ${
           isYellow
             ? `bg-yellow-500 absolute -left-[156px] bottom-14 border-yellow-900`
             : `bg-red-600 border-red-900`
