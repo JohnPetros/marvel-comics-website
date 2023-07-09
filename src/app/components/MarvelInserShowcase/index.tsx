@@ -25,7 +25,7 @@ export function MarvelInserShowcase() {
           initial={{ opacity: 0, x: -250 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ opacity: { delay: 0.2 }, x: { duration: 0.6 } }}
-          className=" w-11/12 max-w-[1200px] mx-auto"
+          className="w-11/12 max-w-[1200px] mx-auto"
         >
           <small className="uppercase text-sm text-red-600 flex items-center gap-2 font-bold after:inline-block after:h-1 after:w-12 after:bg-red-600">
             Earn rewards

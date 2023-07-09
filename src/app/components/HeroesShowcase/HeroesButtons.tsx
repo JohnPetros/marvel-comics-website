@@ -14,7 +14,7 @@ export default function HeroesButtons({
 }: HeroesButtonsProps) {
   return (
     <div className="bg-black">
-      <div className="max-w-[1200px] w-full mx-auto flex items-center justify-between p-6">
+      <div className="max-w-[1200px] w-full mx-auto grid grid-cols-4 gap-6 xsm:flex xsm:items-center xsm:justify-between xsm:gap-0 p-6 z-50">
         {heroes.map(({ id, image, name }, index) => (
           <motion.button
             key={String(id)}
