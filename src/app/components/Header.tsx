@@ -26,10 +26,10 @@ export function Header() {
 
   return (
     <header className="w-full bg-black borde">
-      <div className="flex flex-col lg:flex-row items-center max-w-[1200px] w-full mx-auto py-6 relative">
+      <div className="flex flex-col lg:flex-row items-center w-11/12 max-w-[1200px] mx-auto py-6 relative">
         <nav className="mt-20 lg:mt-0">
           {pathname && (
-            <ul className="flex gap-1">
+            <ul className="flex xsm:gap-1">
               {links.map(({ path, name }) => (
                 <li className="p-2 lg:p-0" key={path}>
                   <Link path={path} name={name} isActive={pathname === name} />
