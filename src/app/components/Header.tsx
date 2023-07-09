@@ -26,18 +26,20 @@ export function Header() {
 
   return (
     <header className="w-full bg-black borde">
-      <div className="flex items-center max-w-[1200px] w-full mx-auto py-6 relative">
-        <nav>
-          <ul className="flex gap-1">
-            {links.map(({ path, name }) => (
-              <li key={path}>
-                <Link path={path} name={name} isActive={Boolean(pathname === name)} />
-              </li>
-            ))}
-          </ul>
+      <div className="flex flex-col lg:flex-row items-center max-w-[1200px] w-full mx-auto py-6 relative">
+        <nav className="mt-20 lg:mt-0">
+          {pathname && (
+            <ul className="flex gap-1">
+              {links.map(({ path, name }) => (
+                <li className="p-2 lg:p-0" key={path}>
+                  <Link path={path} name={name} isActive={pathname === name} />
+                </li>
+              ))}
+            </ul>
+          )}
         </nav>
         <div className="w-max absolute left-1/2 -translate-x-2/4 top-3">
-          <Image src={Logo} width={124} height={32} alt="Marvel" />
+          <Image priority src={Logo} className="w-auto h-auto" alt="Marvel" />
         </div>
       </div>
     </header>

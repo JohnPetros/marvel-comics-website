@@ -13,6 +13,7 @@ export function Link({
   isActive = true,
   isExternal = true,
 }: LinkProps) {
+
   return (
     <NextLink
       className={`text-white/90 capitalize px-8 py-2 w-max cursor-pointer hover:text-white/50 transition-colors duration-200 ${
