@@ -24,14 +24,14 @@ export async function SeriesShowcase() {
   return (
     <section
       id="series"
-      className="w-[1200px] max-w-full mx-auto flex flex-col items-center justify-center mt-32"
+      className="w-11/12 max-w-[1200px] mx-auto flex flex-col items-center justify-center mt-32"
     >
       <Heading
         title={`${month} ${date.getDate()}: New series releases`}
         subtitle="Series"
       />
 
-      <div className="my-12 grid w-full grid-cols-3 gap-6">
+      <div className="my-12 grid w-full grid-cols-1 sm:grid-cols-3 gap-6">
         <Series data={filteredSeries[0]} index={0} />
         <Series data={filteredSeries[1]} index={1} />
         <Series data={filteredSeries[2]} index={2} />
