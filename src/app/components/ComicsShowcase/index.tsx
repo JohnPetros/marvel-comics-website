@@ -18,8 +18,8 @@ export async function ComicsShowcase() {
   const filteredComics = comics.filter(checkImageAvailability);
 
   return (
-    <section id="comics" className="grid grid-cols-[1fr_896px] mt-32">
-      <div className="flex flex-col items-center justify-center gap-6 bg-white">
+    <section id="comics" className="grid grid-cols-1 mt-32">
+      <div className="flex flex-col items-center justify-center gap-8 bg-white">
         <Heading title="Best selling digital comics" subtitle="our comics" />
         <Link path="/comics" name="See all comics" />
       </div>

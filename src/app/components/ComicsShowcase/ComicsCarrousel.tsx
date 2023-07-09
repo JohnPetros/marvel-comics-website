@@ -4,6 +4,7 @@ import { Comic } from "@/@types/comic";
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+const endIndex = innerWidth > 640 ? 4 : innerWidth > 440 ? 3 : 2;
 
 type ComicsCarrouselProps = {
   comics: Comic[];
@@ -12,17 +13,18 @@ type ComicsCarrouselProps = {
 type Direction = "next" | "prev";
 
 export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
-  const [[initialIndex, direction], setCarousel] = useState<
-    [number, Direction]
-  >([0, "next"]);
+  const [[startIndex, direction], setCarousel] = useState<[number, Direction]>([
+    0,
+    "next",
+  ]);
 
   const [visibleComics, setVisibleComics] = useState<Comic[]>(
-    comics.slice(0, 4)
+    comics.slice(0, endIndex)
   );
   const [activeComic, setActiveComic] = useState<Comic>(comics[0]);
 
   function handleCarrouselButtonClick(direction: Direction) {
-    let newIndex = initialIndex;
+    let newIndex = startIndex;
 
     if (direction === "next") {
       newIndex++;
@@ -40,9 +42,9 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
 
     setCarousel([newIndex, direction]);
 
-    let visibleComics = comics.slice(initialIndex, initialIndex + 4);
+    let visibleComics = comics.slice(startIndex, startIndex + endIndex);
 
-    if (visibleComics.length < 4) {
+    if (visibleComics.length < endIndex) {
       const firstIndexes = 4 - visibleComics.length;
       const firstComics = comics.slice(0, firstIndexes);
       visibleComics = [...visibleComics, ...firstComics];
@@ -76,10 +78,10 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
     }, 2500);
 
     return () => clearInterval(timer);
-  }, [activeComic.id, initialIndex, direction]);
+  }, [activeComic.id, startIndex, direction]);
 
   return (
-    <div className="flex flex-col relative pl-8 pt-8 overflow-x-hidden">
+    <div className="w-11/12 max-w-[1200px] mx-auto flex flex-col relative pl-4 pt-8 mt-6 overflow-x-hidden">
       <div className="flex">
         <AnimatePresence initial={false} mode="popLayout" custom={direction}>
           {visibleComics.map(({ id, title, thumbnail }, index) => (
@@ -94,7 +96,7 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
               whileHover="hover"
               transition={{ type: "tween" }}
               href="#"
-              className={`relative block w-64 h-64`}
+              className={`relative block w-96 h-96 sm:w-72 sm:h-72`}
             >
               <Image
                 src={`${thumbnail.path}.${thumbnail.extension}`}
