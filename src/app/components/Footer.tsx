@@ -5,17 +5,17 @@ import { socialLinks } from "@/utils/socialLinks";
 
 export function Footer() {
   return (
-    <footer className="bg-black mt-32 py-10">
-      <div className="max-w-[1200px] w-full h-full mx-auto flex justify-between items-start">
+    <footer className="bg-black mt-32">
+      <div className="w-11/12 max-w-[1200px] h-auto mx-auto py-12 md:grid md:grid-cols-[max-content_max-content] gap-y-16 flex flex-col lg:flex-row items-center md:justify-between md:items-start">
         <Image
           src="/images/logo.svg"
-          width={120}
-          height={120}
+          width={360}
+          height={360}
           alt="Marvel"
           className="w-max"
         />
 
-        <div className="flex">
+        <div className="grid grid-cols-2">
           <ul className="space-y-2">
             {links.slice(0, 4).map(({ id, name, path }) => (
               <li key={String(id)}>
@@ -44,7 +44,7 @@ export function Footer() {
         </div>
 
         <div className="grid gap-4">
-          <div className="border border-gray-500/80 p-4 flex items-center justify-between gap-8">
+          <div className="border border-gray-500/80 p-4 flex items-center justify-between gap-6">
             <Image
               src="/icons/marvel-unlimited.svg"
               width={40}
@@ -59,7 +59,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="border border-gray-500/80 p-4 flex items-center justify-between gap-8">
+          <div className="border border-gray-500/80 p-4 flex items-center justify-between gap-6">
             <Image
               src="/icons/marvel-insider.png"
               width={64}
@@ -75,14 +75,14 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid gap-6">
+        <div className="flex flex-col justify-center">
           <strong className="uppercase text-white text-md">
-            KEEP UP TO DATE <br /> WITH EVERYTHING MARVEL
+            KEEP UP TO DATE WITH EVERYTHING MARVEL
           </strong>
 
-          <div className="grid grid-cols-4 gap-y-4">
+          <div className="grid grid-cols-4 gap-4 mt-6">
             {socialLinks.map(({ id, icon, path }) => (
-              <a key={id} href={path} target="_blank">
+              <a key={id} href={path} target="_blank" className="grid place-content-center">
                 <Image src={`/icons/${icon}`} width={24} height={24} alt="" />
               </a>
             ))}
