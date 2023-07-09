@@ -8,9 +8,9 @@ export function CreatorsShowcase() {
   return (
     <section
       id="creators"
-      className="w-[1200px] max-w-full mx-auto flex flex-col items-center justify-center gap-12 relative"
+      className="w-[1200px] max-w-full mx-auto flex flex-col items-center justify-center gap-12 relative mt-32"
     >
-      <div className="w-full h-full absolute left-0 top-0 bottom-0 right-0 opacity-10">
+      <div className="w-full h-full absolute left-0 top-0 bottom-0 right-0 opacity-5">
         <Image src="/images/comic.jpg" alt="" fill />
       </div>
 
