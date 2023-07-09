@@ -1,41 +1,41 @@
 export const socialLinks = [
   {
-    id: 1,
+    id: 21,
     icon: "pinterest.svg",
-    path: "",
+    path: "#",
   },
   {
-    id: 2,
+    id: 22,
     icon: "youtube.svg",
     path: "#",
   },
   {
-    id: 3,
+    id: 23,
     icon: "twitter.svg",
     path: "#",
   },
   {
-    id: 4,
+    id: 24,
     icon: "facebook.svg",
     path: "#",
   },
   {
-    id: 5,
+    id: 25,
     icon: "snapchat.svg",
     path: "#",
   },
   {
-    id: 6,
+    id: 26,
     icon: "tiktok.svg",
     path: "#",
   },
   {
-    id: 7,
+    id: 27,
     icon: "instagram.svg",
     path: "#",
   },
   {
-    id: 8,
+    id: 28,
     icon: "tumblr.svg",
     path: "#",
   },
