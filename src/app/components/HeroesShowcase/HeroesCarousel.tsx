@@ -33,7 +33,7 @@ export function HeroesCarousel({
       viewport={{ once: true, amount: 0.3 }}
       className="h-[750px] relative bg-black/70 lg:h-[540px]"
     >
-      <span className="absolute block top-0 left-0 right-0 bottom-0 bg-black/50 z-30"></span>
+      <span className="absolute block top-0 left-0 right-0 bottom-0 bg-black/70 z-30"></span>
       <div className="absolute top-0 left-0 right-0 bottom-0">
         <motion.div
           key={activeHero.id}
