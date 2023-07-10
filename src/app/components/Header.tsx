@@ -27,7 +27,7 @@ export function Header() {
   return (
     <header className="w-full bg-black">
       <div className="flex flex-col lg:flex-row items-center w-11/12 max-w-[1200px] mx-auto py-6 relative">
-        <nav className="mt-20 lg:mt-0">
+        <nav className="mt-20 lg:mt-0" aria-label="primary">
           {pathname && (
             <ul className="flex gap-6">
               {links.map(({ path, name }) => (
