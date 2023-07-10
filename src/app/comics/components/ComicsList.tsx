@@ -1,8 +1,9 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Comic } from "./Comic";
 import { Comic as ComicType } from "@/@types/comic";
 import { Button } from "@/app/components/Button";
+import { useComics } from "@/app/hooks/useComics";
 
 interface ComicsListProps {
   comics: ComicType[];
@@ -10,14 +11,20 @@ interface ComicsListProps {
 
 export function ComicsList({ comics }: ComicsListProps) {
   const limit = useRef(20);
-  const [visibleComics, setVisibleComics] = useState<ComicType[]>(
-    comics.slice(0, limit.current)
-  );
+  const { visibleComics, setVisibleComics } = useComics();
 
   function handleButtonClick() {
     const visibleComics = comics.slice(0, limit.current * 2);
     limit.current = limit.current * 2;
     setVisibleComics(visibleComics);
+  }
+
+  useEffect(() => {
+    setVisibleComics(comics.slice(0, limit.current));
+  }, [comics]);
+
+  if (!visibleComics?.length) {
+    return <></>;
   }
 
   return (

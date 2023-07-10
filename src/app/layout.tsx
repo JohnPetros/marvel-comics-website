@@ -1,3 +1,4 @@
+import { Providers } from "@/providers";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import "./styles/global.css";
@@ -19,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <Header />
-        {children}
+        <Providers>{children}</Providers>
         <Footer />
       </body>
     </html>
