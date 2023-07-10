@@ -8,6 +8,7 @@ export function CreatorsShowcase() {
   return (
     <section
       id="creators"
+      aria-label="Creators"
       className="w-11/12 max-w-[1200px] mx-auto flex flex-col items-center justify-center gap-12 relative mt-32"
     >
       <div className="w-full h-full absolute left-0 top-0 bottom-0 right-0 opacity-5 hidden xsm:block">

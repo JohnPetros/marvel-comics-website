@@ -18,6 +18,7 @@ export async function EventsShowcase() {
   return (
     <section
       id="events"
+      aria-label="Events"
       className="w-[1200px] max-w-full mx-auto flex flex-col items-center gap-24 lg:gap-0 lg:justify-between lg:flex-row"
     >
       <div className="flex gap-2">

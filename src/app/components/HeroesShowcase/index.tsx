@@ -32,7 +32,7 @@ export function HeroesShowcase() {
   }, [activeHeroIndex]);
 
   return (
-    <section id="heroes" className="mt-32">
+    <section id="heroes" aria-label="Heroes" className="mt-32">
       <HeroesCarousel
         activeHero={activeHero}
         activeHeroIndex={activeHeroIndex}

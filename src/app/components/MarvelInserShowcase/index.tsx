@@ -5,7 +5,11 @@ import { motion } from "framer-motion";
 
 export function MarvelInserShowcase() {
   return (
-    <section className="w-full h-[680px] relative flex flex-col justify-center">
+    <section
+      id="marvel-insider"
+      aria-label="Marvel insider apresentation"
+      className="w-full h-[680px] relative flex flex-col justify-center"
+    >
       <div className="sm:grid sm:grid-cols-[1fr_1.2fr] h-[680px] sm:absolute top-0 left-0 right-0 bottom-0">
         <div className=" bg-[#000]"></div>
 

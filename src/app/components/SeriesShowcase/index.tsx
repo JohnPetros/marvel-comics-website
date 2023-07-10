@@ -24,6 +24,7 @@ export async function SeriesShowcase() {
   return (
     <section
       id="series"
+      aria-label="Comic Series"
       className="w-11/12 max-w-[1200px] mx-auto flex flex-col items-center justify-center gap-6 mt-32"
     >
       <Heading
