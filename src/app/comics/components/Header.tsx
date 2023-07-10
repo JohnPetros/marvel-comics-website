@@ -1,14 +1,16 @@
 "use client";
+import { DropDownMenu } from "@/app/components/DropDownMenu";
 import { Heading } from "@/app/components/Heading";
 import { Link } from "@/app/components/Link";
 import { Search } from "@/app/components/Search";
 import { useComics } from "@/app/hooks/useComics";
+import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
+const date = new Date();
+const mouth = date.getMonth();
+const today = date.getDate();
 
 export function Header() {
-  const date = new Date();
-  const mouth = date.getMonth();
-  const today = date.getDate();
-  const { visibleComics, setVisibleComics } = useComics();
+  const { visibleComics, sortComics, order } = useComics();
 
   return (
     <div className="container mx-auto space-y-6">
@@ -27,9 +29,24 @@ export function Header() {
         <span className="uppercase text-gray-400 text-sm font-bold">
           {visibleComics?.length} results
         </span>
-        <span className="uppercase text-gray-400 text-sm font-bold">
-          sort by
-        </span>
+
+        <RadixDropdownMenu.Root>
+          <RadixDropdownMenu.Trigger>
+            <span className="uppercase text-gray-400 text-sm font-bold">
+              sort by
+              <button className="ml-2">
+                {order === "asc" ? "A-Z" : "Z-A"}
+              </button>
+            </span>
+          </RadixDropdownMenu.Trigger>
+
+          <DropDownMenu
+            buttons={[
+              { id: 1, title: "A-Z", onClick: () => sortComics("asc") },
+              { id: 2, title: "Z-A", onClick: () => sortComics("desc") },
+            ]}
+          />
+        </RadixDropdownMenu.Root>
       </div>
     </div>
   );
