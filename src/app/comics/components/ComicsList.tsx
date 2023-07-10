@@ -1,24 +1,38 @@
-import { fetchData } from "@/utils/fetchData";
+"use client";
+import { useRef, useState } from "react";
 import { Comic } from "./Comic";
 import { Comic as ComicType } from "@/@types/comic";
-import { checkImageAvailability } from "@/utils/checkImageAvailability";
+import { Button } from "@/app/components/Button";
 
-async function getComics() {
-  const response = await fetchData({ resource: "comics", limit: 100 });
-  const data = response.json();
-  return data;
+interface ComicsListProps {
+  comics: ComicType[];
 }
 
-export async function ComicsList() {
-  const response = await getComics();
-  const comics = response.data.results;
-  const availableComics = comics.filter(checkImageAvailability);
+export function ComicsList({ comics }: ComicsListProps) {
+  const limit = useRef(20);
+  const [visibleComics, setVisibleComics] = useState<ComicType[]>(
+    comics.slice(0, limit.current)
+  );
+
+  function handleButtonClick() {
+    const visibleComics = comics.slice(0, limit.current * 2);
+    limit.current = limit.current * 2;
+    setVisibleComics(visibleComics);
+  }
 
   return (
-    <div className="grid grid-cols-5 gap-x-2 gap-y-12">
-      {availableComics.map((comic: ComicType) => (
-        <Comic data={comic} />
-      ))}
+    <div className="flex flex-col gap-8">
+      <div className="grid grid-cols-5 gap-x-2 gap-y-12 w-full">
+        {visibleComics.map((comic: ComicType) => (
+          <Comic data={comic} />
+        ))}
+      </div>
+
+      {visibleComics.length !== comics.length && (
+        <div className="mx-auto">
+          <Button title="load more" onClick={handleButtonClick} />
+        </div>
+      )}
     </div>
   );
 }
