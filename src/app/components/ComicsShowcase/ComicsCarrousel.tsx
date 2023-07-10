@@ -95,7 +95,7 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
               exit="exit"
               whileHover="hover"
               transition={{ type: "tween" }}
-              href="#"
+              href={`/comics/${id}`}
               className={`relative block w-96 h-96 sm:w-72 sm:h-72`}
             >
               <Image

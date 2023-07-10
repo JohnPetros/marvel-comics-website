@@ -4,4 +4,4 @@ export type Comic = {
   id: number;
   title: string;
   thumbnail: Thumbnail;
-};
+};  
