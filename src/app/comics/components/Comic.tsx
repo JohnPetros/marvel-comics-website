@@ -22,7 +22,7 @@ export function Comic({ data }: ComicProps) {
           fill
         />
       </div>
-      <strong>{data.title}</strong>
+      <strong className="text-sm group-hover:text-red-600">{data.title}</strong>
     </motion.a>
   );
 }

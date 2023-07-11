@@ -12,7 +12,7 @@ export function Link({
   path,
   name,
   isActive = true,
-  isExternal = true,
+  isExternal = false,
 }: LinkProps) {
   return (
     <NextLink

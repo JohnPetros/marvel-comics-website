@@ -15,7 +15,7 @@ export default async function Comics() {
   const availableComics = comics.filter(checkImageAvailability);
 
   return (
-    <div className="container mx-auto mt-12 space-y-20">
+    <div className="container mx-auto mt-12 space-y-12">
       <Header />
       <ComicsList comics={availableComics} />
     </div>

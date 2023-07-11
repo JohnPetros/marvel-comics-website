@@ -29,7 +29,7 @@ export function ComicsList({ comics }: ComicsListProps) {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="grid grid-cols-5 gap-x-2 gap-y-12 w-full">
+      <div className="grid grid-cols-5 gap-x-3 gap-y-12 w-full">
         {visibleComics.map((comic: ComicType) => (
           <Comic data={comic} />
         ))}
