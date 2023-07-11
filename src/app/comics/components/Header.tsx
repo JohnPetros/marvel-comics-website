@@ -32,9 +32,9 @@ export function Header() {
 
         <RadixDropdownMenu.Root>
           <RadixDropdownMenu.Trigger>
-            <span className="uppercase text-gray-400 text-sm font-bold">
+            <span className="uppercase text-gray-400 text-sm font-bold flex px-3 py-1">
               sort by
-              <button className="ml-2">
+              <button className="ml-2 flex items-center ">
                 {order === "asc" ? "A-Z" : "Z-A"}
               </button>
             </span>
@@ -42,8 +42,18 @@ export function Header() {
 
           <DropDownMenu
             buttons={[
-              { id: 1, title: "A-Z", onClick: () => sortComics("asc") },
-              { id: 2, title: "Z-A", onClick: () => sortComics("desc") },
+              {
+                id: 1,
+                title: "A-Z",
+                onClick: () => sortComics("asc"),
+                isActive: order === "asc",
+              },
+              {
+                id: 2,
+                title: "Z-A",
+                onClick: () => sortComics("desc"),
+                isActive: order === "desc",
+              },
             ]}
           />
         </RadixDropdownMenu.Root>
