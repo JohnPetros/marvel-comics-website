@@ -11,10 +11,10 @@ import Spiner from "../../../../public/animations/spinner.json";
 
 export function ComicsList() {
   const {
-    state: { category, order },
+    state: { category, order, search },
     dispatch,
   } = useComicsList();
-  const { comics, isLoading } = useComics(category, order);
+  const { comics, isLoading } = useComics({ category, order, search });
 
   useEffect(() => {
     if (comics?.length) {

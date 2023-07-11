@@ -5,6 +5,7 @@ interface fetchDataParams {
   resource: Resource;
   limit?: number;
   orderParams?: string[];
+  search: string;
 }
 
 function formatOrderParams(orderParam: string) {
@@ -15,6 +16,7 @@ export async function fetchData({
   resource,
   limit = 20,
   orderParams = [],
+  search,
 }: fetchDataParams) {
   const authParams = `ts=${process.env.NEXT_PUBLIC_TIMESTAMP}&apikey=${process.env.NEXT_PUBLIC_PUBLIC_KEY}&hash=${process.env.NEXT_PUBLIC_HASH}`;
 
@@ -25,6 +27,6 @@ export async function fetchData({
       orderParams.length > 0
         ? "&" + orderParams.map(formatOrderParams).join("&")
         : ""
-    }`
+    }${search ? "&" + search : ""}`
   );
 }

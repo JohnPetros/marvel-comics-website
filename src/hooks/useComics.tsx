@@ -4,11 +4,17 @@ import { checkImageAvailability } from "@/utils/checkImageAvailability";
 import { getComics } from "@/utils/getComics";
 import { useQuery } from "@tanstack/react-query";
 
-export const useComics = (category: Category, order: Order) => {
+interface useComicsParams {
+  category: Category;
+  order: Order;
+  search: string;
+}
+
+export const useComics = ({ category, order, search }: useComicsParams) => {
   const { data: response, isLoading } = useQuery({
-    queryKey: ["comics", category, order],
+    queryKey: ["comics", category, order, search],
     queryFn: () => {
-      return getComics(category, 20, order);
+      return getComics(category, 20, order, search);
     },
   });
 

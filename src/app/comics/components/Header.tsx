@@ -13,10 +13,10 @@ const today = date.getDate();
 
 export function Header() {
   const {
-    state: { amount, category, order },
+    state: { amount, category, order, search },
     dispatch,
   } = useComicsList();
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState(search);
 
   function handleButtonCategoryClick(category: Category) {
     dispatch({ type: "setCategory", payload: category });
@@ -28,6 +28,7 @@ export function Header() {
 
   function handleSearchKeyDown({ key }: KeyboardEvent) {
     if (key === "Enter") {
+      dispatch({ type: "setSearch", payload: searchValue });
     }
   }
 

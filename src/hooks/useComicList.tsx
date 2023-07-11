@@ -16,12 +16,14 @@ type ComicsListState = {
   amount: number;
   category: Category;
   order: Order;
+  search: string;
 };
 
 type ComicsListAction =
   | { type: "setAmount"; payload: number }
   | { type: "setCategory"; payload: Category }
-  | { type: "setOrder"; payload: Order };
+  | { type: "setOrder"; payload: Order }
+  | { type: "setSearch"; payload: string };
 
 interface ComicsListContextData {
   state: ComicsListState;
@@ -38,6 +40,8 @@ function ComicsListReducer(state: ComicsListState, action: ComicsListAction) {
       return { ...state, category: action.payload };
     case "setOrder":
       return { ...state, order: action.payload };
+    case "setSearch":
+      return { ...state, search: action.payload };
     default:
       return state;
   }
@@ -47,6 +51,7 @@ const initialState: ComicsListState = {
   amount: 0,
   category: "comics",
   order: "asc",
+  search: "",
 };
 
 export function ComicsListProvider({ children }: ComicsListProviderProps) {
