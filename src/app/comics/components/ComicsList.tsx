@@ -5,10 +5,9 @@ import { Button } from "@/app/components/Button";
 import { useComicsList } from "@/hooks/useComicList";
 import { useComics } from "@/hooks/useComics";
 import { useEffect, useState } from "react";
-import {
-  Player as Animation,
-} from "@lottiefiles/react-lottie-player";
+import { Player as Animation } from "@lottiefiles/react-lottie-player";
 
+import Spiner from "../../../../public/animations/spinner.json";
 
 export function ComicsList() {
   const { setComicsAmount, category, order } = useComicsList();
@@ -30,11 +29,11 @@ export function ComicsList() {
         </div>
       ) : (
         <Animation
-          autoplay={false}
+          autoplay={true}
           loop={true}
           controls={true}
-          src="https://assets3.lottiefiles.com/packages/lf20_XZ3pkn.json"
-          style={{ height: "300px", width: "300px" }}
+          src={Spiner}
+          style={{ height: "250px", width: "250px" }}
         />
       )}
 
