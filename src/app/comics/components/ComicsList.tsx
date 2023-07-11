@@ -4,7 +4,7 @@ import { Comic as ComicType } from "@/@types/comic";
 import { Button } from "@/app/components/Button";
 import { useComicsList } from "@/hooks/useComicList";
 import { useComics } from "@/hooks/useComics";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Player as Animation } from "@lottiefiles/react-lottie-player";
 
 import Spiner from "../../../../public/animations/spinner.json";
@@ -21,7 +21,7 @@ export function ComicsList() {
 
   return (
     <div className="flex flex-col gap-8">
-      {comics.length > 0 ? (
+      {!isLoading ? (
         <div className="grid grid-cols-5 gap-x-3 gap-y-12 w-full">
           {comics.map((comic: ComicType) => (
             <Comic data={comic} />
@@ -36,12 +36,6 @@ export function ComicsList() {
           style={{ height: "250px", width: "250px" }}
         />
       )}
-
-      {/* {visibleComics.length !== 100 && (
-        <div className="mx-auto">
-          <Button title="load more" onClick={handleButtonClick} />
-        </div>
-      )} */}
     </div>
   );
 }

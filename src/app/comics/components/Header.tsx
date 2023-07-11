@@ -2,7 +2,6 @@
 import { Button } from "@/app/components/Button";
 import { DropDownMenu } from "@/app/components/DropDownMenu";
 import { Heading } from "@/app/components/Heading";
-import { Link } from "@/app/components/Link";
 import { Search } from "@/app/components/Search";
 import { useComicsList } from "@/hooks/useComicList";
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
@@ -45,11 +44,8 @@ export function Header() {
 
         <RadixDropdownMenu.Root>
           <RadixDropdownMenu.Trigger>
-            <span className="uppercase text-gray-400 text-sm font-bold flex px-3 py-1">
-              sort by
-              <button className="ml-2 flex items-center ">
-                {order === "asc" ? "A-Z" : "Z-A"}
-              </button>
+            <span className="uppercase text-gray-400 text-sm flex items-center font-bold ">
+              sort by {order === "asc" ? "A-Z" : "Z-A"}
             </span>
           </RadixDropdownMenu.Trigger>
 
