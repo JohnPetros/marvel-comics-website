@@ -17,5 +17,6 @@ export async function getComics(
   });
 
   const data = response.json();
+
   return data;
 }

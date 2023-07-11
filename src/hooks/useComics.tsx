@@ -1,15 +1,23 @@
 "use client";
-import { Comic } from "@/@types/comic";
+import { Category, Comic, Order } from "@/@types/comic";
 import { checkImageAvailability } from "@/utils/checkImageAvailability";
 import { getComics } from "@/utils/getComics";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
-export const useComics = (initialData: Comic[]) => {
-  const { data } = useQuery("comics", () => getComics("comics", 20, "asc"), {
-    initialData,
+export const useComics = (category: Category, order: Order) => {
+  const { data: response, isLoading } = useQuery({
+    queryKey: ["comics", category, order],
+    queryFn: () => {
+      return getComics(category, 20, order);
+    },
   });
 
-  const comics = data.filter(checkImageAvailability);
+  let comics = [];
 
-  return { comics };
+  if (!isLoading) {
+    const { results } = response?.data;
+    comics = results.filter(checkImageAvailability);
+  }
+
+  return { comics, isLoading };
 };
