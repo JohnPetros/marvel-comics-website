@@ -1,3 +1,4 @@
+import { Comic } from "@/@types/comic";
 import { fetchData } from "./fetchData";
 
 export type ComicCategory = "comics" | "series" | "events";
@@ -15,7 +16,6 @@ export async function getComics(
     orderParams: [orderParam],
   });
 
-  
   const data = response.json();
   return data;
 }

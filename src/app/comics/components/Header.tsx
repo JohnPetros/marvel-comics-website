@@ -3,14 +3,14 @@ import { DropDownMenu } from "@/app/components/DropDownMenu";
 import { Heading } from "@/app/components/Heading";
 import { Link } from "@/app/components/Link";
 import { Search } from "@/app/components/Search";
-import { useComics } from "@/app/hooks/useComics";
+import { useComicsList } from "@/hooks/useComicList";
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 const date = new Date();
 const mouth = date.getMonth();
 const today = date.getDate();
 
 export function Header() {
-  const { visibleComics, sortComics, order } = useComics();
+  const { comicsAmount, order, setOrder } = useComicsList();
 
   return (
     <div className="container mx-auto space-y-6">
@@ -27,7 +27,7 @@ export function Header() {
       <Search />
       <div className="flex justify-between">
         <span className="uppercase text-gray-400 text-sm font-bold">
-          {visibleComics?.length} results
+          {comicsAmount} results
         </span>
 
         <RadixDropdownMenu.Root>
@@ -45,13 +45,13 @@ export function Header() {
               {
                 id: 1,
                 title: "A-Z",
-                onClick: () => sortComics("asc"),
+                onClick: () => setOrder("asc"),
                 isActive: order === "asc",
               },
               {
                 id: 2,
                 title: "Z-A",
-                onClick: () => sortComics("desc"),
+                onClick: () => setOrder("desc"),
                 isActive: order === "desc",
               },
             ]}
