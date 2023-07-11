@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { Category, Order } from "@/@types/comic";
 import { Button } from "@/app/components/Button";
 import { DropDownMenu } from "@/app/components/DropDownMenu";
 import { Heading } from "@/app/components/Heading";
@@ -10,8 +12,24 @@ const mouth = date.getMonth();
 const today = date.getDate();
 
 export function Header() {
-  const { comicsAmount, category, setCategory, order, setOrder } =
-    useComicsList();
+  const {
+    state: { amount, category, order },
+    dispatch,
+  } = useComicsList();
+  const [searchValue, setSearchValue] = useState("");
+
+  function handleButtonCategoryClick(category: Category) {
+    dispatch({ type: "setCategory", payload: category });
+  }
+
+  function handleButtonOrderClick(order: Order) {
+    dispatch({ type: "setOrder", payload: order });
+  }
+
+  function handleSearchKeyDown({ key }: KeyboardEvent) {
+    if (key === "Enter") {
+    }
+  }
 
   return (
     <div className="container mx-auto space-y-6">
@@ -20,26 +38,31 @@ export function Header() {
         <nav className="flex gap-3">
           <Button
             title="Comics"
-            onClick={() => setCategory("comics")}
+            onClick={() => handleButtonCategoryClick("comics")}
             isActive={category === "comics"}
           />
           <Button
             title="Series"
-            onClick={() => setCategory("series")}
+            onClick={() => handleButtonCategoryClick("series")}
             isActive={category === "series"}
           />
           <Button
             title="Events"
-            onClick={() => setCategory("events")}
+            onClick={() => handleButtonCategoryClick("events")}
             isActive={category === "events"}
           />
         </nav>
       </div>
 
-      <Search />
+      <Search
+        value={searchValue}
+        onChange={({ target }) => setSearchValue(target.value)}
+        onKeyDown={handleSearchKeyDown}
+      />
+
       <div className="flex justify-between">
         <span className="uppercase text-gray-400 text-sm font-bold">
-          {comicsAmount} results
+          {amount} results
         </span>
 
         <RadixDropdownMenu.Root>
@@ -54,13 +77,13 @@ export function Header() {
               {
                 id: 1,
                 title: "A-Z",
-                onClick: () => setOrder("asc"),
+                onClick: () => handleButtonOrderClick("asc"),
                 isActive: order === "asc",
               },
               {
                 id: 2,
                 title: "Z-A",
-                onClick: () => setOrder("desc"),
+                onClick: () => handleButtonOrderClick("desc"),
                 isActive: order === "desc",
               },
             ]}

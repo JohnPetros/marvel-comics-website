@@ -1,36 +1,62 @@
 "use client";
 import { Category, Order } from "@/@types/comic";
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 
-interface ComicsProviderProps {
+interface ComicsListProviderProps {
   children: ReactNode;
 }
 
-interface ComicsListContextData {
-  comicsAmount: number;
-  setComicsAmount: (comicsAmount: number) => void;
+type ComicsListState = {
+  amount: number;
   category: Category;
-  setCategory: (category: Category) => void;
-  setOrder: (order: Order) => void;
   order: Order;
+};
+
+type ComicsListAction =
+  | { type: "setAmount"; payload: number }
+  | { type: "setCategory"; payload: Category }
+  | { type: "setOrder"; payload: Order };
+
+interface ComicsListContextData {
+  state: ComicsListState;
+  dispatch: (action: ComicsListAction) => void;
 }
 
 export const ComicsListContext = createContext({} as ComicsListContextData);
 
-export function ComicsListProvider({ children }: ComicsProviderProps) {
-  const [comicsAmount, setComicsAmount] = useState(0);
-  const [order, setOrder] = useState<Order>("asc");
-  const [category, setCategory] = useState<Category>("comics");
+function ComicsListReducer(state: ComicsListState, action: ComicsListAction) {
+  switch (action.type) {
+    case "setAmount":
+      return { ...state, amount: action.payload };
+    case "setCategory":
+      return { ...state, category: action.payload };
+    case "setOrder":
+      return { ...state, order: action.payload };
+    default:
+      return state;
+  }
+}
+
+const initialState: ComicsListState = {
+  amount: 0,
+  category: "comics",
+  order: "asc",
+};
+
+export function ComicsListProvider({ children }: ComicsListProviderProps) {
+  const [state, dispatch] = useReducer(ComicsListReducer, initialState);
 
   return (
     <ComicsListContext.Provider
       value={{
-        comicsAmount,
-        setComicsAmount,
-        category,
-        setCategory,
-        order,
-        setOrder,
+        state,
+        dispatch,
       }}
     >
       {children}

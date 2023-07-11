@@ -10,12 +10,15 @@ import { Player as Animation } from "@lottiefiles/react-lottie-player";
 import Spiner from "../../../../public/animations/spinner.json";
 
 export function ComicsList() {
-  const { setComicsAmount, category, order } = useComicsList();
+  const {
+    state: { category, order },
+    dispatch,
+  } = useComicsList();
   const { comics, isLoading } = useComics(category, order);
 
   useEffect(() => {
     if (comics?.length) {
-      setComicsAmount(comics.length);
+      dispatch({ type: "setAmount", payload: comics.length });
     }
   }, [comics]);
 
