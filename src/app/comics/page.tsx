@@ -1,22 +1,16 @@
 import { Header } from "./components/Header";
 import { ComicsList } from "./components/ComicsList";
-import { fetchData } from "@/utils/fetchData";
 import { checkImageAvailability } from "@/utils/checkImageAvailability";
-
-async function getComics() {
-  const response = await fetchData({ resource: "comics", limit: 100 });
-  const data = response.json();
-  return data;
-}
+import { getComics } from "@/utils/getComics";
 
 export default async function Comics() {
-  const response = await getComics();
+  const response = await getComics("comics", 20, "asc");
   const comics = response.data.results;
   const availableComics = comics.filter(checkImageAvailability);
 
   return (
     <div className="container mx-auto mt-12 space-y-12">
-      <Header />
+      {/* <Header /> */}
       <ComicsList comics={availableComics} />
     </div>
   );

@@ -1,37 +1,23 @@
 "use client";
 import { Comic } from "@/@types/comic";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ComicsContext } from "@/contexts/comicsContext";
+import { checkImageAvailability } from "@/utils/checkImageAvailability";
+import { getComics } from "@/utils/getComics";
+import { useContext } from "react";
+import { useQuery } from "react-query";
 
-type Order = "asc" | "desc";
+export const useComics = (initialData: Comic[]) => {
+  const state = useContext(ComicsContext);
 
-interface ComicsProviderProps {
-  children: ReactNode;
-}
+  const response = useQuery("comics", () => getComics("comics", 20, "asc"), {
+    initialData,
+  });
 
-interface ComicsContextData {
-  visibleComics: Comic[] | undefined;
-  setVisibleComics: (visibleComics: Comic[]) => void;
-  sortComics: (order: Order) => void;
-  order: Order;
-}
+  const comics = response.data;
 
-const ComicsContext = createContext({} as ComicsContextData);
+  const availableComics = comics.filter(checkImageAvailability);
 
-export function ComicsProvider({ children }: ComicsProviderProps) {
-  const [visibleComics, setVisibleComics] = useState<Comic[]>();
-  const [order, setOrder] = useState<Order>("asc");
+  state.setComics(availableComics);
 
-  function sortComics(order: Order) {
-    
-  }
-
-  return (
-    <ComicsContext.Provider
-      value={{ visibleComics, setVisibleComics, sortComics, order }}
-    >
-      {children}
-    </ComicsContext.Provider>
-  );
-}
-
-export const useComics = () => useContext(ComicsContext);
+  return { comics: availableComics, state };
+};
