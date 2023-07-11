@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/app/components/Button";
 import { DropDownMenu } from "@/app/components/DropDownMenu";
 import { Heading } from "@/app/components/Heading";
 import { Link } from "@/app/components/Link";
@@ -10,17 +11,29 @@ const mouth = date.getMonth();
 const today = date.getDate();
 
 export function Header() {
-  const { comicsAmount, order, setOrder } = useComicsList();
+  const { comicsAmount, category, setCategory, order, setOrder } =
+    useComicsList();
 
   return (
     <div className="container mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <Heading title="New this week" subtitle={`On sale ${today}/${mouth}`} />
         <nav className="flex gap-3">
-          <Link name="stories" path="/comics?category='stories'" />
-          <Link name="comics" path="/comics?category='comics'" />
-          <Link name="series" path="/comics?category='series'" />
-          <Link name="events" path="/comics?category='events'" />
+          <Button
+            title="Comics"
+            onClick={() => setCategory("comics")}
+            isActive={category === "comics"}
+          />
+          <Button
+            title="Series"
+            onClick={() => setCategory("series")}
+            isActive={category === "series"}
+          />
+          <Button
+            title="Events"
+            onClick={() => setCategory("events")}
+            isActive={category === "events"}
+          />
         </nav>
       </div>
 
