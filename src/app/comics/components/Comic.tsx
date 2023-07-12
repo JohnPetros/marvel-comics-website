@@ -25,6 +25,8 @@ export function Comic({ data }: ComicProps) {
           src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
           alt={data.title}
           fill
+          className="w-auto h-auto"
+          sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, (min-width: 440px) 50vw, 100vw"
         />
       </div>
       <strong className="text-sm group-hover:text-red-600">{data.title}</strong>

@@ -38,7 +38,7 @@ export function ComicsList({ initialComics }: ComicsListProps) {
   return (
     <div className="flex flex-col gap-8">
       {!isLoading ? (
-        <div className="grid grid-cols-5 gap-x-3 gap-y-12 w-full">
+        <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
           {comics.map((comic: ComicType) => (
             <Comic data={comic} />
           ))}

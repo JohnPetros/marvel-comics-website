@@ -33,8 +33,8 @@ export function Header() {
   }
 
   return (
-    <div className="container mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="container mx-auto space-y-6 px-6 sm:px-0">
+      <div className="flex flex-col sm:flex-row gap-8 sm:gap-0 items-center justify-between">
         <Heading title="New this week" subtitle={`On sale ${today}/${mouth}`} />
         <nav className="flex gap-3">
           <Button
