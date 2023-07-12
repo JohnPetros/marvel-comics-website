@@ -30,20 +30,12 @@ export function ComicsList({ initialComics }: ComicsListProps) {
   }
 
   useEffect(() => {
-    if (comics?.length) {
-      dispatch({ type: "setAmount", payload: comics.length });
-    }
+    dispatch({ type: "setAmount", payload: comics.length });
   }, [comics]);
 
   return (
     <div className="flex flex-col gap-8">
-      {!isLoading ? (
-        <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
-          {comics.map((comic: ComicType) => (
-            <Comic data={comic} />
-          ))}
-        </div>
-      ) : (
+      {isLoading ? (
         <Animation
           autoplay={true}
           loop={true}
@@ -51,6 +43,16 @@ export function ComicsList({ initialComics }: ComicsListProps) {
           src={Spiner}
           style={{ height: "220px", width: "220px" }}
         />
+      ) : !isLoading && comics.length > 0 ? (
+        <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
+          {comics.map((comic: ComicType) => (
+            <Comic data={comic} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-lg text-red-600 uppercase font-bold">
+          Sorry, no comics found
+        </p>
       )}
 
       <div className="w-max mx-auto mt-6">
@@ -64,6 +66,7 @@ export function ComicsList({ initialComics }: ComicsListProps) {
           />
         ) : (
           !isLoading &&
+          comics.length > 0 &&
           nextPage.current !== 5 && (
             <Button title="load more" onClick={handleLoadMoreButtonClick} />
           )

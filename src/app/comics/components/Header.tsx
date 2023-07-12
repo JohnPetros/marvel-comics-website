@@ -8,7 +8,7 @@ import { Search } from "@/app/components/Search";
 import { useComicsList } from "@/hooks/useComicList";
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 const date = new Date();
-const mouth = date.getMonth();
+const mouth = date.getMonth() + 1;
 const today = date.getDate();
 
 export function Header() {
@@ -35,7 +35,7 @@ export function Header() {
   return (
     <div className="container mx-auto space-y-6 px-6 sm:px-0">
       <div className="flex flex-col sm:flex-row gap-8 sm:gap-0 items-center justify-between">
-        <Heading title="New this week" subtitle={`On sale ${today}/${mouth}`} />
+        <Heading title="New this week" subtitle={`On sale ${mouth}/${today}`} />
         <nav className="flex gap-3">
           <Button
             title="Comics"
