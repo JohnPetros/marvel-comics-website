@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { Category, Order } from "@/@types/comic";
 import { Button } from "@/app/components/Button";
 import { DropDownMenu } from "@/app/components/DropDownMenu";
@@ -26,7 +26,7 @@ export function Header() {
     dispatch({ type: "setOrder", payload: order });
   }
 
-  function handleSearchKeyDown({ key }: KeyboardEvent) {
+  function handleSearchKeyDown({ key }: KeyboardEvent<HTMLInputElement>) {
     if (key === "Enter") {
       dispatch({ type: "setSearch", payload: searchValue });
     }
