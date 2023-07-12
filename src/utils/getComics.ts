@@ -14,13 +14,18 @@ export async function getComics({
   limit = 20,
   order = "asc",
 }: getComicsParams) {
-  const orderParam = order === "desc" ? "-title" : "title";
+  const orderParamKey = category === "events" ? "name" : "title";
+  const orderParamValue =
+    order === "desc" ? `-${orderParamKey}` : orderParamKey;
+
+    console.log(orderParamValue);
+    
 
   const response = await fetchData({
     resource: category,
     limit,
-    orderParams: [orderParam],
-    search: search ? `titleStartsWith=${search}` : "",
+    orderParams: [orderParamValue],
+    search: search ? `${orderParamKey}StartsWith=${search}` : "",
   });
 
   const data = response.json();

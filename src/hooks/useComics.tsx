@@ -1,18 +1,9 @@
 "use client";
-import { Category, Comic, Order } from "@/@types/comic";
+import { Category, Order } from "@/@types/comic";
 import { checkImageAvailability } from "@/utils/checkImageAvailability";
 import { getComics } from "@/utils/getComics";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { log } from "console";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo, useRef } from "react";
-
-function getComicsFromPages(
-  allComics: Comic[],
-  comicsFromCurrentPage: Comic[]
-) {
-  comicsFromCurrentPage.filter(checkImageAvailability);
-  return [...allComics, ...comicsFromCurrentPage];
-}
 
 interface useComicsParams {
   category: Category;
@@ -37,8 +28,7 @@ export const useComics = ({
   } = useInfiniteQuery(
     ["comics", category, order, search, limit],
     ({ pageParam = nextPage.current }) => {
-      nextPage.current = nextPage.current + 1;
-      return getComics({ category, order, search, limit: 20 * pageParam });
+      return getComics({ category, order, search, limit: pageParam * 20 });
     },
     {
       getNextPageParam: () => {
@@ -50,14 +40,12 @@ export const useComics = ({
   );
 
   const comics = useMemo(() => {
-    if (!response) return [];
+    if (!response?.pages) return [];
 
     return response.pages.reduce((allComics, currentPage, index) => {
       const comics = currentPage.data.results.slice(20 * index);
 
-      const comicsFromCurrentPage = comics.filter(checkImageAvailability);
-
-      return [...allComics, ...comicsFromCurrentPage];
+      return [...allComics, ...comics];
     }, []);
   }, [isFetching]);
 

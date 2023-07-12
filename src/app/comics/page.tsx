@@ -5,6 +5,8 @@ import { getComics } from "@/utils/getComics";
 
 export default async function Comics() {
   const response = await getComics({ category: "comics" });
+  console.log(response);
+  
   const { results } = response.data;
   const comics = results.filter(checkImageAvailability);
 

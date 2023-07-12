@@ -25,7 +25,8 @@ export function ComicsList({ initialComics }: ComicsListProps) {
   });
 
   function handleLoadMoreButtonClick() {
-    dispatch({ type: "setLimit", payload: limit + 20 });
+    nextPage.current = nextPage.current + 1;
+    fetchNextPage();
   }
 
   useEffect(() => {
@@ -63,8 +64,8 @@ export function ComicsList({ initialComics }: ComicsListProps) {
           />
         ) : (
           !isLoading &&
-          nextPage.current - 1 !== 5 && (
-            <Button title="load more" onClick={fetchNextPage} />
+          nextPage.current !== 5 && (
+            <Button title="load more" onClick={handleLoadMoreButtonClick} />
           )
         )}
       </div>
