@@ -12,7 +12,7 @@ export async function ComicsShowcase() {
     <section id="comics" aria-label="Comics" className="grid grid-cols-1 mt-32">
       <div className="flex flex-col items-center justify-center gap-8 bg-white">
         <Heading title="Best selling digital comics" subtitle="our comics" />
-        <Link path="/comics" name="See all comics" />
+        <Link path="/comics">see all of our comics</Link>
       </div>
 
       <ComicsCarrousel comics={comics} />

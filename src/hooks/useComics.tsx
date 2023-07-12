@@ -1,6 +1,5 @@
 "use client";
-import { Category, Order } from "@/@types/comic";
-import { checkImageAvailability } from "@/utils/checkImageAvailability";
+import { Category, Comic, Order } from "@/@types/comic";
 import { getComics } from "@/utils/getComics";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo, useRef } from "react";
@@ -42,7 +41,7 @@ export const useComics = ({
   const comics = useMemo(() => {
     if (!response?.pages) return [];
 
-    return response.pages.reduce((allComics, currentPage, index) => {
+    return response.pages.reduce<Comic[]>((allComics, currentPage, index) => {
       const comics = currentPage.data.results.slice(20 * index);
 
       return [...allComics, ...comics];

@@ -1,11 +1,10 @@
 import { Category as ComicCategory } from "@/@types/comic";
 
-type Resource = "characters" | ComicCategory;
 interface fetchDataParams {
-  resource: Resource;
+  resource: string;
   limit?: number;
   orderParams?: string[];
-  search: string;
+  search?: string;
 }
 
 function formatOrderParams(orderParam: string) {
@@ -14,16 +13,16 @@ function formatOrderParams(orderParam: string) {
 
 export async function fetchData({
   resource,
-  limit = 20,
+  limit,
   orderParams = [],
   search,
 }: fetchDataParams) {
   const authParams = `ts=${process.env.NEXT_PUBLIC_TIMESTAMP}&apikey=${process.env.NEXT_PUBLIC_PUBLIC_KEY}&hash=${process.env.NEXT_PUBLIC_HASH}`;
 
   return await fetch(
-    `${
-      process.env.NEXT_PUBLIC_BASE_URL
-    }/${resource}?${authParams}&limit=${limit}${
+    `${process.env.NEXT_PUBLIC_BASE_URL}/${resource}?${authParams}${
+      limit ? "&limit=" + limit : ""
+    }${
       orderParams.length > 0
         ? "&" + orderParams.map(formatOrderParams).join("&")
         : ""

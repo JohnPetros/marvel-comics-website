@@ -40,7 +40,7 @@ export async function SeriesShowcase() {
       </div>
 
       <div className="">
-        <Link path="/series" name="See more" />
+        <Link path="/series">See more</Link>
       </div>
     </section>
   );

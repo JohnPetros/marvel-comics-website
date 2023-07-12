@@ -23,7 +23,7 @@ const links = [
 
 export function Header() {
   const pathname = usePathname();
-  
+
   return (
     <header className="w-full bg-black">
       <div className="flex flex-col lg:flex-row items-center w-11/12 max-w-[1200px] mx-auto py-6 relative">
@@ -32,7 +32,9 @@ export function Header() {
             <ul className="flex gap-6">
               {links.map(({ path, name }) => (
                 <li className="p-2 lg:p-0" key={path}>
-                  <Link path={path} name={name} isActive={pathname === path} />
+                  <Link path={path} isActive={pathname === path}>
+                    {name}
+                  </Link>
                 </li>
               ))}
             </ul>

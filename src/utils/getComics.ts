@@ -1,5 +1,6 @@
 import { Category, Comic, Order } from "@/@types/comic";
 import { fetchData } from "./fetchData";
+import { ApiResponse } from "@/@types/apiResponse";
 
 interface getComicsParams {
   category: Category;
@@ -13,13 +14,12 @@ export async function getComics({
   search,
   limit = 20,
   order = "asc",
-}: getComicsParams) {
+}: getComicsParams): Promise<ApiResponse<Comic>> {
   const orderParamKey = category === "events" ? "name" : "title";
   const orderParamValue =
     order === "desc" ? `-${orderParamKey}` : orderParamKey;
 
-    console.log(orderParamValue);
-    
+  console.log(orderParamValue);
 
   const response = await fetchData({
     resource: category,
