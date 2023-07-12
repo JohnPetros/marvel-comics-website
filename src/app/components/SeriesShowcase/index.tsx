@@ -1,3 +1,4 @@
+import { getComics } from "@/utils/getComics";
 import { Heading } from "../Heading";
 import { Link } from "../Link";
 import { Series } from "./Series";
@@ -13,8 +14,8 @@ async function getSeries() {
 }
 
 export async function SeriesShowcase() {
-  const series = await getSeries();
-  const filteredSeries = series.data.results.filter(checkImageAvailability);
+  const response = await getComics({ category: "comics", limit: 3 });
+  const series = response.data.results;
 
   const date = new Date();
   const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
@@ -33,9 +34,9 @@ export async function SeriesShowcase() {
       />
 
       <div className="my-8 grid w-full grid-cols-1 sm:grid-cols-3 gap-6">
-        <Series data={filteredSeries[0]} index={0} />
-        <Series data={filteredSeries[1]} index={1} />
-        <Series data={filteredSeries[2]} index={2} />
+        <Series data={series[0]} index={0} />
+        <Series data={series[1]} index={1} />
+        <Series data={series[2]} index={2} />
       </div>
 
       <div className="">

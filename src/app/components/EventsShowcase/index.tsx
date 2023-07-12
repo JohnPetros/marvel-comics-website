@@ -2,18 +2,20 @@ import { Event } from "./Event";
 import { Pillar } from "./Pillar";
 import { Heading } from "../Heading";
 import { Paragraph } from "../Paragraph";
-
-async function getEvents() {
-  const response = await fetch(
-    `${process.env.BASE_URL}/events?orderBy=-modified&limit=2&ts=${process.env.TIMESTAMP}&apikey=${process.env.PUBLIC_KEY}&hash=${process.env.HASH}`
-  );
-
-  const events = response.json();
-  return events;
-}
+import { getComics } from "@/utils/getComics";
 
 export async function EventsShowcase() {
-  const events = await getEvents();
+  const response1 = await getComics({
+    category: "events",
+    search: "age of ultron",
+  });
+  const event1 = response1.data.results[0];
+
+  const response2 = await getComics({
+    category: "events",
+    search: "civil war",
+  });
+  const event2 = response2.data.results[0];
 
   return (
     <section
@@ -22,8 +24,8 @@ export async function EventsShowcase() {
       className="w-[1200px] max-w-full mx-auto flex flex-col items-center gap-24 lg:gap-0 lg:justify-between lg:flex-row"
     >
       <div className="flex gap-2">
-        <Event data={events.data.results[1]} />
-        <Event data={events.data.results[0]} isYellow={true} />
+        <Event data={event1} />
+        <Event data={event2} isYellow={true} />
       </div>
 
       <div className="flex justify-center flex-col items-center gap-5">
