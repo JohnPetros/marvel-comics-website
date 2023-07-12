@@ -13,7 +13,12 @@ export function Comic({ data }: ComicProps) {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.25 }}
       href={`comics/${data.id}`}
+      placeholder="blur"
       className="flex flex-col items-center gap-4 group"
+      style={{
+        maxWidth: "100%",
+        height: "auto",
+      }}
     >
       <div className="relative w-56 h-80 shadow-xl group-hover:-translate-y-4 transition-transform duration-200">
         <Image

@@ -1,13 +1,19 @@
+import { Category, Comic, Order } from "@/@types/comic";
 import { fetchData } from "./fetchData";
 
-export type ComicCategory = "comics" | "series" | "events";
+interface getComicsParams {
+  category: Category;
+  order?: Order;
+  search?: string;
+  limit?: number;
+}
 
-export async function getComics(
-  category: ComicCategory,
-  limit: number,
-  order: "asc" | "desc",
-  search?: string
-) {
+export async function getComics({
+  category,
+  search,
+  limit = 20,
+  order = "asc",
+}: getComicsParams) {
   const orderParam = order === "desc" ? "-title" : "title";
 
   const response = await fetchData({

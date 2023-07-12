@@ -6,15 +6,27 @@ import { useComicsList } from "@/hooks/useComicList";
 import { useComics } from "@/hooks/useComics";
 import { useEffect } from "react";
 import { Player as Animation } from "@lottiefiles/react-lottie-player";
-
 import Spiner from "../../../../public/animations/spinner.json";
 
-export function ComicsList() {
+interface ComicsListProps {
+  initialComics: ComicType[];
+}
+
+export function ComicsList({ initialComics }: ComicsListProps) {
   const {
-    state: { category, order, search },
+    state: { category, order, search, limit },
     dispatch,
   } = useComicsList();
-  const { comics, isLoading } = useComics({ category, order, search });
+  const { comics, isLoading, isFetching, nextPage, fetchNextPage } = useComics({
+    category,
+    order,
+    search,
+    limit,
+  });
+
+  function handleLoadMoreButtonClick() {
+    dispatch({ type: "setLimit", payload: limit + 20 });
+  }
 
   useEffect(() => {
     if (comics?.length) {
@@ -36,9 +48,26 @@ export function ComicsList() {
           loop={true}
           controls={true}
           src={Spiner}
-          style={{ height: "250px", width: "250px" }}
+          style={{ height: "220px", width: "220px" }}
         />
       )}
+
+      <div className="w-max mx-auto mt-6">
+        {!isLoading && isFetching ? (
+          <Animation
+            autoplay={true}
+            loop={true}
+            controls={true}
+            src={Spiner}
+            style={{ height: "120px", width: "120px" }}
+          />
+        ) : (
+          !isLoading &&
+          nextPage.current - 1 !== 5 && (
+            <Button title="load more" onClick={fetchNextPage} />
+          )
+        )}
+      </div>
     </div>
   );
 }

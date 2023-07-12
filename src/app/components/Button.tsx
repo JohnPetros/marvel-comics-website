@@ -2,7 +2,7 @@
 interface ButtonProps {
   title: string;
   onClick: VoidFunction;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 export function Button({ title, onClick, isActive = false }: ButtonProps) {
