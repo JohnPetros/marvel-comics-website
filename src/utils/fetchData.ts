@@ -1,5 +1,3 @@
-import { Category as ComicCategory } from "@/@types/comic";
-
 interface fetchDataParams {
   resource: string;
   limit?: number;
