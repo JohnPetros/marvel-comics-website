@@ -27,7 +27,7 @@ export function Header() {
   }
 
   return (
-    <div className="container mx-auto space-y-8 px-6 sm:px-0">
+    <div className="container mx-auto px-6 sm:px-0">
       <div className="flex flex-col sm:flex-row gap-8 sm:gap-0 items-center justify-center">
         <Heading
           title="EXPLORE THE UNIVERSE"
@@ -35,13 +35,15 @@ export function Header() {
         />
       </div>
 
-      <Search
-        value={searchValue}
-        onChange={({ target }) => setSearchValue(target.value)}
-        onKeyDown={handleSearchKeyDown}
-      />
+      <div className="mt-8">
+        <Search
+          value={searchValue}
+          onChange={({ target }) => setSearchValue(target.value)}
+          onKeyDown={handleSearchKeyDown}
+        />
+      </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-6">
         <span className="uppercase text-gray-400 text-sm font-bold">
           {amount} results
         </span>
