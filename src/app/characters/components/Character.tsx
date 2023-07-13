@@ -1,5 +1,6 @@
 import { Character } from "@/@types/character";
 import { Link } from "@/app/components/Link";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 interface CharacterProps {
@@ -9,7 +10,10 @@ interface CharacterProps {
 export function Character({ data }: CharacterProps) {
   return (
     <Link path={`characters/${data.id}`} isActive={false}>
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
         className="flex flex-col items-center group"
         style={{
           maxWidth: "100%",
@@ -34,7 +38,7 @@ export function Character({ data }: CharacterProps) {
             {data.name}
           </strong>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 }
