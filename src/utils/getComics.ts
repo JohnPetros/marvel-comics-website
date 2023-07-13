@@ -6,7 +6,7 @@ interface getComicsParams {
   category: Category;
   order?: Order;
   search?: string;
-  limit?: number;
+  limit: number;
 }
 
 export async function getComics({
@@ -19,7 +19,6 @@ export async function getComics({
   const orderParamValue =
     order === "desc" ? `-${orderParamKey}` : orderParamKey;
 
-  console.log(orderParamValue);
 
   const response = await fetchData({
     resource: category,
@@ -29,6 +28,5 @@ export async function getComics({
   });
 
   const data = response.json();
-
   return data;
 }
