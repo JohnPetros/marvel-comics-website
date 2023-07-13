@@ -1,12 +1,15 @@
 "use client";
-import { Character as CharacterType } from "@/@types/character";
+import { useEffect } from "react";
+import { useCharactersList } from "@/hooks/useCharactersList";
 import { useCharacters } from "@/hooks/useCharacters";
+
+import { Button } from "@/app/components/Button";
+import { Character } from "./Character";
+
+import { Character as CharacterType } from "@/@types/character";
+
 import { Player as Animation } from "@lottiefiles/react-lottie-player";
 import Spiner from "../../../../public/animations/spinner.json";
-import { Character } from "./Character";
-import { Button } from "@/app/components/Button";
-import { useCharactersList } from "@/hooks/useCharactersList";
-import { useEffect } from "react";
 
 interface CharactersListProps {
   initialCharacters: CharacterType[];
@@ -66,7 +69,7 @@ export function CharactersList({ initialCharacters }: CharactersListProps) {
           />
         ) : (
           !isLoading &&
-          characters.length > 0 &&
+          characters.length >= 20 &&
           nextPage.current !== 5 && (
             <Button title="load more" onClick={handleLoadMoreButtonClick} />
           )
