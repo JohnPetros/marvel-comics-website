@@ -9,9 +9,14 @@ import { getCharacters } from "@/utils/getCharacters";
 interface useCharactersParams {
   order: Order;
   search: string;
+  initialData: Character[];
 }
 
-export const useCharacters = ({ order, search }: useCharactersParams) => {
+export const useCharacters = ({
+  order,
+  search,
+  initialData,
+}: useCharactersParams) => {
   const nextPage = useRef(1);
 
   const {
@@ -20,7 +25,7 @@ export const useCharacters = ({ order, search }: useCharactersParams) => {
     isFetching,
     fetchNextPage,
   } = useInfiniteQuery(
-    ["comics", order, search],
+    ["characters", order, search],
     ({ pageParam = nextPage.current }) => {
       return getCharacters({ order, search, limit: pageParam * 20 });
     },
@@ -32,8 +37,6 @@ export const useCharacters = ({ order, search }: useCharactersParams) => {
       },
     }
   );
-
-  console.log(response);
 
   const characters = useMemo(() => {
     if (!response?.pages) return [];
@@ -47,6 +50,8 @@ export const useCharacters = ({ order, search }: useCharactersParams) => {
       []
     );
   }, [isFetching]);
+
+  console.log(characters);
 
   return { characters, isLoading, isFetching, nextPage, fetchNextPage };
 };
