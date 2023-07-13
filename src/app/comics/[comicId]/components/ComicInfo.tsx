@@ -69,12 +69,12 @@ export function ComicInfo({
         className=" bg-no-repeat bg-center absolute left-0 top-0 bottom-0 right-0 brightness-[0.1] blur-sm"
       />
 
-      <div className="container mx-auto grid grid-cols-[350px_550px] gap-16 relative z-50">
+      <div className="container mx-auto px-6 xsm:px-0 grid grid-cols-1 md:grid-cols-[minmax(250px,350px)_minmax(350px,550px)] gap-16 relative z-50">
         <motion.div
           variants={imageVariants}
           initial="hidden"
           animate="visible"
-          className="relative w-[350px] h-[540px] shadow-lg"
+          className="relative w-full h-[540px] shadow-lg"
         >
           <Image src={`${image}`} alt={title} fill />
         </motion.div>
