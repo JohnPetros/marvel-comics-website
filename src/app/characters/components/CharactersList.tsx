@@ -5,16 +5,22 @@ import { Player as Animation } from "@lottiefiles/react-lottie-player";
 import Spiner from "../../../../public/animations/spinner.json";
 import { Character } from "./Character";
 import { Button } from "@/app/components/Button";
+import { useCharactersList } from "@/hooks/useCharactersList";
+import { useEffect } from "react";
 
 interface CharactersListProps {
   initialCharacters: CharacterType[];
 }
 
 export function CharactersList({ initialCharacters }: CharactersListProps) {
+  const {
+    state: { order, search },
+    dispatch,
+  } = useCharactersList();
   const { characters, isLoading, isFetching, nextPage, fetchNextPage } =
     useCharacters({
-      order: "asc",
-      search: "",
+      order,
+      search,
       initialData: initialCharacters,
     });
 
@@ -22,6 +28,10 @@ export function CharactersList({ initialCharacters }: CharactersListProps) {
     nextPage.current = nextPage.current + 1;
     fetchNextPage();
   }
+
+  useEffect(() => {
+    dispatch({ type: "setAmount", payload: characters.length });
+  }, [characters]);
 
   return (
     <div className="flex flex-col gap-8">
