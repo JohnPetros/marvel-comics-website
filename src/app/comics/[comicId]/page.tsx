@@ -1,11 +1,8 @@
 "use client";
 import { useComic } from "@/hooks/useComic";
 import { useComicsList } from "@/hooks/useComicList";
-import { Detail } from "./components/Detail";
-import { formatDate } from "@/utils/formatDate";
-import Image from "next/image";
 import { ComicInfo } from "./components/ComicInfo";
-import { ComicMoreDetails } from "./components/ComicDetails";
+import { ComicMoreDetails } from "./components/ComicMoreDetails";
 
 type Params = {
   comicId: number;
