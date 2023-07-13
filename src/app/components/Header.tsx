@@ -32,7 +32,7 @@ export function Header() {
             <ul className="flex gap-6">
               {links.map(({ path, name }) => (
                 <li className="p-2 lg:p-0" key={path}>
-                  <Link path={path} isActive={pathname === path}>
+                  <Link path={path} isActive={pathname.includes(name)}>
                     {name}
                   </Link>
                 </li>
