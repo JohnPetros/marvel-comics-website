@@ -3,17 +3,15 @@ import { useMemo, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Character } from "@/@types/character";
-import { Category } from "@/@types/comic";
 import { Order } from "@/@types/order";
 import { getCharacters } from "@/utils/getCharacters";
 
-interface useComicsParams {
-  category: Category;
+interface useCharactersParams {
   order: Order;
   search: string;
 }
 
-export const useComics = ({ category, order, search }: useComicsParams) => {
+export const useCharacters = ({ order, search }: useCharactersParams) => {
   const nextPage = useRef(1);
 
   const {
@@ -22,7 +20,7 @@ export const useComics = ({ category, order, search }: useComicsParams) => {
     isFetching,
     fetchNextPage,
   } = useInfiniteQuery(
-    ["comics", category, order, search],
+    ["comics", order, search],
     ({ pageParam = nextPage.current }) => {
       return getCharacters({ order, search, limit: pageParam * 20 });
     },
