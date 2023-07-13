@@ -20,7 +20,7 @@ export function MarvelInserShowcase() {
           style={{ backgroundImage: "url('/images/marvel-insider.jpg')" }}
           className="relative h-full bg-marvel-insider-image bg-no-repeat bg-cover bg-center bg-blend-color"
         >
-          <span className="absolute top-0 left-0 right-0 bottom-0 bg-red-600/60"></span>
+          <span className="absolute top-0 left-0 right-0 bottom-0 bg-red-600/60" />
         </motion.div>
       </div>
 
@@ -41,7 +41,7 @@ export function MarvelInserShowcase() {
           <p className="text-white/80 my-8 w-72 text-left">
             Get rewarded for doing what you already do as a fan.​
           </p>
-          <Link name="Join Now" path="/" />
+          <Link path="/">Join now</Link>
         </motion.div>
       </div>
     </section>

@@ -60,7 +60,7 @@ export function HeroesCarousel({
             Get hooked on a hearty helping of heroes and villains from the
             humble House of Ideas!
           </p>
-          <Link path="/characters" name="Explore our universe" />
+          <Link path="/characters">Explorer our universe</Link>
         </div>
 
         <Hero

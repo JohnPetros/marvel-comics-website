@@ -38,7 +38,10 @@ export const useComics = ({
     }
   );
 
+  console.log(response);
+
   const comics = useMemo(() => {
+
     if (!response?.pages) return [];
 
     return response.pages.reduce<Comic[]>((allComics, currentPage, index) => {
