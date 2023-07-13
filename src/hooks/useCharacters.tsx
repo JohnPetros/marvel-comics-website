@@ -2,23 +2,18 @@
 import { useMemo, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { Category, Comic } from "@/@types/comic";
+import { Character } from "@/@types/character";
+import { Category } from "@/@types/comic";
 import { Order } from "@/@types/order";
-import { getComics } from "@/utils/getComics";
+import { getCharacters } from "@/utils/getCharacters";
 
 interface useComicsParams {
   category: Category;
   order: Order;
   search: string;
-  limit: number;
 }
 
-export const useComics = ({
-  category,
-  order,
-  search,
-  limit,
-}: useComicsParams) => {
+export const useComics = ({ category, order, search }: useComicsParams) => {
   const nextPage = useRef(1);
 
   const {
@@ -27,9 +22,9 @@ export const useComics = ({
     isFetching,
     fetchNextPage,
   } = useInfiniteQuery(
-    ["comics", category, order, search, limit],
+    ["comics", category, order, search],
     ({ pageParam = nextPage.current }) => {
-      return getComics({ category, order, search, limit: pageParam * 20 });
+      return getCharacters({ order, search, limit: pageParam * 20 });
     },
     {
       getNextPageParam: () => {
@@ -42,16 +37,18 @@ export const useComics = ({
 
   console.log(response);
 
-  const comics = useMemo(() => {
-
+  const characters = useMemo(() => {
     if (!response?.pages) return [];
 
-    return response.pages.reduce<Comic[]>((allComics, currentPage, index) => {
-      const comics = currentPage.data.results.slice(20 * index);
+    return response.pages.reduce<Character[]>(
+      (allCharacters, currentPage, index) => {
+        const characters = currentPage.data.results.slice(20 * index);
 
-      return [...allComics, ...comics];
-    }, []);
+        return [...allCharacters, ...characters];
+      },
+      []
+    );
   }, [isFetching]);
 
-  return { comics, isLoading, isFetching, nextPage, fetchNextPage };
+  return { characters, isLoading, isFetching, nextPage, fetchNextPage };
 };

@@ -3,6 +3,7 @@ import { useComic } from "@/hooks/useComic";
 import { useComicsList } from "@/hooks/useComicList";
 import { ComicInfo } from "./components/ComicInfo";
 import { ComicMoreDetails } from "./components/ComicMoreDetails";
+import { RelatedResourcers } from "./components/RelatedResources";
 
 type Params = {
   comicId: number;
@@ -22,6 +23,10 @@ export default function ComicDetails({ params }: ComicDetailsProps) {
         <>
           <ComicInfo comic={comic} />
           <ComicMoreDetails comic={comic} />
+          <RelatedResourcers
+            originalResourceId={comic.id}
+            originalResource={state.category}
+          />
         </>
       )}
     </div>

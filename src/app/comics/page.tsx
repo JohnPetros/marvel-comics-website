@@ -4,9 +4,8 @@ import { checkImageAvailability } from "@/utils/checkImageAvailability";
 import { getComics } from "@/utils/getComics";
 
 export default async function Comics() {
-  const response = await getComics({ category: "comics" });
-  console.log(response);
-  
+  const response = await getComics({ category: "comics", limit: 20 });
+
   const { results } = response.data;
   const comics = results.filter(checkImageAvailability);
 

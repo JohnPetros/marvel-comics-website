@@ -1,12 +1,13 @@
 "use client";
-import { Category, Order } from "@/@types/comic";
 import {
   ReactNode,
   createContext,
   useContext,
   useReducer,
-  useState,
 } from "react";
+
+import { Category } from "@/@types/comic";
+import { Order } from "@/@types/order";
 
 interface ComicsListProviderProps {
   children: ReactNode;

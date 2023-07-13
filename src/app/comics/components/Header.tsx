@@ -1,11 +1,15 @@
 "use client";
 import { KeyboardEvent, useState } from "react";
-import { Category, Order } from "@/@types/comic";
+import { useComicsList } from "@/hooks/useComicList";
+
+import { Category } from "@/@types/comic";
+import { Order } from "@/@types/order";
+
 import { Button } from "@/app/components/Button";
 import { DropDownMenu } from "@/app/components/DropDownMenu";
 import { Heading } from "@/app/components/Heading";
 import { Search } from "@/app/components/Search";
-import { useComicsList } from "@/hooks/useComicList";
+
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 const date = new Date();
 const mouth = date.getMonth() + 1;

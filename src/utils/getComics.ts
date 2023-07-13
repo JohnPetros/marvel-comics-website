@@ -1,6 +1,8 @@
-import { Category, Comic, Order } from "@/@types/comic";
-import { fetchData } from "./fetchData";
+import { Category, Comic } from "@/@types/comic";
 import { ApiResponse } from "@/@types/apiResponse";
+import { Order } from "@/@types/order";
+
+import { fetchData } from "./fetchData";
 
 interface getComicsParams {
   category: Category;

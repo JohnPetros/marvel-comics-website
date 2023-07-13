@@ -1,7 +1,5 @@
 import { Thumbnail } from "./thumbnail";
 
-export type Order = "asc" | "desc";
-
 export type Category = "comics" | "series" | "events";
 
 type CreatorItem = {
