@@ -66,7 +66,7 @@ export function ComicsList({ initialComics }: ComicsListProps) {
           />
         ) : (
           !isLoading &&
-          comics.length > 0 &&
+          comics.length >= 20 &&
           nextPage.current !== 5 && (
             <Button title="load more" onClick={handleLoadMoreButtonClick} />
           )
