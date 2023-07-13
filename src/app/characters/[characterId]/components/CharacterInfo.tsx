@@ -53,19 +53,19 @@ export function CharacterInfo({
   };
 
   return (
-    <div className="relative h-[660px] bg-black">
+    <div className="relative px-6 py-48 sm:h-[660px] bg-black">
       <motion.div
         variants={backgroundVariants}
         initial="hidden"
         animate="visible"
         style={{
           backgroundImage: `url(${image})`,
-          backgroundSize: "120%",
+          backgroundSize: "200%",
         }}
         className="bg-no-repeat bg-center absolute left-0 top-0 bottom-0 right-0 brightness-[0.1] blur-sm"
       />
 
-      <div className="container mx-auto z-20 relative h-full flex items-center gap-24">
+      <div className="container mx-auto z-20 relative h-full flex flex-col sm:flex-row items-center justify-center gap-20">
         <div className="max-w-lg">
           <motion.h2
             variants={textVariants}
@@ -89,7 +89,7 @@ export function CharacterInfo({
           variants={imageVariants}
           initial="hidden"
           animate="visible"
-          className="relative w-[380px] h-[440px] shadow-lg"
+          className="relative w-[315px] h-[440px] shadow-lg"
         >
           <Image src={`${image}`} alt={name} fill />
         </motion.div>
