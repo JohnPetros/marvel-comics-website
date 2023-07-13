@@ -9,7 +9,7 @@ interface useComicParams {
 }
 
 export function useComic({ category, id }: useComicParams) {
-  const { data: response, isLoading } = useQuery(["comic"], () =>
+  const { data: response, isLoading } = useQuery(["comic", id], () =>
     getComic({ category, id })
   );
 

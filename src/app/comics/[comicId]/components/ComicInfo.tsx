@@ -95,7 +95,7 @@ export function ComicInfo({
               {creators.items.map((creator) => (
                 <Detail title={creator.role} description={creator.name} />
               ))}
-              <Detail title="Price" description={"$" + prices[0].price} />
+              <Detail title="Price" description={"$" + prices[0].price.toFixed(2)} />
             </dl>
 
             <div className="text-base text-white mt-8">{description}</div>
