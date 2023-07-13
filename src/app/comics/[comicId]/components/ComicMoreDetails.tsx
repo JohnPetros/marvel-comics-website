@@ -56,7 +56,7 @@ export function ComicMoreDetails({ comic }: ComicInfoProps) {
         <h3 className="text-white text-2xl font-semibold uppercase">
           More details
         </h3>
-        <div className="grid grid-cols-3 mt-6">
+        <div className="grid grid-cols-2 gap-6 sm:gap-4 sm:grid-cols-3 mt-6">
           {details.map(({ key, title }) => {
             if (comic[key])
               return <Detail title={title} description={comic[key]} />;
