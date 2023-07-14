@@ -1,16 +1,20 @@
 "use client";
-import { Comic } from "@/@types/comic";
 import Image from "next/image";
+import { useComicsList } from "@/hooks/useComicList";
+
 import { Detail } from "./Detail";
+import { Category, Comic } from "@/@types/comic";
 import { formatDate } from "@/utils/formatDate";
 import { Variants, motion } from "framer-motion";
 
 interface ComicInfoProps {
   comic: Comic;
+  category: Category;
 }
 
 export function ComicInfo({
-  comic: { title, thumbnail, dates, description, creators, prices },
+  comic: { title, thumbnail, dates, startYear, description, creators, prices },
+  category,
 }: ComicInfoProps) {
   const image = `${thumbnail.path}.${thumbnail.extension}`;
 
@@ -86,16 +90,27 @@ export function ComicInfo({
         >
           <h2 className="text-white text-3xl font-bold">{title}</h2>
           <div>
-            <dl className="grid grid-cols-2 gap-8">
+            <dl className="grid grid-cols-3 gap-8">
+              <Detail title="Cateogry" description={category} />
+
               <Detail
                 title="Published"
-                description={formatDate(new Date(dates[1].date))}
+                description={
+                  category === "comics"
+                    ? formatDate(new Date(dates[0].date))
+                    : startYear
+                }
               />
 
-              {creators.items.map((creator) => (
+              {creators.items.slice(0, 4).map((creator) => (
                 <Detail title={creator.role} description={creator.name} />
               ))}
-              <Detail title="Price" description={"$" + prices[0].price.toFixed(2)} />
+              {prices && (
+                <Detail
+                  title="Price"
+                  description={"$" + prices[0].price.toFixed(2)}
+                />
+              )}
             </dl>
 
             <div className="text-base text-white mt-8">{description}</div>
