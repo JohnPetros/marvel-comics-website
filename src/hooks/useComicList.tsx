@@ -1,8 +1,15 @@
 "use client";
-import { ReactNode, createContext, useContext, useReducer } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
 import { Category } from "@/@types/comic";
 import { Order } from "@/@types/order";
+import { useSearchParams } from "next/navigation";
 
 interface ComicsListProviderProps {
   children: ReactNode;
@@ -57,6 +64,15 @@ const initialState: ComicsListState = {
 
 export function ComicsListProvider({ children }: ComicsListProviderProps) {
   const [state, dispatch] = useReducer(ComicsListReducer, initialState);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    dispatch({
+      type: "setCategory",
+      payload: (searchParams.get("category") as Category) ?? "comics",
+    });
+  }, []);
 
   return (
     <ComicsListContext.Provider
