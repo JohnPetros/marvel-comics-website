@@ -1,9 +1,9 @@
 "use client";
-import { Hero as HeroType } from "@/utils/heroes";
 import Image from "next/image";
 import { Link } from "../Link";
-import { Variants, motion } from "framer-motion";
 import { Hero } from "./Hero";
+import { Hero as HeroType } from "@/utils/heroes";
+import { Variants, motion } from "framer-motion";
 
 type HeroesCarrouselProps = {
   activeHero: HeroType;

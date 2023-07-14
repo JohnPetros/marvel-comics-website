@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Hero, heroes } from "@/utils/heroes";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 type HeroProps = {
   data: Hero;
@@ -33,7 +34,7 @@ export function Hero({ data, activeHeroIndex, changeActiveHero }: HeroProps) {
             <strong className="block uppercase text-4xl text-white">
               {data.name}
             </strong>
-            <a
+            <Link
               className="flex items-center group w-max gap-4 text-yellow-500 mt-4 relative before:absolute before:h-[2px] before:bg-yellow-500 before:mt-1 before:-bottom-1 before:rounded before:w-full before:group-hover:w-full"
               href={`characters/${data.id}`}
             >
@@ -43,7 +44,7 @@ export function Hero({ data, activeHeroIndex, changeActiveHero }: HeroProps) {
                 className="text-yellow-500 group-hover:translate-x-1 transition-transform duration-200"
                 weight="bold"
               />
-            </a>
+            </Link>
             <div className="grid grid-cols-2 gap-7 items-center mt-6">
               <div className="flex gap-3">
                 {heroes.map(({ id }) => (
