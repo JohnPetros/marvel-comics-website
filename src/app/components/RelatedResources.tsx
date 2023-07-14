@@ -48,8 +48,8 @@ export function RelatedResourcers({
   }, []);
 
   return (
-    <div className="container mx-auto mt-8">
-      <div className="space-x-6">
+    <div className="md:container mx-auto mt-8 px-6 md:px-0">
+      <div className="flex gap-6 overflow-x-auto">
         {relatedResources.current?.map((relatedResource) => (
           <Button
             key={relatedResource}
@@ -62,7 +62,7 @@ export function RelatedResourcers({
       {isLoading ? (
         <Spinner size={150} />
       ) : resourcesData?.length > 0 ? (
-        <ul className="grid grid-cols-5 gap-6 mt-20">
+        <ul className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6 mt-20">
           {resourcesData.map((data: ComicType | CharacterType) => (
             <li>
               {isComic(data) ? (
