@@ -61,8 +61,8 @@ export function RelatedResourcers({
       </div>
       {isLoading ? (
         <Spinner size={150} />
-      ) : resourcesData ? (
-        <ul className="grid grid-cols-5 gap-6 mt-12">
+      ) : resourcesData?.length > 0 ? (
+        <ul className="grid grid-cols-5 gap-6 mt-20">
           {resourcesData.map((data: ComicType | CharacterType) => (
             <li>
               {isComic(data) ? (
@@ -78,7 +78,7 @@ export function RelatedResourcers({
           ))}
         </ul>
       ) : (
-        <p className="text-center text-lg text-red-600 uppercase font-bold">
+        <p className="text-center text-lg text-red-600 uppercase font-bold mt-20">
           Sorry, no {activeResource} found
         </p>
       )}
