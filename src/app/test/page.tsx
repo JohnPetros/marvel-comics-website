@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { MouseEvent, useRef, useState } from "react";
+import { MouseEvent, TouchEvent, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
@@ -9,11 +9,17 @@ export default function NotFound() {
   const [eyeRotation, setEyeRotation] = useState(0);
   const router = useRouter();
 
-  // function handleEyeClick() {
-  //   router.back();
-  // }
+  function handleEyeClick() {
+    router.back();
+  }
 
-  function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
+  function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
+    return "ontouchstart" in document.documentElement;
+  }
+
+  function handleCursorMove(
+    event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>
+  ) {
     if (!eyeRef.current) return;
 
     const eyeXPosition =
@@ -24,8 +30,12 @@ export default function NotFound() {
       eyeRef.current.getBoundingClientRect().top +
       eyeRef.current.clientHeight / 2;
 
-    const cursorXPosition = event.clientX;
-    const cursorYPosition = event.clientY;
+    const cursorXPosition = isTouchEvent(event)
+      ? event.touches[0].clientX
+      : event.clientX;
+    const cursorYPosition = isTouchEvent(event)
+      ? event.touches[0].clientY
+      : event.clientY;
 
     const radian = Math.atan2(
       eyeXPosition - cursorXPosition,
@@ -37,7 +47,11 @@ export default function NotFound() {
   }
 
   return (
-    <div className="relative" onMouseMove={handleMouseMove}>
+    <div
+      className="relative"
+      onMouseMove={handleCursorMove}
+      onTouchMove={handleCursorMove}
+    >
       <span
         style={{ backgroundImage: 'url("images/rain.gif")' }}
         className="absolute top-0 left-0 right-0 bottom-0 z-10"
@@ -54,7 +68,7 @@ export default function NotFound() {
             ref={eyeRef}
             style={{ rotate: `${eyeRotation}deg` }}
             whileHover={{ scale: 1.05, boxShadow: "0 0 12px #f00" }}
-            // onClick={handleEyeClick}
+            onClick={handleEyeClick}
             className="relative w-[96px] h-[96px] rounded-full"
           >
             <Image src="/images/uatu-eye.png" fill alt="Uatu's eye" />
