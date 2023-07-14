@@ -2,6 +2,7 @@
 import { Category } from "@/@types/comic";
 import { ArrowLeft } from "@phosphor-icons/react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface HeaderProps {
   comicCategory: Category;
@@ -11,7 +12,13 @@ export function Header({ comicCategory }: HeaderProps) {
   return (
     <div className="bg-zinc-900">
       <div className="container mx-auto flex justify-between">
-        <button className="flex gap-2 text-sm items-center text-white py-2 px-2 hover:bg-white/30">
+        <Link
+          href={{
+            pathname: "/comics",
+            query: { category: comicCategory },
+          }}
+          className="flex gap-2 text-sm items-center text-white py-2 px-2 hover:bg-white/30"
+        >
           <ArrowLeft
             width={20}
             height={20}
@@ -19,7 +26,7 @@ export function Header({ comicCategory }: HeaderProps) {
             weight="bold"
           />
           All {comicCategory}
-        </button>
+        </Link>
 
         <div className="flex gap-6">
           <button>
