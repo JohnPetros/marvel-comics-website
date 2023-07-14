@@ -26,7 +26,7 @@ export default async function ComicDetails({
     <div>
       {comic.id && (
         <>
-          <Header comicCategory={category} />
+          <Header comicId={comic.id} comicCategory={category} />
           <ComicInfo comic={comic} category={category} />
           {category === "series" && <ComicMoreDetails comic={comic} />}
           {category !== "comics" && (
