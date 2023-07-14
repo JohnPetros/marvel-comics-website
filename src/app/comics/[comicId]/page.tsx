@@ -1,6 +1,6 @@
 import { ComicInfo } from "./components/ComicInfo";
 import { ComicMoreDetails } from "./components/ComicMoreDetails";
-import { RelatedResourcers } from "./components/RelatedResources";
+import { RelatedResourcers } from "../../components/RelatedResources";
 import { Header } from "./components/Header";
 
 import { Category } from "@/@types/comic";

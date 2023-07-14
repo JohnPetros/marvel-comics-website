@@ -1,5 +1,6 @@
 import { getCharacter } from "@/utils/getCharacter";
 import { CharacterInfo } from "./components/CharacterInfo";
+import { RelatedResourcers } from "@/app/components/RelatedResources";
 
 type Params = {
   characterId: number;
@@ -18,6 +19,10 @@ export default async function CharacterDetails({
   return (
     <>
       <CharacterInfo character={character} />
+      <RelatedResourcers
+        originalResourceId={character.id}
+        originalResource={'characters'}
+      />
     </>
   );
 }
