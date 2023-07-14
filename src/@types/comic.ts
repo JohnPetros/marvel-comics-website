@@ -24,10 +24,12 @@ type Object = {
 export interface Comic extends Object {
   id: number;
   title: string;
+  name: string;
   thumbnail: Thumbnail;
   description: string;
   dates: DateItem[];
   creators: { items: CreatorItem[] };
+  startYear: number;
   issueNumber: number;
   isbn: number;
   issn: number;
