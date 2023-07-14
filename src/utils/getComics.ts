@@ -21,7 +21,6 @@ export async function getComics({
   const orderParamValue =
     order === "desc" ? `-${orderParamKey}` : orderParamKey;
 
-
   const response = await fetchData({
     resource: category,
     limit,

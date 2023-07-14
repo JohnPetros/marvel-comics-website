@@ -45,7 +45,7 @@ export function ComicsList({ initialComics }: ComicsListProps) {
         />
       ) : !isLoading && comics.length > 0 ? (
         <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
-          {comics.map((comic: ComicType) => (
+          {comics?.map((comic: ComicType) => (
             <Comic
               data={comic}
               path={`comics/${comic.id}`}

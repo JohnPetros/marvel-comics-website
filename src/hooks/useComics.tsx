@@ -23,6 +23,7 @@ export const useComics = ({
 
   const {
     data: response,
+    error,
     isLoading,
     isFetching,
     fetchNextPage,
@@ -40,11 +41,10 @@ export const useComics = ({
     }
   );
 
-  console.log(response);
-
   const comics = useMemo(() => {
-
-    if (!response?.pages) return [];
+    if (!response?.pages || response.pages[0].code === "RequestThrottled") {
+      return [];
+    }
 
     return response.pages.reduce<Comic[]>((allComics, currentPage, index) => {
       const comics = currentPage.data.results.slice(20 * index);

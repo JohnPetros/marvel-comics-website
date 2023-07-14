@@ -1,4 +1,4 @@
 export type ApiResponse<TResource> = {
-  code: number;
+  code: number | string;
   data: { results: TResource[] };
 };
