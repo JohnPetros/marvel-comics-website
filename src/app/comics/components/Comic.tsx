@@ -1,15 +1,22 @@
 "use client";
 import Image from "next/image";
-import { Comic } from "@/@types/comic";
+import { Category, Comic } from "@/@types/comic";
 import { motion } from "framer-motion";
-import { Link } from "@/app/components/Link";
+import Link from "next/link";
 interface ComicProps {
   data: Comic;
+  path: string;
+  category: Category;
 }
 
-export function Comic({ data }: ComicProps) {
+export function Comic({ data, category, path }: ComicProps) {
   return (
-    <Link path={`comics/${data.id}`} isActive={false}>
+    <Link
+      href={{
+        pathname: path,
+        query: { category },
+      }}
+    >
       <motion.div
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
