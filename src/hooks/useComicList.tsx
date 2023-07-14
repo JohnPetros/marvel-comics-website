@@ -49,9 +49,7 @@ function ComicsListReducer(state: ComicsListState, action: ComicsListAction) {
 
 const initialState: ComicsListState = {
   amount: 0,
-  category:
-    (localStorage.getItem("marvel-website@comic_category") as Category) ??
-    "comics",
+  category: "comics",
   order: "asc",
   search: "",
   limit: 20,
