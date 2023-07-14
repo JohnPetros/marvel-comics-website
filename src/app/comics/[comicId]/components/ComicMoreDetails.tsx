@@ -1,3 +1,4 @@
+"use client";
 import { Comic } from "@/@types/comic";
 import { Detail } from "./Detail";
 import { Variants, motion } from "framer-motion";

@@ -3,18 +3,21 @@ import { useQuery } from "@tanstack/react-query";
 import { ApiResponse } from "@/@types/apiResponse";
 import { Resource } from "@/@types/resource";
 import { fetchData } from "@/utils/fetchData";
+import { Character } from "@/@types/character";
+import { Comic } from "@/@types/comic";
 
 interface RelatedResourceParams {
   originalResource: Resource;
   originalResourceId: number;
-  relatedResource: Resource | null;
+  relatedResource: Resource;
 }
 
 async function getRelatedResources({
   originalResource,
   originalResourceId,
   relatedResource,
-}: RelatedResourceParams): Promise<ApiResponse<Resource>> {
+}: RelatedResourceParams): Promise<ApiResponse<Comic | Character>> {
+  
   const response = await fetchData({
     resource: `${originalResource}/${originalResourceId}/${relatedResource}`,
   });
@@ -32,7 +35,7 @@ export function useRelatedResource({
   relatedResource,
 }: RelatedResourceParams) {
   const { data: response, isLoading } = useQuery(
-    ["naoSei", relatedResource],
+    ["relatedResource", relatedResource],
     () =>
       getRelatedResources({
         originalResource,
@@ -42,6 +45,8 @@ export function useRelatedResource({
   );
 
   const resourcesData = response?.data.results;
+
+  console.log(resourcesData);
 
   return { resourcesData, isLoading };
 }
