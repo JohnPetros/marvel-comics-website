@@ -1,9 +1,16 @@
 "use client";
-import { Button } from "@/app/components/Button";
-import { Resource } from "@/@types/resource";
 import { useEffect, useRef, useState } from "react";
 import { useRelatedResource } from "@/hooks/useRelatedResource";
+
 import { getRelatedResources } from "@/utils/getRelatedResources";
+
+import { Button } from "@/app/components/Button";
+import { Character } from "@/app/characters/components/Character";
+import { Comic } from "../../components/Comic";
+
+import { Category, Comic as ComicType } from "@/@types/comic";
+import { Character as CharacterType } from "@/@types/character";
+import { Resource } from "@/@types/resource";
 
 interface RelatedComicsProps {
   originalResourceId: number;
@@ -18,11 +25,15 @@ export function RelatedResourcers({
     getRelatedResources(originalResource)[0]
   );
   const relatedResources = useRef<Resource[]>([]);
-  const {} = useRelatedResource({
+  const { resourcesData } = useRelatedResource({
     originalResource,
     originalResourceId,
     relatedResource: activeResource,
   });
+
+  function isComic(resource: ComicType | CharacterType): resource is ComicType {
+    return "creators" in resource;
+  }
 
   useEffect(() => {
     relatedResources.current = getRelatedResources(originalResource);
@@ -41,13 +52,23 @@ export function RelatedResourcers({
           ></Button>
         ))}
       </div>
-      {/* <ul className="grid grid-cols-5">
-        {comics.map((comic: ComicType) => (
-          <li>
-            <Comic data={comic} />
-          </li>
-        ))}
-      </ul> */}
+      {resourcesData && (
+        <ul className="grid grid-cols-5 gap-6 mt-12">
+          {resourcesData.map((data: ComicType | CharacterType) => (
+            <li>
+              {isComic(data) ? (
+                <Comic
+                  data={data}
+                  path={String(data.id)}
+                  category={activeResource as Category}
+                />
+              ) : (
+                <Character data={data} />
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
