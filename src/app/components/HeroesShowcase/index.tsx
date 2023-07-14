@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Hero, heroes } from "@/utils/heroes";
-import HeroesButtons from "./HeroesButtons";
 import { HeroesCarousel } from "./HeroesCarousel";
 import { HeroButton } from "./HeroButton";
 
@@ -53,10 +52,6 @@ export function HeroesShowcase() {
           ))}
         </div>
       </div>
-      {/* <HeroesButtons
-        activeHero={activeHero}
-        changeActiveHero={changeActiveHero}
-      /> */}
     </section>
   );
 }
