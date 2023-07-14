@@ -1,20 +1,14 @@
 "use client";
+import { useState } from "react";
+
 import Image from "next/image";
 import { Detail } from "./Detail";
+
 import { Category, Comic } from "@/@types/comic";
+import { Creator } from "@/@types/comic";
+
 import { formatDate } from "@/utils/formatDate";
 import { Variants, motion } from "framer-motion";
-import { Creator } from "@/@types/comic";
-import { useEffect, useState } from "react";
-
-const creatorRoles = [
-  "colorist",
-  "letterer",
-  "artist",
-  "penciller",
-  "writer",
-  "inker",
-];
 
 interface ComicInfoProps {
   comic: Comic;
@@ -82,19 +76,6 @@ export function ComicInfo({
     },
   };
 
-  function getMainCreators(creator: Creator) {
-    const roleIndex = creatorRoles.findIndex((role) => role === creator.role);
-    if (roleIndex !== -1) {
-      creatorRoles.splice(roleIndex, 1);
-      return creator;
-    }
-  }
-
-  useEffect(() => {
-    const mainCreators = creators.items.filter(getMainCreators);
-    setCreators(mainCreators);
-  }, []);
-
   return (
     <div className="w-full py-12 relative bg-black">
       <motion.div
@@ -139,9 +120,10 @@ export function ComicInfo({
                 }
               />
 
-              {mainCreators.slice(0, 3).map((creator: Creator) => (
+              {creators.items.slice(0, 7).map((creator: Creator) => (
                 <Detail title={creator.role} description={creator.name} />
               ))}
+
               {prices && (
                 <Detail
                   title="Price"
