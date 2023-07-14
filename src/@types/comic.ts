@@ -2,7 +2,7 @@ import { Thumbnail } from "./thumbnail";
 
 export type Category = "comics" | "series" | "events";
 
-type CreatorItem = {
+export type Creator = {
   name: string;
   role: string;
 };
@@ -12,7 +12,7 @@ type DateItem = {
   date: string;
 };
 
-type PriceItem = {
+type Price = {
   type: string;
   price: number;
 };
@@ -28,13 +28,14 @@ export interface Comic extends Object {
   thumbnail: Thumbnail;
   description: string;
   dates: DateItem[];
-  creators: { items: CreatorItem[] };
+  creators: { items: Creator[] };
   startYear: number;
+  start: string;
   issueNumber: number;
   isbn: number;
   issn: number;
   upc: number;
   pageCount: number;
   format: string;
-  prices: PriceItem[];
+  prices: Price[];
 }

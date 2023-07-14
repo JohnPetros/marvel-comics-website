@@ -4,6 +4,17 @@ import { Detail } from "./Detail";
 import { Category, Comic } from "@/@types/comic";
 import { formatDate } from "@/utils/formatDate";
 import { Variants, motion } from "framer-motion";
+import { Creator } from "@/@types/comic";
+import { useEffect, useState } from "react";
+
+const creatorRoles = [
+  "colorist",
+  "letterer",
+  "artist",
+  "penciller",
+  "writer",
+  "inker",
+];
 
 interface ComicInfoProps {
   comic: Comic;
@@ -11,10 +22,20 @@ interface ComicInfoProps {
 }
 
 export function ComicInfo({
-  comic: { title, thumbnail, dates, startYear, description, creators, prices },
+  comic: {
+    title,
+    thumbnail,
+    dates,
+    startYear,
+    start,
+    description,
+    creators,
+    prices,
+  },
   category,
 }: ComicInfoProps) {
   const image = `${thumbnail.path}.${thumbnail.extension}`;
+  const [mainCreators, setCreators] = useState<Creator[]>([]);
 
   const backgroundVariants: Variants = {
     hidden: {
@@ -24,6 +45,7 @@ export function ComicInfo({
       opacity: 1,
       transition: {
         duration: 0.4,
+        delay: 0.5,
       },
     },
   };
@@ -59,6 +81,20 @@ export function ComicInfo({
       },
     },
   };
+
+  function getMainCreators(creator: Creator) {
+    const roleIndex = creatorRoles.findIndex((role) => role === creator.role);
+    if (roleIndex !== -1) {
+      creatorRoles.splice(roleIndex, 1);
+      return creator;
+    }
+  }
+
+  useEffect(() => {
+    const mainCreators = creators.items.filter(getMainCreators);
+    setCreators(mainCreators);
+  }, []);
+
   return (
     <div className="w-full py-12 relative bg-black">
       <motion.div
@@ -67,7 +103,7 @@ export function ComicInfo({
         animate="visible"
         style={{
           backgroundImage: `url(${image})`,
-          backgroundSize: "120%",
+          backgroundSize: "100%",
         }}
         className=" bg-no-repeat bg-center absolute left-0 top-0 bottom-0 right-0 brightness-[0.2] blur-sm"
       />
@@ -97,11 +133,13 @@ export function ComicInfo({
                 description={
                   category === "comics"
                     ? formatDate(new Date(dates[0].date))
-                    : startYear
+                    : category === "series"
+                    ? startYear
+                    : formatDate(new Date(start))
                 }
               />
 
-              {creators.items.slice(0, 3).map((creator) => (
+              {mainCreators.slice(0, 3).map((creator: Creator) => (
                 <Detail title={creator.role} description={creator.name} />
               ))}
               {prices && (

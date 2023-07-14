@@ -6,13 +6,10 @@ import { getComics } from "@/utils/getComics";
 export default async function Comics() {
   const response = await getComics({ category: "comics", limit: 20 });
 
-  const { results } = response.data;
-  const comics = results.filter(checkImageAvailability);
-
   return (
     <div className="container mx-auto mt-12 space-y-12">
       <Header />
-      <ComicsList initialComics={comics} />
+      <ComicsList initialData={response} />
     </div>
   );
 }
