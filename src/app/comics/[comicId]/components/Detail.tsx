@@ -20,7 +20,7 @@ export function Detail({ title, description }: DetailProps) {
   return (
     <motion.div variants={detailVariants}>
       <dt className="text-white text-xl capitalize font-bold">{title}</dt>
-      <dd className="text-white text-md">{description}</dd>
+      <dd className="text-white text-md capitalize">{description}</dd>
     </motion.div>
   );
 }
