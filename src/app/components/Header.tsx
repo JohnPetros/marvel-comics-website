@@ -1,10 +1,9 @@
 "use client";
 import { usePathname } from "next/navigation";
-
 import Image from "next/image";
+import { Link } from "./Link";
 
 import Logo from "../../../public/images/logo.svg";
-import { Link } from "./Link";
 
 const links = [
   {
@@ -32,7 +31,14 @@ export function Header() {
             <ul className="flex gap-6">
               {links.map(({ path, name }) => (
                 <li className="p-2 lg:p-0" key={path}>
-                  <Link path={path} isActive={pathname.includes(name)}>
+                  <Link
+                    path={path}
+                    isActive={
+                      name === "home"
+                        ? pathname === path
+                        : pathname.includes(name)
+                    }
+                  >
                     {name}
                   </Link>
                 </li>
