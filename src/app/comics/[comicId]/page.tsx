@@ -1,21 +1,13 @@
-"use client";
+import { useParams } from "next/navigation";
 import { ComicInfo } from "./components/ComicInfo";
 import { ComicMoreDetails } from "./components/ComicMoreDetails";
 import { RelatedResourcers } from "./components/RelatedResources";
 import { Category } from "@/@types/comic";
 import { getComic } from "@/utils/getComic";
 
-type Params = {
-  comicId: number;
-};
-
-type SearchParams = {
-  category: Category;
-};
-
 interface ComicDetailsProps {
-  params: Params;
-  searchParams: SearchParams;
+  searchParams: { category: Category };
+  params: { comicId: number };
 }
 
 export default async function ComicDetails({

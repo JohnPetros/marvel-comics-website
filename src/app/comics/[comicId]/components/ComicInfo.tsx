@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useComicsList } from "@/hooks/useComicList";
-
 import { Detail } from "./Detail";
 import { Category, Comic } from "@/@types/comic";
 import { formatDate } from "@/utils/formatDate";
@@ -42,6 +40,7 @@ export function ComicInfo({
         type: "spring",
         stiffness: 50,
         duration: 0.4,
+        delay: 1,
       },
     },
   };
@@ -70,7 +69,7 @@ export function ComicInfo({
           backgroundImage: `url(${image})`,
           backgroundSize: "120%",
         }}
-        className=" bg-no-repeat bg-center absolute left-0 top-0 bottom-0 right-0 brightness-[0.1] blur-sm"
+        className=" bg-no-repeat bg-center absolute left-0 top-0 bottom-0 right-0 brightness-[0.2] blur-sm"
       />
 
       <div className="container mx-auto px-6 xsm:px-0 grid grid-cols-1 md:grid-cols-[minmax(250px,350px)_minmax(350px,550px)] gap-16 relative z-50">
@@ -102,7 +101,7 @@ export function ComicInfo({
                 }
               />
 
-              {creators.items.slice(0, 4).map((creator) => (
+              {creators.items.slice(0, 3).map((creator) => (
                 <Detail title={creator.role} description={creator.name} />
               ))}
               {prices && (
