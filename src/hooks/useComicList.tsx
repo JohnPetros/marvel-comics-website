@@ -1,10 +1,5 @@
 "use client";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useReducer,
-} from "react";
+import { ReactNode, createContext, useContext, useEffect, useReducer } from "react";
 
 import { Category } from "@/@types/comic";
 import { Order } from "@/@types/order";
@@ -40,6 +35,7 @@ function ComicsListReducer(state: ComicsListState, action: ComicsListAction) {
     case "setAmount":
       return { ...state, amount: action.payload };
     case "setCategory":
+      localStorage.setItem("marvel-website@comic_category", action.payload);
       return { ...state, category: action.payload };
     case "setOrder":
       return { ...state, order: action.payload };
@@ -54,7 +50,9 @@ function ComicsListReducer(state: ComicsListState, action: ComicsListAction) {
 
 const initialState: ComicsListState = {
   amount: 0,
-  category: "comics",
+  category:
+    (localStorage.getItem("marvel-website@comic_category") as Category) ??
+    "comics",
   order: "asc",
   search: "",
   limit: 20,
@@ -62,6 +60,10 @@ const initialState: ComicsListState = {
 
 export function ComicsListProvider({ children }: ComicsListProviderProps) {
   const [state, dispatch] = useReducer(ComicsListReducer, initialState);
+
+  useEffect(() => {
+    dispatch({ type: "setCategory", payload: state.category });
+  }, []);
 
   return (
     <ComicsListContext.Provider

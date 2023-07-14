@@ -1,9 +1,9 @@
 "use client";
 import { useComic } from "@/hooks/useComic";
-import { useComicsList } from "@/hooks/useComicList";
 import { ComicInfo } from "./components/ComicInfo";
 import { ComicMoreDetails } from "./components/ComicMoreDetails";
 import { RelatedResourcers } from "./components/RelatedResources";
+import { Category } from "@/@types/comic";
 
 type Params = {
   comicId: number;
@@ -14,19 +14,23 @@ interface ComicDetailsProps {
 }
 
 export default function ComicDetails({ params }: ComicDetailsProps) {
-  const { state } = useComicsList();
-  const { comic } = useComic({ category: state.category, id: params.comicId });
+  const category = localStorage.getItem(
+    "marvel-website@comic_category"
+  ) as Category;
+  const { comic } = useComic({ category, id: params.comicId });
 
   return (
     <div>
       {comic && (
         <>
-          <ComicInfo comic={comic} />
+          <ComicInfo comic={comic} category={category} />
           <ComicMoreDetails comic={comic} />
-          <RelatedResourcers
-            originalResourceId={comic.id}
-            originalResource={state.category}
-          />
+          {category !== "comics" && (
+            <RelatedResourcers
+              originalResourceId={comic.id}
+              originalResource={category}
+            />
+          )}
         </>
       )}
     </div>
