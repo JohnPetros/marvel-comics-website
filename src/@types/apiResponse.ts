@@ -1,4 +1,4 @@
-export type ApiResponse<T> = {
+export type ApiResponse<TResource> = {
   code: number;
-  data: { results: T[] };
+  data: { results: TResource[] };
 };
