@@ -1,8 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
+import { MouseEventHandler } from "react";
 interface ButtonProps {
   title: string;
-  onClick: VoidFunction;
+  onClick: MouseEventHandler;
   isActive?: boolean;
 }
 
