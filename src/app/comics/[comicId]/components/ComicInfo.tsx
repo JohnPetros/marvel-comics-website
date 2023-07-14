@@ -1,7 +1,6 @@
 "use client";
-import { useState } from "react";
-
 import Image from "next/image";
+
 import { Detail } from "./Detail";
 
 import { Category, Comic } from "@/@types/comic";
@@ -29,7 +28,6 @@ export function ComicInfo({
   category,
 }: ComicInfoProps) {
   const image = `${thumbnail.path}.${thumbnail.extension}`;
-  const [mainCreators, setCreators] = useState<Creator[]>([]);
 
   const backgroundVariants: Variants = {
     hidden: {
@@ -39,7 +37,7 @@ export function ComicInfo({
       opacity: 1,
       transition: {
         duration: 0.4,
-        delay: 0.5,
+        delay: 1,
       },
     },
   };

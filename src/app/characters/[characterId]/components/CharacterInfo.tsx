@@ -21,6 +21,7 @@ export function CharacterInfo({
       opacity: 1,
       transition: {
         duration: 0.2,
+        delay: 1,
       },
     },
   };
@@ -76,7 +77,7 @@ export function CharacterInfo({
         animate="visible"
         style={{
           backgroundImage: `url(${image})`,
-          backgroundSize: "200%",
+          backgroundSize: "150%",
         }}
         className="bg-no-repeat bg-center absolute left-0 top-0 bottom-0 right-0 brightness-[0.1] blur-sm"
       />
