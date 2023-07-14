@@ -6,7 +6,7 @@ import { getRelatedResources } from "@/utils/getRelatedResources";
 
 import { Button } from "@/app/components/Button";
 import { Character } from "@/app/characters/components/Character";
-import { Comic } from "../../components/Comic";
+import { Comic } from "../comics/components/Comic";
 
 import { Category, Comic as ComicType } from "@/@types/comic";
 import { Character as CharacterType } from "@/@types/character";
