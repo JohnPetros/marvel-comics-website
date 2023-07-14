@@ -11,6 +11,7 @@ import { Comic } from "../../components/Comic";
 import { Category, Comic as ComicType } from "@/@types/comic";
 import { Character as CharacterType } from "@/@types/character";
 import { Resource } from "@/@types/resource";
+import { Spinner } from "@/app/components/Spinner";
 
 interface RelatedComicsProps {
   originalResourceId: number;
@@ -24,8 +25,10 @@ export function RelatedResourcers({
   const [activeResource, setActiveResource] = useState<Resource>(
     getRelatedResources(originalResource)[0]
   );
+
   const relatedResources = useRef<Resource[]>([]);
-  const { resourcesData } = useRelatedResource({
+
+  const { resourcesData, isLoading } = useRelatedResource({
     originalResource,
     originalResourceId,
     relatedResource: activeResource,
@@ -33,6 +36,10 @@ export function RelatedResourcers({
 
   function isComic(resource: ComicType | CharacterType): resource is ComicType {
     return "creators" in resource;
+  }
+
+  function handleRelatedResourceButtonClick(relatedResource: Resource) {
+    setActiveResource(relatedResource);
   }
 
   useEffect(() => {
@@ -43,16 +50,18 @@ export function RelatedResourcers({
   return (
     <div className="container mx-auto mt-8">
       <div className="space-x-6">
-        {relatedResources.current?.map((resource) => (
+        {relatedResources.current?.map((relatedResource) => (
           <Button
-            key={resource}
-            title={`Related ${resource}`}
-            onClick={() => {}}
-            isActive={resource === activeResource}
+            key={relatedResource}
+            title={`Related ${relatedResource}`}
+            onClick={() => handleRelatedResourceButtonClick(relatedResource)}
+            isActive={relatedResource === activeResource}
           ></Button>
         ))}
       </div>
-      {resourcesData && (
+      {isLoading ? (
+        <Spinner size={150} />
+      ) : resourcesData ? (
         <ul className="grid grid-cols-5 gap-6 mt-12">
           {resourcesData.map((data: ComicType | CharacterType) => (
             <li>
@@ -63,11 +72,15 @@ export function RelatedResourcers({
                   category={activeResource as Category}
                 />
               ) : (
-                <Character data={data} />
+                <Character data={data} path={`characters/${data.id}`} />
               )}
             </li>
           ))}
         </ul>
+      ) : (
+        <p className="text-center text-lg text-red-600 uppercase font-bold">
+          Sorry, no {activeResource} found
+        </p>
       )}
     </div>
   );

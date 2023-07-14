@@ -1,15 +1,20 @@
 import { Character } from "@/@types/character";
-import { Link } from "@/app/components/Link";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 interface CharacterProps {
   data: Character;
+  path: string;
 }
 
-export function Character({ data }: CharacterProps) {
+export function Character({ data, path }: CharacterProps) {
   return (
-    <Link path={`characters/${data.id}`} isActive={false}>
+    <Link
+      href={{
+        pathname: `/${path}`,
+      }}
+    >
       <motion.div
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -20,7 +25,7 @@ export function Character({ data }: CharacterProps) {
           height: "auto",
         }}
       >
-        <div className="relative w-56 h-48  border-b-8 border-red-600 overflow-hidden">
+        <div className="relative w-56 h-56  border-b-8 border-red-600 overflow-hidden">
           <div className="absolute top-0 left-0 bottom-0 right-0 group-hover:scale-110 transition-all duration-500">
             <Image
               src={`${data.thumbnail.path}.${data.thumbnail.extension}`}

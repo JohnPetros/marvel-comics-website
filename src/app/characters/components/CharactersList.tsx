@@ -4,12 +4,10 @@ import { useCharactersList } from "@/hooks/useCharactersList";
 import { useCharacters } from "@/hooks/useCharacters";
 
 import { Button } from "@/app/components/Button";
+import { Spinner } from "@/app/components/Spinner";
 import { Character } from "./Character";
 
 import { Character as CharacterType } from "@/@types/character";
-
-import { Player as Animation } from "@lottiefiles/react-lottie-player";
-import Spiner from "../../../../public/animations/spinner.json";
 
 interface CharactersListProps {
   initialCharacters: CharacterType[];
@@ -39,17 +37,11 @@ export function CharactersList({ initialCharacters }: CharactersListProps) {
   return (
     <div className="flex flex-col gap-8">
       {isLoading ? (
-        <Animation
-          autoplay={true}
-          loop={true}
-          controls={true}
-          src={Spiner}
-          style={{ height: "220px", width: "220px" }}
-        />
+        <Spinner size={220} />
       ) : !isLoading && characters.length > 0 ? (
         <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
-          {characters.map((comic: CharacterType) => (
-            <Character data={comic} />
+          {characters.map((character: CharacterType) => (
+            <Character data={character} path={`characters/${character.id}`} />
           ))}
         </div>
       ) : (
@@ -60,13 +52,7 @@ export function CharactersList({ initialCharacters }: CharactersListProps) {
 
       <div className="w-max mx-auto mt-6">
         {!isLoading && isFetching ? (
-          <Animation
-            autoplay={true}
-            loop={true}
-            controls={true}
-            src={Spiner}
-            style={{ height: "120px", width: "120px" }}
-          />
+          <Spinner size={120} />
         ) : (
           !isLoading &&
           characters.length >= 20 &&

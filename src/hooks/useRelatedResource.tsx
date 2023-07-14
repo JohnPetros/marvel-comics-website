@@ -5,6 +5,7 @@ import { Resource } from "@/@types/resource";
 import { fetchData } from "@/utils/fetchData";
 import { Character } from "@/@types/character";
 import { Comic } from "@/@types/comic";
+import { useRef } from "react";
 
 interface RelatedResourceParams {
   originalResource: Resource;
@@ -17,7 +18,6 @@ async function getRelatedResources({
   originalResourceId,
   relatedResource,
 }: RelatedResourceParams): Promise<ApiResponse<Comic | Character>> {
-  
   const response = await fetchData({
     resource: `${originalResource}/${originalResourceId}/${relatedResource}`,
   });
@@ -34,6 +34,8 @@ export function useRelatedResource({
   originalResourceId,
   relatedResource,
 }: RelatedResourceParams) {
+  const nextPage = useRef(1);
+
   const { data: response, isLoading } = useQuery(
     ["relatedResource", relatedResource],
     () =>
@@ -45,8 +47,6 @@ export function useRelatedResource({
   );
 
   const resourcesData = response?.data.results;
-
-  console.log(resourcesData);
 
   return { resourcesData, isLoading };
 }
