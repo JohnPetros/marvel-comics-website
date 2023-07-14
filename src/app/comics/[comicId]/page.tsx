@@ -1,7 +1,8 @@
-import { useParams } from "next/navigation";
 import { ComicInfo } from "./components/ComicInfo";
 import { ComicMoreDetails } from "./components/ComicMoreDetails";
 import { RelatedResourcers } from "./components/RelatedResources";
+import { Header } from "./components/Header";
+
 import { Category } from "@/@types/comic";
 import { getComic } from "@/utils/getComic";
 
@@ -25,8 +26,9 @@ export default async function ComicDetails({
     <div>
       {comic.id && (
         <>
+          <Header comicCategory={category} />
           <ComicInfo comic={comic} category={category} />
-          {category !== "series" && <ComicMoreDetails comic={comic} />}
+          {category === "series" && <ComicMoreDetails comic={comic} />}
           {category !== "comics" && (
             <RelatedResourcers
               originalResourceId={comic.id}
