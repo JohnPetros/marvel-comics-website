@@ -1,12 +1,14 @@
 "use client";
-import { Comic } from "./Comic";
-import { Comic as ComicType } from "@/@types/comic";
-import { Button } from "@/app/components/Button";
-import { useComicsList } from "@/hooks/useComicList";
-import { useComics } from "@/hooks/useComics";
 import { useEffect } from "react";
-import { Player as Animation } from "@lottiefiles/react-lottie-player";
-import Spiner from "../../../../public/animations/spinner.json";
+import { useComics } from "@/hooks/useComics";
+import { useComicsList } from "@/hooks/useComicList";
+
+import { Comic } from "./Comic";
+import { Button } from "@/app/components/Button";
+import { Spinner } from "@/app/components/Spinner";
+
+import { Comic as ComicType } from "@/@types/comic";
+
 
 export function ComicsList() {
   const {
@@ -32,13 +34,7 @@ export function ComicsList() {
   return (
     <div className="flex flex-col gap-8">
       {isLoading ? (
-        <Animation
-          autoplay={true}
-          loop={true}
-          controls={true}
-          src={Spiner}
-          style={{ height: "220px", width: "220px" }}
-        />
+        <Spinner size={220} />
       ) : !isLoading && comics.length > 0 ? (
         <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
           {comics?.map((comic: ComicType) => (
@@ -57,13 +53,7 @@ export function ComicsList() {
 
       <div className="w-max mx-auto mt-6">
         {!isLoading && isFetching ? (
-          <Animation
-            autoplay={true}
-            loop={true}
-            controls={true}
-            src={Spiner}
-            style={{ height: "120px", width: "120px" }}
-          />
+          <Spinner size={120} />
         ) : (
           !isLoading &&
           comics.length >= 20 &&
