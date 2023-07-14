@@ -5,7 +5,7 @@ import { socialLinks } from "@/utils/socialLinks";
 
 export function Footer() {
   return (
-    <footer className="bg-black">
+    <footer className="bg-black mt-32">
       <div className="w-11/12 max-w-[1200px] h-auto mx-auto py-12 md:grid md:grid-cols-[max-content_max-content] gap-y-16 flex flex-col lg:flex-row items-center md:justify-between md:items-start">
         <Image
           src="/images/logo.svg"
@@ -29,12 +29,9 @@ export function Footer() {
           <ul className="space-y-2">
             {links.slice(4).map(({ id, name, path }) => (
               <li key={String(id)}>
-                <Link
-                  name={name}
-                  path={path}
-                  isActive={false}
-                  isExternal={true}
-                />
+                <Link path={path} isActive={false} isExternal={true}>
+                  {name}
+                </Link>
               </li>
             ))}
           </ul>
