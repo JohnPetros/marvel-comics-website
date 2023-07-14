@@ -8,11 +8,7 @@ import { useEffect } from "react";
 import { Player as Animation } from "@lottiefiles/react-lottie-player";
 import Spiner from "../../../../public/animations/spinner.json";
 
-interface ComicsListProps {
-  initialComics: ComicType[];
-}
-
-export function ComicsList({ initialComics }: ComicsListProps) {
+export function ComicsList() {
   const {
     state: { category, order, search, limit },
     dispatch,

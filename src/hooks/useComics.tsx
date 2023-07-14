@@ -5,14 +5,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Category, Comic } from "@/@types/comic";
 import { Order } from "@/@types/order";
 import { getComics } from "@/utils/getComics";
-import { ApiResponse } from "@/@types/apiResponse";
 
 interface useComicsParams {
   category: Category;
   order: Order;
   search: string;
   limit: number;
-  initialResponse: ApiResponse<Comic>;
 }
 
 export const useComics = ({
@@ -20,9 +18,8 @@ export const useComics = ({
   order,
   search,
   limit,
-  initialResponse,
 }: useComicsParams) => {
-  const nextPage = useRef(initialResponse ? 2 : 1);
+  const nextPage = useRef(1);
 
   const {
     data: response,
