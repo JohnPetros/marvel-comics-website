@@ -2,13 +2,14 @@
 import { Character } from "@/@types/character";
 import Image from "next/image";
 import { Variants, motion } from "framer-motion";
+import { ComicCount } from "./ComicCount";
 
 interface CharacterInfoProps {
   character: Character;
 }
 
 export function CharacterInfo({
-  character: { name, description, thumbnail },
+  character: { name, description, thumbnail, comics, series, events },
 }: CharacterInfoProps) {
   const image = `${thumbnail.path}.${thumbnail.extension}`;
 
@@ -32,6 +33,21 @@ export function CharacterInfo({
     visible: {
       opacity: 1,
       y: 0,
+    },
+  };
+
+  const comicCountsVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 64,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delayChildren: 1.5,
+        staggerChildren: 0.4,
+      },
     },
   };
 
@@ -66,7 +82,7 @@ export function CharacterInfo({
       />
 
       <div className="container mx-auto z-20 relative h-full flex flex-col sm:flex-row items-center justify-center gap-20">
-        <div className="max-w-lg">
+        <div className="flex flex-col max-w-lg">
           <motion.h2
             variants={textVariants}
             initial="hidden"
@@ -84,12 +100,29 @@ export function CharacterInfo({
           >
             {description}
           </motion.p>
+
+          <motion.ul
+            variants={comicCountsVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex mx-auto gap-8 self-center mt-8"
+          >
+            <li>
+              <ComicCount count={comics.available} category="comics" />
+            </li>
+            <li>
+              <ComicCount count={series.available} category="series" />
+            </li>
+            <li>
+              <ComicCount count={events.available} category="events" />
+            </li>
+          </motion.ul>
         </div>
         <motion.div
           variants={imageVariants}
           initial="hidden"
           animate="visible"
-          className="relative w-[315px] h-[440px] shadow-lg"
+          className="relative w-[300px] h-[440px] shadow-lg"
         >
           <Image src={`${image}`} alt={name} fill />
         </motion.div>
