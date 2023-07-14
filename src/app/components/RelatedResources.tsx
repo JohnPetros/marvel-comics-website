@@ -62,7 +62,7 @@ export function RelatedResourcers({
       {isLoading ? (
         <Spinner size={150} />
       ) : resourcesData?.length > 0 ? (
-        <ul className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6 mt-20">
+        <ul className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6 mt-12">
           {resourcesData.map((data: ComicType | CharacterType) => (
             <li>
               {isComic(data) ? (
