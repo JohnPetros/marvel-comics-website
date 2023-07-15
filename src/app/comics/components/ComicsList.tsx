@@ -31,16 +31,12 @@ export function ComicsList() {
 
   const currentCategory = getCurrentCategory();
 
-  const { comics, isLoading, isFetching, nextPage, fetchNextPage } = useComics({
-    category: currentCategory,
-    order,
-    search,
-  });
-
-  function handleLoadMoreButtonClick() {
-    nextPage.current = nextPage.current + 1;
-    fetchNextPage();
-  }
+  const { comics, isLoading, isFetching, hasNextPage, fetchNextPage } =
+    useComics({
+      category: currentCategory,
+      order,
+      search,
+    });
 
   useEffect(() => {
     dispatch({
@@ -84,8 +80,8 @@ export function ComicsList() {
         ) : (
           !isLoading &&
           comics.length >= 20 &&
-          nextPage.current !== 5 && (
-            <Button title="load more" onClick={handleLoadMoreButtonClick} />
+          hasNextPage && (
+            <Button title="load more" onClick={() => fetchNextPage} />
           )
         )}
       </div>

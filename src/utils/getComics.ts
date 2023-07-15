@@ -8,7 +8,8 @@ interface getComicsParams {
   category: Category;
   order?: Order;
   search?: string;
-  limit: number;
+  limit?: number;
+  offset?: number;
 }
 
 export async function getComics({
@@ -16,6 +17,7 @@ export async function getComics({
   search,
   limit = 20,
   order = "asc",
+  offset = 0,
 }: getComicsParams): Promise<ApiResponse<Comic>> {
   const orderParamKey = category === "events" ? "name" : "title";
   const orderParamValue =
@@ -24,6 +26,7 @@ export async function getComics({
   const response = await fetchData({
     resource: category,
     limit,
+    offset,
     orderParams: [orderParamValue],
     search: search ? `${orderParamKey}StartsWith=${search}` : "",
   });

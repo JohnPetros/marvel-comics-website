@@ -13,49 +13,45 @@ interface useComicsParams {
   search: string;
 }
 
-export const useComics = ({
-  category,
-  order,
-  search,
-}: useComicsParams) => {
-  const nextPage = useRef(1);
-
+export const useComics = ({ category, order, search }: useComicsParams) => {
   const {
     data: response,
     error,
     isLoading,
     isFetching,
     fetchNextPage,
+    hasNextPage,
   } = useInfiniteQuery(
-    [
-      "comics",
-      category,
-      order,
-      search,
-    ],
-    ({ pageParam = nextPage.current }) => {
-      return getComics({ category, order, search, limit: pageParam * 20 });
+    ["comics", category, order, search],
+    ({ pageParam = 0 }) => {
+      return getComics({
+        category,
+        order,
+        search,
+        limit: 20,
+        offset: pageParam * 20,
+      });
     },
     {
-      getNextPageParam: () => {
-        return (nextPage.current - 1) * 20 !== 100
-          ? nextPage.current
-          : undefined;
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.data.results.length ? allPages.length + 1 : undefined;
       },
     }
   );
+
+  console.log(response);
 
   const comics = useMemo(() => {
     if (!response?.pages || response.pages[0].code === "RequestThrottled") {
       return [];
     }
 
-    return response.pages.reduce<Comic[]>((allComics, currentPage, index) => {
-      const comics = currentPage.data.results.slice(20 * index);
+    return response.pages.reduce<Comic[]>((allComics, currentPage) => {
+      const comics = currentPage.data.results;
 
       return [...allComics, ...comics];
     }, []);
   }, [isFetching]);
 
-  return { comics, isLoading, isFetching, nextPage, fetchNextPage };
+  return { comics, isLoading, isFetching, fetchNextPage, hasNextPage };
 };
