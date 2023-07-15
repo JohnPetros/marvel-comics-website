@@ -10,6 +10,9 @@ export async function EventsShowcase() {
     search: "age of ultron",
     limit: 1,
   });
+  
+  console.log(response1);
+  
   const event1 = response1.data.results[0];
 
   const response2 = await getComics({

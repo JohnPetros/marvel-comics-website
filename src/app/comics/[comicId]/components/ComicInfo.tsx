@@ -122,7 +122,7 @@ export function ComicInfo({
                 <Detail title={creator.role} description={creator.name} />
               ))}
 
-              {prices[0].price && (
+              {prices && prices[0].price && (
                 <Detail
                   title="Price"
                   description={"$" + prices[0].price.toFixed(2)}

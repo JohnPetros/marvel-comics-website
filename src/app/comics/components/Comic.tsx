@@ -27,7 +27,7 @@ export function Comic({ data, category, path }: ComicProps) {
           height: "auto",
         }}
       >
-        <div className="relative w-full h-96 shadow-xl group-hover:-translate-y-4 transition-transform duration-200">
+        <div className="relative w-[236px] h-96 shadow-xl group-hover:-translate-y-4 transition-transform duration-200">
           <Image
             src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
             alt={data.title}

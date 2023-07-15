@@ -60,7 +60,7 @@ export function ComicsList() {
         <Spinner size={220} />
       ) : !isLoading && comics.length > 0 ? (
         <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
-          {comics?.map((comic: ComicType) => (
+          {comics.map((comic: ComicType) => (
             <Comic
               data={comic}
               path={`comics/${comic.id}`}
@@ -81,7 +81,7 @@ export function ComicsList() {
           !isLoading &&
           comics.length >= 20 &&
           hasNextPage && (
-            <Button title="load more" onClick={() => fetchNextPage} />
+            <Button title="load more" onClick={() => fetchNextPage()} />
           )
         )}
       </div>
