@@ -4,6 +4,7 @@ import { Comic } from "@/@types/comic";
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import Link from "next/link";
 const endIndex = innerWidth > 640 ? 4 : innerWidth > 440 ? 3 : 2;
 
 type ComicsCarrouselProps = {
@@ -85,7 +86,7 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
       <div className="flex">
         <AnimatePresence initial={false} mode="popLayout" custom={direction}>
           {visibleComics.map(({ id, title, thumbnail }, index) => (
-            <motion.a
+            <motion.div
               key={id}
               layout
               variants={comicVariants}
@@ -95,15 +96,21 @@ export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
               exit="exit"
               whileHover="hover"
               transition={{ type: "tween" }}
-              href={`/comics/${id}`}
               className={`relative block w-96 h-96 sm:w-72 sm:h-72`}
             >
-              <Image
-                src={`${thumbnail.path}.${thumbnail.extension}`}
-                alt={title}
-                fill
-              />
-            </motion.a>
+              <Link
+                href={{
+                  pathname: `/comics/${id}`,
+                  query: { category: "comics" },
+                }}
+              >
+                <Image
+                  src={`${thumbnail.path}.${thumbnail.extension}`}
+                  alt={title}
+                  fill
+                />
+              </Link>
+            </motion.div>
           ))}
         </AnimatePresence>
       </div>
