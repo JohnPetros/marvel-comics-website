@@ -39,6 +39,6 @@ export async function fetchData({
       orderParams.length > 0
         ? "&" + orderParams.map(formatOrderParams).join("&")
         : ""
-    }${search ? `&search=${search}` : ""}${offset ? `&offset=${offset}` : ""}`
+    }${search ? `&${search}` : ""}${offset ? `&offset=${offset}` : ""}`
   );
 }
