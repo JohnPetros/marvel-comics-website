@@ -12,17 +12,29 @@ import { useSearchParams } from "next/navigation";
 
 export function ComicsList() {
   const {
-    state: { category, order, search, limit },
+    state: { category, order, search },
     dispatch,
   } = useComicsList();
-
   const searchParams = useSearchParams();
 
+  function getCurrentCategory(): Category {
+    const searchCategory = searchParams.get("category") as Category;
+
+    if (category) {
+      return category;
+    } else if (searchCategory) {
+      return searchCategory;
+    } else {
+      return "comics";
+    }
+  }
+
+  const currentCategory = getCurrentCategory();
+
   const { comics, isLoading, isFetching, nextPage, fetchNextPage } = useComics({
-    category: category ?? (searchParams.get("category") as Category),
+    category: currentCategory,
     order,
     search,
-    limit,
   });
 
   function handleLoadMoreButtonClick() {
@@ -33,8 +45,13 @@ export function ComicsList() {
   useEffect(() => {
     dispatch({
       type: "setCategory",
-      payload: (searchParams.get("category") as Category) ?? category,
+      payload: currentCategory,
     });
+
+    return () =>
+      dispatch({
+        type: "resetState",
+      });
   }, []);
 
   useEffect(() => {

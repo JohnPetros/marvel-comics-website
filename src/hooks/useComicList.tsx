@@ -3,13 +3,11 @@ import {
   ReactNode,
   createContext,
   useContext,
-  useEffect,
   useReducer,
 } from "react";
 
 import { Category } from "@/@types/comic";
 import { Order } from "@/@types/order";
-import { useSearchParams } from "next/navigation";
 
 interface ComicsListProviderProps {
   children: ReactNode;
@@ -20,7 +18,6 @@ type ComicsListState = {
   category: Category | null;
   order: Order;
   search: string;
-  limit: number;
 };
 
 type ComicsListAction =
@@ -28,12 +25,19 @@ type ComicsListAction =
   | { type: "setCategory"; payload: Category }
   | { type: "setOrder"; payload: Order }
   | { type: "setSearch"; payload: string }
-  | { type: "setLimit"; payload: number };
+  | { type: "resetState" };
 
 interface ComicsListContextData {
   state: ComicsListState;
   dispatch: (action: ComicsListAction) => void;
 }
+
+const initialState: ComicsListState = {
+  amount: 0,
+  category: null,
+  order: "asc",
+  search: "",
+};
 
 export const ComicsListContext = createContext({} as ComicsListContextData);
 
@@ -47,20 +51,12 @@ function ComicsListReducer(state: ComicsListState, action: ComicsListAction) {
       return { ...state, order: action.payload };
     case "setSearch":
       return { ...state, search: action.payload };
-    case "setLimit":
-      return { ...state, limit: action.payload };
+    case "resetState":
+      return initialState;
     default:
       return state;
   }
 }
-
-const initialState: ComicsListState = {
-  amount: 0,
-  category: null,
-  order: "asc",
-  search: "",
-  limit: 20,
-};
 
 export function ComicsListProvider({ children }: ComicsListProviderProps) {
   const [state, dispatch] = useReducer(ComicsListReducer, initialState);

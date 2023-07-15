@@ -11,14 +11,12 @@ interface useComicsParams {
   category: Category;
   order: Order;
   search: string;
-  limit: number;
 }
 
 export const useComics = ({
   category,
   order,
   search,
-  limit,
 }: useComicsParams) => {
   const nextPage = useRef(1);
 
@@ -34,7 +32,6 @@ export const useComics = ({
       category,
       order,
       search,
-      limit,
     ],
     ({ pageParam = nextPage.current }) => {
       return getComics({ category, order, search, limit: pageParam * 20 });

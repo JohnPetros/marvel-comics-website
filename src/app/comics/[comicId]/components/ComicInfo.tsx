@@ -75,7 +75,7 @@ export function ComicInfo({
   };
 
   return (
-    <div className="w-full py-12 relative bg-black">
+    <div className="w-full py-16 relative bg-black">
       <motion.div
         variants={backgroundVariants}
         initial="hidden"
@@ -105,7 +105,7 @@ export function ComicInfo({
           <h2 className="text-white text-3xl font-bold">{title}</h2>
           <div>
             <dl className="grid grid-cols-3 gap-8">
-              <Detail title="Cateogry" description={category} />
+              <Detail title="Cateogory" description={category} />
 
               <Detail
                 title="Published"
