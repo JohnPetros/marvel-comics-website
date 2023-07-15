@@ -13,6 +13,11 @@ import { Character as CharacterType } from "@/@types/character";
 import { Resource } from "@/@types/resource";
 import { Spinner } from "@/app/components/Spinner";
 import { Search } from "./Search";
+import { DropDownMenu } from "@/app/components/DropDownMenu";
+
+import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
+import { Order } from "@/@types/order";
+
 
 interface RelatedComicsProps {
   originalResourceId: number;
@@ -29,6 +34,7 @@ export function RelatedResourcers({
 
   const searchRef = useRef<HTMLInputElement>(null);
   const [searchValue, setSearchValue] = useState("");
+  const [order, setOrder] = useState<Order>("asc");
 
   const relatedResources = useRef<Resource[]>([]);
 
@@ -38,6 +44,7 @@ export function RelatedResourcers({
       originalResourceId,
       relatedResource: activeResource,
       search: searchValue,
+      order,
     });
 
   function isComic(resource: ComicType | CharacterType): resource is ComicType {
@@ -54,9 +61,9 @@ export function RelatedResourcers({
     }
   }
 
-  // function handleButtonOrderClick(order: Order) {
-  //   dispatch({ type: "setOrder", payload: order });
-  // }
+  function handleButtonOrderClick(order: Order) {
+    setOrder(order)
+  }
 
   function handleSearchKeyDown({ key }: KeyboardEvent<HTMLInputElement>) {
     if (key === "Enter") {
@@ -91,6 +98,36 @@ export function RelatedResourcers({
           onKeyDown={handleSearchKeyDown}
           onClick={handleSearchClick}
         />
+      </div>
+      <div className="flex justify-between mt-6">
+        <span className="uppercase text-gray-400 text-sm font-bold">
+          {resourcesData.length} results
+        </span>
+
+        <RadixDropdownMenu.Root>
+          <RadixDropdownMenu.Trigger>
+            <span className="uppercase text-gray-400 text-sm flex items-center font-bold ">
+              sort by {order === "asc" ? "A-Z" : "Z-A"}
+            </span>
+          </RadixDropdownMenu.Trigger>
+
+          <DropDownMenu
+            buttons={[
+              {
+                id: 1,
+                title: "A-Z",
+                onClick: () => handleButtonOrderClick("asc"),
+                isActive: order === "asc",
+              },
+              {
+                id: 2,
+                title: "Z-A",
+                onClick: () => handleButtonOrderClick("desc"),
+                isActive: order === "desc",
+              },
+            ]}
+          />
+        </RadixDropdownMenu.Root>
       </div>
       {isLoading ? (
         <Spinner size={150} />
