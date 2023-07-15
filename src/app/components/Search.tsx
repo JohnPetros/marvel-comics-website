@@ -1,12 +1,14 @@
 import { MagnifyingGlass } from "@phosphor-icons/react";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, LegacyRef } from "react";
 
 interface SearchProps {
   onClick: () => void;
+  inputRef?: LegacyRef<HTMLInputElement>;
 }
 
 export function Search({
   onClick,
+  inputRef,
   ...rest
 }: SearchProps & InputHTMLAttributes<HTMLInputElement>) {
   return (
@@ -19,6 +21,7 @@ export function Search({
         />
       </button>
       <input
+        ref={inputRef}
         type="search"
         id="search"
         className="text-black p-2 uppercase w-full bg-transparent outline-none font-semibold "

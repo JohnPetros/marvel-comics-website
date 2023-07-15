@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useRelatedResource } from "@/hooks/useRelatedResource";
 
 import { getRelatedResources } from "@/utils/getRelatedResources";
@@ -12,6 +12,7 @@ import { Category, Comic as ComicType } from "@/@types/comic";
 import { Character as CharacterType } from "@/@types/character";
 import { Resource } from "@/@types/resource";
 import { Spinner } from "@/app/components/Spinner";
+import { Search } from "./Search";
 
 interface RelatedComicsProps {
   originalResourceId: number;
@@ -26,13 +27,18 @@ export function RelatedResourcers({
     getRelatedResources(originalResource)[0]
   );
 
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [searchValue, setSearchValue] = useState("");
+
   const relatedResources = useRef<Resource[]>([]);
 
-  const { resourcesData, isLoading } = useRelatedResource({
-    originalResource,
-    originalResourceId,
-    relatedResource: activeResource,
-  });
+  const { resourcesData, isLoading, isFetching, hasNextPage, fetchNextPage } =
+    useRelatedResource({
+      originalResource,
+      originalResourceId,
+      relatedResource: activeResource,
+      search: searchValue,
+    });
 
   function isComic(resource: ComicType | CharacterType): resource is ComicType {
     return "creators" in resource;
@@ -40,6 +46,26 @@ export function RelatedResourcers({
 
   function handleRelatedResourceButtonClick(relatedResource: Resource) {
     setActiveResource(relatedResource);
+  }
+
+  function submitSearch() {
+    if (searchRef.current) {
+      setSearchValue(searchRef.current.value.trim().toLocaleLowerCase());
+    }
+  }
+
+  // function handleButtonOrderClick(order: Order) {
+  //   dispatch({ type: "setOrder", payload: order });
+  // }
+
+  function handleSearchKeyDown({ key }: KeyboardEvent<HTMLInputElement>) {
+    if (key === "Enter") {
+      submitSearch();
+    }
+  }
+
+  function handleSearchClick() {
+    submitSearch();
   }
 
   useEffect(() => {
@@ -58,6 +84,13 @@ export function RelatedResourcers({
             isActive={relatedResource === activeResource}
           ></Button>
         ))}
+      </div>
+      <div className="mt-6">
+        <Search
+          inputRef={searchRef}
+          onKeyDown={handleSearchKeyDown}
+          onClick={handleSearchClick}
+        />
       </div>
       {isLoading ? (
         <Spinner size={150} />
@@ -82,6 +115,18 @@ export function RelatedResourcers({
           Sorry, no {activeResource} found
         </p>
       )}
+
+      <div className="w-max mx-auto mt-12">
+        {!isLoading && isFetching ? (
+          <Spinner size={120} />
+        ) : (
+          !isLoading &&
+          resourcesData.length >= 20 &&
+          hasNextPage && (
+            <Button title="load more" onClick={() => fetchNextPage()} />
+          )
+        )}
+      </div>
     </div>
   );
 }

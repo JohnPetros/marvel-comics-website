@@ -16,6 +16,7 @@ interface getRelatedResourcesParams {
   originalResourceId: number;
   relatedResource: Resource;
   offset: number;
+  search: string;
 }
 
 async function getRelatedResources({
@@ -23,10 +24,12 @@ async function getRelatedResources({
   originalResourceId,
   relatedResource,
   offset,
+  search,
 }: getRelatedResourcesParams): Promise<ApiResponse<ResourceData>> {
   const response = await fetchData({
     resource: `${originalResource}/${originalResourceId}/${relatedResource}`,
     offset,
+    search,
   });
 
   const data = response.json();
@@ -37,12 +40,21 @@ interface useRelatedResourcesParams {
   originalResource: Resource;
   originalResourceId: number;
   relatedResource: Resource;
+  search: string;
+}
+
+function formatSearch(search: string, relatedResource: Resource) {
+  if (relatedResource === "characters" || relatedResource === "events") {
+    return `nameStartsWith=${search}`;
+  }
+  return `titleStartsWith=${search}`;
 }
 
 export function useRelatedResource({
   originalResource,
   originalResourceId,
   relatedResource,
+  search,
 }: useRelatedResourcesParams) {
   const {
     data: response,
@@ -52,13 +64,14 @@ export function useRelatedResource({
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    ["relatedResource", originalResource, relatedResource],
+    ["relatedResource", originalResource, relatedResource, search],
     ({ pageParam = 0 }) => {
       return getRelatedResources({
         originalResource,
         originalResourceId,
         relatedResource,
         offset: pageParam * 20,
+        search: search ? formatSearch(search, relatedResource) : "",
       });
     },
     {
@@ -67,6 +80,8 @@ export function useRelatedResource({
       },
     }
   );
+
+  console.log(response?.pages);
 
   const resourcesData: ResourceData[] = useMemo(() => {
     if (!response?.pages || response.pages[0].code === "RequestThrottled") {
