@@ -33,7 +33,6 @@ export function Comic({ data, category, path }: ComicProps) {
             alt={data.title}
             fill
             className="w-auto h-auto"
-            // placeholder="blur"
             sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, (min-width: 440px) 50vw, 100vw"
           />
         </div>

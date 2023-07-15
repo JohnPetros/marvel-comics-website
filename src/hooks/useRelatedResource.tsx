@@ -36,7 +36,7 @@ export function useRelatedResource({
   relatedResource,
 }: RelatedResourceParams) {
   const { data: response, isLoading } = useQuery(
-    ["relatedResource", relatedResource],
+    ["relatedResource", originalResource, relatedResource],
     () =>
       getRelatedResources({
         originalResource,

@@ -28,7 +28,7 @@ export default async function ComicDetails({
         <>
           <Header comicId={comic.id} comicCategory={category} />
           <ComicInfo comic={comic} category={category} />
-          {category === "series" && <ComicMoreDetails comic={comic} />}
+          {category === "comics" && <ComicMoreDetails comic={comic} />}
           {category !== "comics" && (
             <RelatedResourcers
               originalResourceId={comic.id}

@@ -68,11 +68,11 @@ export function RelatedResourcers({
               {isComic(data) ? (
                 <Comic
                   data={data}
-                  path={String(data.id)}
+                  path={`/comics/${String(data.id)}`}
                   category={activeResource as Category}
                 />
               ) : (
-                <Character data={data} path={`characters/${data.id}`} />
+                <Character data={data} path={`/characters/${data.id}`} />
               )}
             </li>
           ))}
