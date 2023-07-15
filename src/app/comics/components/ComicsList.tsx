@@ -7,16 +7,19 @@ import { Comic } from "./Comic";
 import { Button } from "@/app/components/Button";
 import { Spinner } from "@/app/components/Spinner";
 
-import { Comic as ComicType } from "@/@types/comic";
-
+import { Category, Comic as ComicType } from "@/@types/comic";
+import { useSearchParams } from "next/navigation";
 
 export function ComicsList() {
   const {
     state: { category, order, search, limit },
     dispatch,
   } = useComicsList();
+
+  const searchParams = useSearchParams();
+
   const { comics, isLoading, isFetching, nextPage, fetchNextPage } = useComics({
-    category,
+    category: category ?? (searchParams.get("category") as Category),
     order,
     search,
     limit,
@@ -26,6 +29,13 @@ export function ComicsList() {
     nextPage.current = nextPage.current + 1;
     fetchNextPage();
   }
+
+  useEffect(() => {
+    dispatch({
+      type: "setCategory",
+      payload: (searchParams.get("category") as Category) ?? category,
+    });
+  }, []);
 
   useEffect(() => {
     dispatch({ type: "setAmount", payload: comics.length });
@@ -41,7 +51,7 @@ export function ComicsList() {
             <Comic
               data={comic}
               path={`comics/${comic.id}`}
-              category={category}
+              category={category!}
             />
           ))}
         </div>

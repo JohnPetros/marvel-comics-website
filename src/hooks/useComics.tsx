@@ -5,6 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Category, Comic } from "@/@types/comic";
 import { Order } from "@/@types/order";
 import { getComics } from "@/utils/getComics";
+import { useSearchParams } from "next/navigation";
 
 interface useComicsParams {
   category: Category;
@@ -28,7 +29,13 @@ export const useComics = ({
     isFetching,
     fetchNextPage,
   } = useInfiniteQuery(
-    ["comics", category, order, search, limit],
+    [
+      "comics",
+      category,
+      order,
+      search,
+      limit,
+    ],
     ({ pageParam = nextPage.current }) => {
       return getComics({ category, order, search, limit: pageParam * 20 });
     },

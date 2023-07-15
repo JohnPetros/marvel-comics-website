@@ -17,7 +17,7 @@ interface ComicsListProviderProps {
 
 type ComicsListState = {
   amount: number;
-  category: Category;
+  category: Category | null;
   order: Order;
   search: string;
   limit: number;
@@ -56,7 +56,7 @@ function ComicsListReducer(state: ComicsListState, action: ComicsListAction) {
 
 const initialState: ComicsListState = {
   amount: 0,
-  category: "comics",
+  category: null,
   order: "asc",
   search: "",
   limit: 20,
@@ -64,15 +64,6 @@ const initialState: ComicsListState = {
 
 export function ComicsListProvider({ children }: ComicsListProviderProps) {
   const [state, dispatch] = useReducer(ComicsListReducer, initialState);
-
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    dispatch({
-      type: "setCategory",
-      payload: (searchParams.get("category") as Category) ?? "comics",
-    });
-  }, []);
 
   return (
     <ComicsListContext.Provider
