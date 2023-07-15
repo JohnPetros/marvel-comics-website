@@ -4,18 +4,9 @@ import { Link } from "../Link";
 import { Series } from "./Series";
 import { checkImageAvailability } from "@/utils/checkImageAvailability";
 
-async function getSeries() {
-  const response = await fetch(
-    `${process.env.BASE_URL}/series?orderBy=title&limit=9&ts=${process.env.TIMESTAMP}&apikey=${process.env.PUBLIC_KEY}&hash=${process.env.HASH}`
-  );
-
-  const series = response.json();
-  return series;
-}
-
 export async function SeriesShowcase() {
-  const response = await getComics({ category: "comics", limit: 3 });
-  const series = response.data.results;
+  const response = await getComics({ category: "series", limit: 9 });
+  const series = response.data.results.filter(checkImageAvailability);
 
   const date = new Date();
   const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
@@ -40,7 +31,7 @@ export async function SeriesShowcase() {
       </div>
 
       <div className="">
-        <Link path="/series">See more</Link>
+        <Link path="/comics?category=series">See more</Link>
       </div>
     </section>
   );

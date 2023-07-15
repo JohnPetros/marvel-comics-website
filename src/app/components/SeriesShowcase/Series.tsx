@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Variants, motion } from "framer-motion";
+import Link from "next/link";
 
 type Thumbnail = {
   path: string;
@@ -47,13 +48,19 @@ export function Series({ data, index }: SeriesProps) {
       whileHover="hover"
       className="bg-yellow-500 h-96 p-6 flex items-center justify-center cursor-pointer"
     >
-      <div className="relative w-full h-full">
+      <Link
+        href={{
+          pathname: `comics/${data.id}`,
+          query: { category: "series" },
+        }}
+        className="relative w-full h-full"
+      >
         <Image
           src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
           fill
           alt={data.title}
         />
-      </div>
+      </Link>
     </motion.div>
   );
 }
