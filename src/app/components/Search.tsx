@@ -1,16 +1,23 @@
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { InputHTMLAttributes } from "react";
 
-export function Search({ ...rest }: InputHTMLAttributes<HTMLInputElement>) {
+interface SearchProps {
+  onClick: () => void;
+}
+
+export function Search({
+  onClick,
+  ...rest
+}: SearchProps & InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="border-b-2 border-black flex items-center group focus-within:border-red-600">
-      <label htmlFor="search">
+      <button onClick={onClick}>
         <MagnifyingGlass
           size={24}
           weight="bold"
           className="text-black group-focus-within:text-red-600"
         />
-      </label>
+      </button>
       <input
         type="search"
         id="search"

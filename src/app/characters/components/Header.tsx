@@ -16,14 +16,25 @@ export function Header() {
   } = useCharactersList();
   const [searchValue, setSearchValue] = useState(search);
 
+  function submitSearch() {
+    dispatch({
+      type: "setSearch",
+      payload: searchValue.trim().toLocaleLowerCase(),
+    });
+  }
+
   function handleButtonOrderClick(order: Order) {
     dispatch({ type: "setOrder", payload: order });
   }
 
   function handleSearchKeyDown({ key }: KeyboardEvent<HTMLInputElement>) {
     if (key === "Enter") {
-      dispatch({ type: "setSearch", payload: searchValue });
+      submitSearch();
     }
+  }
+
+  function handleSearchClick() {
+    submitSearch();
   }
 
   return (
@@ -40,6 +51,7 @@ export function Header() {
           value={searchValue}
           onChange={({ target }) => setSearchValue(target.value)}
           onKeyDown={handleSearchKeyDown}
+          onClick={handleSearchClick}
         />
       </div>
 

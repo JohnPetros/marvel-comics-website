@@ -22,6 +22,13 @@ export function Header() {
   } = useComicsList();
   const [searchValue, setSearchValue] = useState(search);
 
+  function submitSearch() {
+    dispatch({
+      type: "setSearch",
+      payload: searchValue.trim().toLocaleLowerCase(),
+    });
+  }
+
   function handleButtonCategoryClick(category: Category) {
     dispatch({ type: "setCategory", payload: category });
   }
@@ -32,8 +39,12 @@ export function Header() {
 
   function handleSearchKeyDown({ key }: KeyboardEvent<HTMLInputElement>) {
     if (key === "Enter") {
-      dispatch({ type: "setSearch", payload: searchValue });
+      submitSearch();
     }
+  }
+
+  function handleSearchClick() {
+    submitSearch();
   }
 
   return (
@@ -63,6 +74,7 @@ export function Header() {
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}
         onKeyDown={handleSearchKeyDown}
+        onClick={handleSearchClick}
       />
 
       <div className="flex justify-between">
