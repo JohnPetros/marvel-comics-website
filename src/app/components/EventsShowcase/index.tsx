@@ -8,12 +8,14 @@ export async function EventsShowcase() {
   const response1 = await getComics({
     category: "events",
     search: "age of ultron",
+    limit: 1,
   });
   const event1 = response1.data.results[0];
 
   const response2 = await getComics({
     category: "events",
     search: "civil war",
+    limit: 1,
   });
   const event2 = response2.data.results[0];
 

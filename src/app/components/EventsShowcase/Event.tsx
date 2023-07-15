@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Pillar } from "./Pillar";
 import { Variants, motion } from "framer-motion";
+import Link from "next/link";
 
 type Thumbnail = {
   path: string;
@@ -34,44 +35,51 @@ export function Event({ data, isYellow = false }: EventProps) {
       viewport={{ once: true, amount: 0.8 }}
       className="relative flex flex-col justify-between"
     >
-      <div className="flex gap-2">
-        {isYellow ? (
-          <>
-            <Pillar color="yellow-500" isSmall={true} />
-            <Pillar color="yellow-500" />
-          </>
-        ) : (
-          <>
-            <Pillar color="black" />
-            <Pillar color="black" />
-            <Pillar color="black" />
-            <Pillar color="black" />
-          </>
-        )}
-      </div>
-      <a
-        href={`/events/${data.id}`}
-        className={`xsm:w-[280px] w-[240px] h-72 p-4 hover:scale-105 transition-all duration-500 grid place-content-center border ${
-          isYellow
-            ? `bg-yellow-500 absolute -left-[156px] bottom-14 border-yellow-900`
-            : `bg-red-600 border-red-900`
-        }`}
+      <Link
+        href={{
+          pathname: `comics/${data.id}`,
+          query: { category: "events" },
+        }}
       >
-        <Image
-          src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
-          width={240}
-          height={240}
-          alt="Comic"
-        />
-      </a>
-      {!isYellow && (
         <div className="flex gap-2">
-          <Pillar color="black" />
-          <Pillar color="black" />
-          <Pillar color="black" />
-          <Pillar color="black" />
+          {isYellow ? (
+            <>
+              <Pillar color="yellow-500" isSmall={true} />
+              <Pillar color="yellow-500" />
+            </>
+          ) : (
+            <>
+              <Pillar color="black" />
+              <Pillar color="black" />
+              <Pillar color="black" />
+              <Pillar color="black" />
+            </>
+          )}
         </div>
-      )}
+        <a
+          href={`/events/${data.id}`}
+          className={`xsm:w-[280px] w-[240px] h-72 p-4 hover:scale-105 transition-all duration-500 grid place-content-center border ${
+            isYellow
+              ? `bg-yellow-500 absolute -left-[156px] bottom-14 border-yellow-900`
+              : `bg-red-600 border-red-900`
+          }`}
+        >
+          <Image
+            src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
+            width={240}
+            height={240}
+            alt="Comic"
+          />
+        </a>
+        {!isYellow && (
+          <div className="flex gap-2">
+            <Pillar color="black" />
+            <Pillar color="black" />
+            <Pillar color="black" />
+            <Pillar color="black" />
+          </div>
+        )}
+      </Link>
     </motion.div>
   );
 }
