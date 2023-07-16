@@ -21,7 +21,12 @@ export default async function CharacterDetails({
       <CharacterInfo character={character} />
       <RelatedResourcers
         originalResourceId={character.id}
-        originalResource={'characters'}
+        originalResource={"characters"}
+        totalRelatedResources={{
+          comics: character.comics.available,
+          series: character.series.available,
+          events: character.events.available,
+        }}
       />
     </>
   );

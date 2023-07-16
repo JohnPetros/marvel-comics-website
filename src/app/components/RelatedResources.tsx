@@ -37,6 +37,8 @@ export function RelatedResourcers({
   totalRelatedResources,
 }: RelatedComicsProps) {
   const relatedResourcesKeys = Object.keys(totalRelatedResources) as Resource[];
+  console.log(totalRelatedResources);
+  
 
   const [activeResource, setActiveResource] = useState<Resource>(
     relatedResourcesKeys[0]

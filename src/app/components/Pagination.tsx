@@ -21,7 +21,6 @@ export function Pagination({
   const firstPage = Math.max(currentPage - SINBLING_PAGE_BUTTONS, 1);
 
   console.log(Math.min(MAX_PAGE_BUTTONS, totalPages));
-  
 
   function handlePageButtonCLick(page: number) {
     const newOffset = (page - 1) * itemsPerPage;
@@ -39,6 +38,12 @@ export function Pagination({
         </PageButton>
       )}
 
+      {firstPage !== 1 && (
+        <PageButton isActive={false} onClick={() => handlePageButtonCLick(1)}>
+          1 ...
+        </PageButton>
+      )}
+
       {Array.from({ length: Math.min(MAX_PAGE_BUTTONS, totalPages) }).map(
         (_, index) => {
           const page = index + firstPage;
@@ -52,6 +57,15 @@ export function Pagination({
             </PageButton>
           );
         }
+      )}
+
+      {currentPage + SINBLING_PAGE_BUTTONS < totalPages && (
+        <PageButton
+          isActive={false}
+          onClick={() => handlePageButtonCLick(totalPages)}
+        >
+          ... {totalPages}
+        </PageButton>
       )}
 
       {currentPage !== totalPages && (
