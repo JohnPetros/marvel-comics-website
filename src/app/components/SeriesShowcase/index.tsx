@@ -16,6 +16,7 @@ export async function SeriesShowcase() {
     category: "series",
     limit: 9,
     offset: getRandomOffset(),
+    revalidate: 1000 * 60 * 24, // 1 day
   });
   const series = response.data.results.filter(checkImageAvailability);
 
