@@ -166,7 +166,7 @@ export function RelatedResourcers({
       )}
 
       {totalRelatedResources[activeResource]! > 20 && (
-        <div className="mt-8 ml-auto w-max">
+        <div className="mt-12 mx-auto w-max">
           <Pagination
             itemsPerPage={LIMIT}
             totalItems={totalRelatedResources[activeResource]!}

@@ -20,24 +20,47 @@ export function Pagination({
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const firstPage = Math.max(currentPage - SINBLING_PAGE_BUTTONS, 1);
 
+  console.log(Math.min(MAX_PAGE_BUTTONS, totalPages));
+  
+
   function handlePageButtonCLick(page: number) {
     const newOffset = (page - 1) * itemsPerPage;
     setOffset(newOffset);
   }
 
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-4">
+      {currentPage > 1 && (
+        <PageButton
+          isActive={false}
+          onClick={() => handlePageButtonCLick(currentPage - 1)}
+        >
+          🠘 Prev
+        </PageButton>
+      )}
+
       {Array.from({ length: Math.min(MAX_PAGE_BUTTONS, totalPages) }).map(
         (_, index) => {
           const page = index + firstPage;
           return (
             <PageButton
-              page={page}
+              key={page}
               isActive={page === currentPage}
-              onClick={handlePageButtonCLick}
-            />
+              onClick={() => handlePageButtonCLick(page)}
+            >
+              {page}
+            </PageButton>
           );
         }
+      )}
+
+      {currentPage !== totalPages && (
+        <PageButton
+          isActive={false}
+          onClick={() => handlePageButtonCLick(currentPage + 1)}
+        >
+          Next 🠖
+        </PageButton>
       )}
     </div>
   );

@@ -1,22 +1,24 @@
+import { ReactNode } from "react";
+
 interface PageButtonProps {
-  page: number;
+  children: ReactNode;
   isActive: boolean;
-  onClick: (page: number) => void;
+  onClick: VoidFunction;
 }
 
 export default function PageButton({
-  page,
+  children,
   isActive,
   onClick,
 }: PageButtonProps) {
   return (
     <button
-      className={`text-xl font-bold hover:scale-110 transition-all duration-150 ${
+      className={`text-lg font-bold uppercase hover:text-red-600 transition-colors duration-150 ${
         isActive ? "text-red-600" : "text-black"
       }`}
-      onClick={() => onClick(page)}
+      onClick={onClick}
     >
-      {page}
+      {children}
     </button>
   );
 }
