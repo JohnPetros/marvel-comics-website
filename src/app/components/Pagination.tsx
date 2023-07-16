@@ -1,3 +1,5 @@
+import PageButton from "./PageButton";
+
 interface PaginationProps {
   itemsPerPage: number;
   totalItems: number;
@@ -29,14 +31,11 @@ export function Pagination({
         (_, index) => {
           const page = index + firstPage;
           return (
-            <button
-              className={`text-xl font-bold hover:scale-110 transition-all duration-150 ${
-                page === currentPage ? "text-red-600" : "text-black"
-              }`}
-              onClick={() => handlePageButtonCLick(page)}
-            >
-              {page}
-            </button>
+            <PageButton
+              page={page}
+              isActive={page === currentPage}
+              onClick={handlePageButtonCLick}
+            />
           );
         }
       )}
