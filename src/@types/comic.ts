@@ -1,3 +1,4 @@
+import { RelatedResource } from "./relatedResource";
 import { Thumbnail } from "./thumbnail";
 
 export type Category = "comics" | "series" | "events";
@@ -38,4 +39,8 @@ export interface Comic extends Object {
   pageCount: number;
   format: string;
   prices: Price[];
+  comics: RelatedResource;
+  series: RelatedResource;
+  events: RelatedResource;
+  characters: RelatedResource;
 }
