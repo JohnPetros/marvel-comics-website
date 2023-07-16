@@ -3,6 +3,7 @@ import { Pillar } from "./Pillar";
 import { Heading } from "../Heading";
 import { Paragraph } from "../Paragraph";
 import { api } from "@/services/api";
+import { Link } from "../Link";
 
 export async function EventsShowcase() {
   const [response1, response2] = await Promise.all([
@@ -37,6 +38,9 @@ export async function EventsShowcase() {
         <Paragraph>
           Read these plus 29,000+ digital comics for $9.99 a month!
         </Paragraph>
+        <Link path="/comics?category=events">
+          See all comic events
+        </Link>
       </div>
 
       <div className="mt-auto flex gap-2 w-32 self-end items-end lg:self-auto">
