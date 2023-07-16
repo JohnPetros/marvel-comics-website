@@ -19,6 +19,11 @@ export async function EventsShowcase() {
     }),
   ]);
 
+  if (response1.code === 409 || response1.code === 409) {
+    const error = new Error("$#&%, you broke something! Just kidding...");
+    error.name = "409";
+  }
+
   const event1 = response1.data.results[0];
   const event2 = response2.data.results[0];
 
@@ -38,9 +43,7 @@ export async function EventsShowcase() {
         <Paragraph>
           Read these plus 29,000+ digital comics for $9.99 a month!
         </Paragraph>
-        <Link path="/comics?category=events">
-          See all comic events
-        </Link>
+        <Link path="/comics?category=events">See all comic events</Link>
       </div>
 
       <div className="mt-auto flex gap-2 w-32 self-end items-end lg:self-auto">
