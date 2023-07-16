@@ -1,5 +1,5 @@
 "use client";
-import { ErrorComponent } from "./components/ErrorMessage";
+import { ErrorComponent } from "./components/ErrorComponent";
 
 interface ErrorProps {
   error: Error;
