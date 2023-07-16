@@ -11,6 +11,13 @@ interface ComicDetailsProps {
   params: { comicId: number };
 }
 
+type TotalRelatedResource = {
+  comics?: number;
+  series?: number;
+  events?: number;
+  characters?: number;
+};
+
 export default async function ComicDetails({
   params,
   searchParams,
@@ -21,6 +28,31 @@ export default async function ComicDetails({
     id: params.comicId,
   });
   const comic = response.data.results[0];
+
+  function getTotalRelatedResources(category: Category): TotalRelatedResource {
+    const { comics, series, events, characters } = comic;
+
+    switch (category) {
+      case "series":
+        return {
+          comics: comics.available,
+          events: events.available,
+          characters: characters.available,
+        };
+      case "events":
+        return {
+          comics: comics.available,
+          series: series.available,
+          characters: characters.available,
+        };
+      default:
+        return {
+          comics: comics.available,
+          series: series.available,
+          characters: characters.available,
+        };
+    }
+  }
 
   return (
     <div>
@@ -33,6 +65,7 @@ export default async function ComicDetails({
             <RelatedResourcers
               originalResourceId={comic.id}
               originalResource={category}
+              totalRelatedResources={getTotalRelatedResources(category)!}
             />
           )}
         </>

@@ -1,14 +1,13 @@
 "use client";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { ApiResponse } from "@/@types/apiResponse";
 import { Resource } from "@/@types/resource";
 import { Character } from "@/@types/character";
 import { Comic } from "@/@types/comic";
-
-import { fetchData } from "@/utils/fetchData";
-import { useMemo } from "react";
 import { Order } from "@/@types/order";
+import { fetchData } from "@/utils/fetchData";
 
 type ResourceData = Comic | Character;
 
@@ -19,6 +18,7 @@ interface getRelatedResourcesParams {
   offset: number;
   search: string;
   order: Order;
+  limit: number;
 }
 
 function formatSearch(search: string, relatedResource: Resource) {
@@ -44,12 +44,14 @@ async function getRelatedResources({
   offset,
   search,
   order,
+  limit,
 }: getRelatedResourcesParams): Promise<ApiResponse<ResourceData>> {
   const response = await fetchData({
     resource: `${originalResource}/${originalResourceId}/${relatedResource}`,
     offset,
     search: search ? formatSearch(search, relatedResource) : "",
     orderParams: [formatOrder(order, relatedResource)],
+    limit,
   });
 
   const data = response.json();
@@ -62,6 +64,7 @@ interface useRelatedResourcesParams {
   relatedResource: Resource;
   search: string;
   order: Order;
+  limit: number;
 }
 
 export function useRelatedResource({
@@ -70,49 +73,38 @@ export function useRelatedResource({
   relatedResource,
   search,
   order,
+  limit,
 }: useRelatedResourcesParams) {
+  const [offset, setOffset] = useState(0);
+
   const {
     data: response,
     error,
     isLoading,
     isFetching,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery(
-    ["relatedResource", originalResource, relatedResource, search, order],
-    ({ pageParam = 0 }) => {
+  } = useQuery(
+    [
+      "relatedResource",
+      originalResource,
+      relatedResource,
+      search,
+      order,
+      offset,
+    ],
+    () => {
       return getRelatedResources({
         originalResource,
         originalResourceId,
         relatedResource,
-        offset: pageParam * 20,
+        offset,
         search,
         order,
+        limit,
       });
-    },
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.data.results.length ? allPages.length + 1 : undefined;
-      },
     }
   );
 
-  console.log(response?.pages);
+  const resourcesData = response?.data.results ?? [];
 
-  const resourcesData: ResourceData[] = useMemo(() => {
-    if (!response?.pages || response.pages[0].code === "RequestThrottled") {
-      return [];
-    }
-
-    return response.pages.reduce<ResourceData[]>(
-      (allResourcesData, currentPage) => {
-        const resourcesData = currentPage.data.results;
-
-        return [...allResourcesData, ...resourcesData];
-      },
-      []
-    );
-  }, [isFetching]);
-
-  return { resourcesData, isLoading, isFetching, fetchNextPage, hasNextPage };
+  return { resourcesData, isLoading, isFetching, offset, setOffset };
 }

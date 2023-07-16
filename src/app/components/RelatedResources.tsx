@@ -2,34 +2,44 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useRelatedResource } from "@/hooks/useRelatedResource";
 
-import { getRelatedResources } from "@/utils/getRelatedResources";
-
-import { Button } from "@/app/components/Button";
-import { Character } from "@/app/characters/components/Character";
-import { Comic } from "../comics/components/Comic";
-
 import { Category, Comic as ComicType } from "@/@types/comic";
 import { Character as CharacterType } from "@/@types/character";
 import { Resource } from "@/@types/resource";
-import { Spinner } from "@/app/components/Spinner";
-import { Search } from "./Search";
-import { DropDownMenu } from "@/app/components/DropDownMenu";
-
-import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Order } from "@/@types/order";
 
+import { Button } from "@/app/components/Button";
+import { Character } from "@/app/characters/components/Character";
+import { Spinner } from "@/app/components/Spinner";
+import { DropDownMenu } from "@/app/components/DropDownMenu";
+import { Comic } from "../comics/components/Comic";
+import { Search } from "./Search";
+import { Pagination } from "./Pagination";
+import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
+
+const LIMIT = 20;
+
+type TotalRelatedResource = {
+  comics?: number;
+  series?: number;
+  events?: number;
+  characters?: number;
+};
 
 interface RelatedComicsProps {
   originalResourceId: number;
   originalResource: Resource;
+  totalRelatedResources: TotalRelatedResource;
 }
 
 export function RelatedResourcers({
   originalResourceId,
   originalResource,
+  totalRelatedResources,
 }: RelatedComicsProps) {
+  const relatedResourcesKeys = Object.keys(totalRelatedResources) as Resource[];
+
   const [activeResource, setActiveResource] = useState<Resource>(
-    getRelatedResources(originalResource)[0]
+    relatedResourcesKeys[0]
   );
 
   const searchRef = useRef<HTMLInputElement>(null);
@@ -38,13 +48,14 @@ export function RelatedResourcers({
 
   const relatedResources = useRef<Resource[]>([]);
 
-  const { resourcesData, isLoading, isFetching, hasNextPage, fetchNextPage } =
+  const { resourcesData, isLoading, isFetching, offset, setOffset } =
     useRelatedResource({
       originalResource,
       originalResourceId,
       relatedResource: activeResource,
       search: searchValue,
       order,
+      limit: LIMIT,
     });
 
   function isComic(resource: ComicType | CharacterType): resource is ComicType {
@@ -52,6 +63,7 @@ export function RelatedResourcers({
   }
 
   function handleRelatedResourceButtonClick(relatedResource: Resource) {
+    setOffset(0);
     setActiveResource(relatedResource);
   }
 
@@ -62,7 +74,7 @@ export function RelatedResourcers({
   }
 
   function handleButtonOrderClick(order: Order) {
-    setOrder(order)
+    setOrder(order);
   }
 
   function handleSearchKeyDown({ key }: KeyboardEvent<HTMLInputElement>) {
@@ -76,7 +88,7 @@ export function RelatedResourcers({
   }
 
   useEffect(() => {
-    relatedResources.current = getRelatedResources(originalResource);
+    relatedResources.current = relatedResourcesKeys;
     setActiveResource(relatedResources.current[0]);
   }, []);
 
@@ -132,7 +144,7 @@ export function RelatedResourcers({
       {isLoading ? (
         <Spinner size={150} />
       ) : resourcesData?.length > 0 ? (
-        <ul className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6 mt-12">
+        <ul className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6 mt-8">
           {resourcesData.map((data: ComicType | CharacterType) => (
             <li>
               {isComic(data) ? (
@@ -153,17 +165,16 @@ export function RelatedResourcers({
         </p>
       )}
 
-      <div className="w-max mx-auto mt-12">
-        {!isLoading && isFetching ? (
-          <Spinner size={120} />
-        ) : (
-          !isLoading &&
-          resourcesData.length >= 20 &&
-          hasNextPage && (
-            <Button title="load more" onClick={() => fetchNextPage()} />
-          )
-        )}
-      </div>
+      {totalRelatedResources[activeResource]! > 20 && (
+        <div className="mt-8 ml-auto w-max">
+          <Pagination
+            itemsPerPage={LIMIT}
+            totalItems={totalRelatedResources[activeResource]!}
+            offset={offset}
+            setOffset={setOffset}
+          />
+        </div>
+      )}
     </div>
   );
 }
