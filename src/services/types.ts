@@ -7,6 +7,7 @@ export interface getComicsParams {
   search?: string;
   limit?: number;
   offset?: number;
+  revalidate?: number | false;
 }
 
 export interface getComicByIdParams {

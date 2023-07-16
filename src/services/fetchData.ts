@@ -4,6 +4,7 @@ interface fetchDataParams {
   orderParams?: string[];
   search?: string;
   offset?: number;
+  revalidate?: number | false;
 }
 
 function formatOrderParams(orderParam: string) {
@@ -16,6 +17,7 @@ export async function fetchData({
   orderParams = [],
   search,
   offset,
+  revalidate = 0,
 }: fetchDataParams) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const ts = process.env.NEXT_PUBLIC_TIMESTAMP;
@@ -32,5 +34,7 @@ export async function fetchData({
     offset ? `offset=${offset}` : "",
   ].join("&");
 
-  return await fetch(`${baseUrl}/${resource}?${queryParams}`);
+  return await fetch(`${baseUrl}/${resource}?${queryParams}`, {
+    next: { revalidate },
+  });
 }

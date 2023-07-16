@@ -16,6 +16,7 @@ export const api = {
     limit = 20,
     order = "asc",
     offset = 0,
+    revalidate = false,
   }: getComicsParams): Promise<ApiResponse<Comic>> => {
     const orderParamKey = category === "events" ? "name" : "title";
     const orderParamValue =
@@ -27,6 +28,7 @@ export const api = {
       offset,
       orderParams: [orderParamValue],
       search: search ? `${orderParamKey}StartsWith=${search}` : "",
+      revalidate,
     });
 
     const data = response.json();
