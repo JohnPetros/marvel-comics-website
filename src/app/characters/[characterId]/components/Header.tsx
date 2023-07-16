@@ -1,5 +1,4 @@
 "use client";
-import { Category } from "@/@types/comic";
 import { ArrowLeft } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,18 +6,16 @@ import Link from "next/link";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 
 interface HeaderProps {
-  comicId: number;
-  comicCategory: Category;
+  characterId: number;
 }
 
-export function Header({ comicId, comicCategory }: HeaderProps) {
+export function Header({ characterId }: HeaderProps) {
   return (
     <div className="bg-zinc-900">
       <div className="container mx-auto flex justify-between">
         <Link
           href={{
-            pathname: "/comics",
-            query: { category: comicCategory },
+            pathname: "/characters",
           }}
           className="flex gap-2 text-sm items-center text-white py-2 px-2 hover:bg-white/30 transition-colors duration-200"
         >
@@ -28,12 +25,12 @@ export function Header({ comicId, comicCategory }: HeaderProps) {
             className="text-red-600"
             weight="bold"
           />
-          All {comicCategory}
+          All characters
         </Link>
 
         <div className="flex gap-6">
           <FacebookShareButton
-            url={`http://localhost:3000/comics/${comicId}?category=${comicCategory}`}
+            url={`http://localhost:3000/characters/${characterId}`}
             quote={"."}
             hashtag={"#marvelcomics"}
             blankTarget

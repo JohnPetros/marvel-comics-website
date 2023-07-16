@@ -1,6 +1,7 @@
 import { getCharacter } from "@/utils/getCharacter";
 import { CharacterInfo } from "./components/CharacterInfo";
 import { RelatedResourcers } from "@/app/components/RelatedResources";
+import { Header } from "./components/Header";
 
 type Params = {
   characterId: number;
@@ -18,6 +19,7 @@ export default async function CharacterDetails({
 
   return (
     <>
+      <Header characterId={character.id} />
       <CharacterInfo character={character} />
       <RelatedResourcers
         originalResourceId={character.id}
