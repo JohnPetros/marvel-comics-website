@@ -2,24 +2,23 @@ import { Event } from "./Event";
 import { Pillar } from "./Pillar";
 import { Heading } from "../Heading";
 import { Paragraph } from "../Paragraph";
-import { getComics } from "@/utils/getComics";
+import { api } from "@/services/api";
 
 export async function EventsShowcase() {
-  const response1 = await getComics({
-    category: "events",
-    search: "age of ultron",
-    limit: 1,
-  });
-  
-  console.log(response1);
-  
-  const event1 = response1.data.results[0];
+  const [response1, response2] = await Promise.all([
+    api.getComics({
+      category: "events",
+      search: "age of ultron",
+      limit: 1,
+    }),
+    api.getComics({
+      category: "events",
+      search: "civil war",
+      limit: 1,
+    }),
+  ]);
 
-  const response2 = await getComics({
-    category: "events",
-    search: "civil war",
-    limit: 1,
-  });
+  const event1 = response1.data.results[0];
   const event2 = response2.data.results[0];
 
   return (
