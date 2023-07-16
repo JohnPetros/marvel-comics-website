@@ -47,15 +47,18 @@ export function Pagination({
       {Array.from({ length: Math.min(MAX_PAGE_BUTTONS, totalPages) }).map(
         (_, index) => {
           const page = index + firstPage;
-          return (
-            <PageButton
-              key={page}
-              isActive={page === currentPage}
-              onClick={() => handlePageButtonCLick(page)}
-            >
-              {page}
-            </PageButton>
-          );
+
+          if (page <= totalPages) {
+            return (
+              <PageButton
+                key={page}
+                isActive={page === currentPage}
+                onClick={() => handlePageButtonCLick(page)}
+              >
+                {page}
+              </PageButton>
+            );
+          }
         }
       )}
 
