@@ -27,6 +27,11 @@ export default async function ComicDetails({
     category,
     id: params.comicId,
   });
+
+  if (response.code === "ResourceNotFound") {
+    throw new Error(`404 Comic not found`);
+  }
+
   const comic = response.data.results[0];
 
   function getTotalRelatedResources(category: Category): TotalRelatedResource {

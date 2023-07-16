@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 interface ErrorProps {
   title: string;
   message: string;
-  handler: VoidFunction;
+  handler: VoidFunction | null;
 }
 
 export function ErrorComponent({ title, message, handler }: ErrorProps) {
@@ -16,8 +16,7 @@ export function ErrorComponent({ title, message, handler }: ErrorProps) {
   const router = useRouter();
 
   function handleEyeClick() {
-    // router.back();
-    handler();
+    handler ? handler() : router.back();
   }
 
   function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
