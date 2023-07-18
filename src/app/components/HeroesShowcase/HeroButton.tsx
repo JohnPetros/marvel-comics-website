@@ -31,7 +31,7 @@ export function HeroButton({
     }
 
     fetchHero()
-  }, [heroId])
+  }, [])
 
   if (hero?.id) {
     return (

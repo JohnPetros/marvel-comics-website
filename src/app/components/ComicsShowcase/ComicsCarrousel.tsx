@@ -13,7 +13,7 @@ type ComicsCarrouselProps = {
 type Direction = 'next' | 'prev'
 
 export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
-  const [endIndex, setEndIndex] = useState(0)
+  const [endIndex, setEndIndex] = useState(1)
   const [[startIndex, direction], setCarousel] = useState<[number, Direction]>([
     0,
     'next',
