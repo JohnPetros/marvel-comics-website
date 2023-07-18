@@ -9,6 +9,9 @@ import { Creator } from "@/@types/comic";
 import { formatDate } from "@/utils/formatDate";
 import { Variants, motion } from "framer-motion";
 
+import * as Dialog from "@radix-ui/react-dialog";
+import { VariantsModal } from "./VariantsModal";
+
 interface ComicInfoProps {
   comic: Comic;
   category: Category;
@@ -131,6 +134,13 @@ export function ComicInfo({
             </dl>
 
             <div className="text-base text-white mt-8">{description}</div>
+            {/* {category === "comics" && (
+              <Dialog.Root>
+                <Dialog.Trigger className="text-white uppercase">See variants</Dialog.Trigger>
+
+                <VariantsModal />
+              </Dialog.Root>
+            )} */}
           </div>
         </motion.div>
       </div>

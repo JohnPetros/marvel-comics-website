@@ -9,6 +9,9 @@ const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 export const metadata = {
   title: "Marvel",
   description: "House of ideas",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
