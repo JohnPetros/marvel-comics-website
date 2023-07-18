@@ -5,7 +5,7 @@ import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
 import Link from 'next/link'
-const endIndex = innerWidth > 640 ? 4 : innerWidth > 440 ? 3 : 2
+const endIndex = window.innerWidth > 640 ? 4 : window.innerWidth > 440 ? 3 : 2
 
 type ComicsCarrouselProps = {
   comics: Comic[]
