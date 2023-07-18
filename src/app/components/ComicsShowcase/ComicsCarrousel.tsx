@@ -13,8 +13,7 @@ type ComicsCarrouselProps = {
 type Direction = 'next' | 'prev'
 
 export function ComicsCarrousel({ comics }: ComicsCarrouselProps) {
-const endIndex = window.innerWidth > 640 ? 4 : window.innerWidth > 440 ? 3 : 2
-
+  const [endIndex, setEndIndex] = useState(0)
   const [[startIndex, direction], setCarousel] = useState<[number, Direction]>([
     0,
     'next',
@@ -73,6 +72,12 @@ const endIndex = window.innerWidth > 640 ? 4 : window.innerWidth > 440 ? 3 : 2
       transition: { duration: 0.25 },
     },
   }
+
+  useEffect(() => {
+    const endIndex =
+      window.innerWidth > 640 ? 4 : window.innerWidth > 440 ? 3 : 2
+    setEndIndex(endIndex)
+  }, [])
 
   useEffect(() => {
     const timer = setInterval(() => {
