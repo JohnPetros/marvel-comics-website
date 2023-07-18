@@ -62,6 +62,7 @@ export function ComicsList() {
         <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
           {comics.map((comic: ComicType) => (
             <Comic
+              key={comic.is}
               data={comic}
               path={`comics/${comic.id}`}
               category={category!}
@@ -76,7 +77,7 @@ export function ComicsList() {
 
       <div className="w-max mx-auto mt-6">
         {!isLoading && isFetching ? (
-          <Spinner size={120} />
+          <Spinner size={100} />
         ) : (
           !isLoading &&
           comics.length >= 20 &&

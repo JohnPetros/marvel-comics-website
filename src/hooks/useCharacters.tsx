@@ -4,54 +4,55 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Character } from "@/@types/character";
 import { Order } from "@/@types/order";
-import { getCharacters } from "@/utils/getCharacters";
+import { api } from "@/services/api";
 
 interface useCharactersParams {
   order: Order;
   search: string;
-  initialData: Character[];
 }
 
-export const useCharacters = ({
-  order,
-  search,
-  initialData,
-}: useCharactersParams) => {
+export const useCharacters = ({ order, search }: useCharactersParams) => {
   const nextPage = useRef(1);
 
   const {
     data: response,
+    error,
     isLoading,
     isFetching,
+    hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
     ["characters", order, search],
-    ({ pageParam = nextPage.current }) => {
-      return getCharacters({ order, search, limit: pageParam * 20 });
+    ({ pageParam = 0 }) => {
+      return api.getCharacters({ order, search, limit: 20, offset: pageParam * 20 });
     },
     {
-      getNextPageParam: () => {
-        return (nextPage.current - 1) * 20 !== 100
-          ? nextPage.current
-          : undefined;
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.data.results.length ? allPages.length + 1 : undefined;
       },
     }
   );
 
+  if (error) {
+    throw new Error("Error on fetching characters 😢");
+  }
+
   const characters = useMemo(() => {
     if (!response?.pages) return [];
 
-    return response.pages.reduce<Character[]>(
-      (allCharacters, currentPage, index) => {
-        const characters = currentPage.data.results.slice(20 * index);
+    return response.pages.reduce<Character[]>((allCharacters, currentPage) => {
+      const characters = currentPage.data.results;
 
-        return [...allCharacters, ...characters];
-      },
-      []
-    );
+      return [...allCharacters, ...characters];
+    }, []);
   }, [isFetching]);
 
-  console.log(characters);
-
-  return { characters, isLoading, isFetching, nextPage, fetchNextPage };
+  return {
+    characters,
+    isLoading,
+    isFetching,
+    nextPage,
+    hasNextPage,
+    fetchNextPage,
+  };
 };

@@ -1,7 +1,6 @@
 "use client";
 import { ReactNode, createContext, useContext, useReducer } from "react";
 
-import { Category } from "@/@types/comic";
 import { Order } from "@/@types/order";
 
 interface CharactersListProviderProps {

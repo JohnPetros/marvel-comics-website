@@ -6,29 +6,24 @@ import { useCharacters } from "@/hooks/useCharacters";
 import { Button } from "@/app/components/Button";
 import { Spinner } from "@/app/components/Spinner";
 import { Character } from "./Character";
-
 import { Character as CharacterType } from "@/@types/character";
 
-interface CharactersListProps {
-  initialCharacters: CharacterType[];
-}
-
-export function CharactersList({ initialCharacters }: CharactersListProps) {
+export function CharactersList() {
   const {
     state: { order, search },
     dispatch,
   } = useCharactersList();
-  const { characters, isLoading, isFetching, nextPage, fetchNextPage } =
-    useCharacters({
-      order,
-      search,
-      initialData: initialCharacters,
-    });
-
-  function handleLoadMoreButtonClick() {
-    nextPage.current = nextPage.current + 1;
-    fetchNextPage();
-  }
+  const {
+    characters,
+    isLoading,
+    isFetching,
+    nextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useCharacters({
+    order,
+    search,
+  });
 
   useEffect(() => {
     dispatch({ type: "setAmount", payload: characters.length });
@@ -41,7 +36,11 @@ export function CharactersList({ initialCharacters }: CharactersListProps) {
       ) : !isLoading && characters.length > 0 ? (
         <div className="grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-12 w-full">
           {characters.map((character: CharacterType) => (
-            <Character data={character} path={`characters/${character.id}`} />
+            <Character
+              key={character.id}
+              data={character}
+              path={`characters/${character.id}`}
+            />
           ))}
         </div>
       ) : (
@@ -52,12 +51,12 @@ export function CharactersList({ initialCharacters }: CharactersListProps) {
 
       <div className="w-max mx-auto mt-6">
         {!isLoading && isFetching ? (
-          <Spinner size={120} />
+          <Spinner size={100} />
         ) : (
           !isLoading &&
           characters.length >= 20 &&
-          nextPage.current !== 5 && (
-            <Button title="load more" onClick={handleLoadMoreButtonClick} />
+          hasNextPage && (
+            <Button title="load more" onClick={() => fetchNextPage()} />
           )
         )}
       </div>

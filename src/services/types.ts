@@ -19,4 +19,5 @@ export interface getCharactersParams {
   order?: Order;
   search?: string;
   limit?: number;
+  offset?: number;
 }

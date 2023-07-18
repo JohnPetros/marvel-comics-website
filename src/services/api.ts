@@ -48,6 +48,7 @@ export const api = {
     search,
     order = "asc",
     limit = 20,
+    offset = 0,
   }: getCharactersParams): Promise<ApiResponse<Character>> => {
     const orderParam = order === "desc" ? "-name" : "name";
 
@@ -56,6 +57,7 @@ export const api = {
       limit,
       orderParams: [orderParam],
       search: search ? `nameStartsWith=${search}` : "",
+      offset,
     });
 
     const data = response.json();

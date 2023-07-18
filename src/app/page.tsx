@@ -7,7 +7,7 @@ import { CreatorsShowcase } from "./components/CreatorsShowcase";
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <MarvelInsiderShowcase />
       <EventsShowcase />
       <HeroesShowcase />

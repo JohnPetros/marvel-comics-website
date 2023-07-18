@@ -1,7 +1,7 @@
-import { getCharacter } from "@/utils/getCharacter";
 import { CharacterInfo } from "./components/CharacterInfo";
 import { RelatedResourcers } from "@/app/components/RelatedResources";
 import { Header } from "./components/Header";
+import { api } from "@/services/api";
 
 type Params = {
   characterId: number;
@@ -14,7 +14,7 @@ interface CharacterDetailsProps {
 export default async function CharacterDetails({
   params,
 }: CharacterDetailsProps) {
-  const response = await getCharacter(params.characterId);
+  const response = await api.getCharacter(params.characterId);
   const character = response.data.results[0];
 
   return (

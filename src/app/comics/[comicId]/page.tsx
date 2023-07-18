@@ -4,7 +4,7 @@ import { RelatedResourcers } from "../../components/RelatedResources";
 import { Header } from "./components/Header";
 
 import { Category } from "@/@types/comic";
-import { getComic } from "@/utils/getComic";
+import { api } from "@/services/api";
 
 interface ComicDetailsProps {
   searchParams: { category: Category };
@@ -23,7 +23,7 @@ export default async function ComicDetails({
   searchParams,
 }: ComicDetailsProps) {
   const { category } = searchParams;
-  const response = await getComic({
+  const response = await api.getComic({
     category,
     id: params.comicId,
   });

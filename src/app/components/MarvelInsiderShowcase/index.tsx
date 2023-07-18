@@ -41,9 +41,7 @@ export function MarvelInsiderShowcase() {
           <p className="text-white/80 my-8 w-72 text-left">
             Get rewarded for doing what you already do as a fan.​
           </p>
-          <Link path="https://www.marvel.com/insider" isExternal>
-            Join now
-          </Link>
+          <Link path="/">Join now</Link>
         </motion.div>
       </div>
     </section>

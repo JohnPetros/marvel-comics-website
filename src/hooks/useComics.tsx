@@ -1,11 +1,10 @@
 "use client";
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Category, Comic } from "@/@types/comic";
 import { Order } from "@/@types/order";
-import { getComics } from "@/utils/getComics";
-import { useSearchParams } from "next/navigation";
+import { api } from "@/services/api";
 
 interface useComicsParams {
   category: Category;
@@ -24,7 +23,7 @@ export const useComics = ({ category, order, search }: useComicsParams) => {
   } = useInfiniteQuery(
     ["comics", category, order, search],
     ({ pageParam = 0 }) => {
-      return getComics({
+      return api.getComics({
         category,
         order,
         search,
@@ -39,7 +38,11 @@ export const useComics = ({ category, order, search }: useComicsParams) => {
     }
   );
 
-  console.log(response);
+  if (error) {
+    throw new Error("Error on fetching comics 😢");
+  }
+
+  console.log(response?.pages);
 
   const comics = useMemo(() => {
     if (!response?.pages || response.pages[0].code === "RequestThrottled") {
