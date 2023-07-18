@@ -1,11 +1,11 @@
-import { checkImageAvailability } from "@/utils/checkImageAvailability";
-import { Heading } from "../Heading";
 import { Link } from "../Link";
+import { Heading } from "../Heading";
 import { ComicsCarrousel } from "./ComicsCarrousel";
-import { getComics } from "@/utils/getComics";
+import { api } from "@/services/api";
+import { checkImageAvailability } from "@/utils/checkImageAvailability";
 
 export async function ComicsShowcase() {
-  const response = await getComics({ category: "comics", limit: 20 });
+  const response = await api.getComics({ category: "comics", limit: 20 });
   const comics = response.data.results.filter(checkImageAvailability);
 
   return (

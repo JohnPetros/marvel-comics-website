@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+
 import { Character } from "@/@types/character";
-import { getCharacter } from "@/utils/getCharacter";
 import { Hero } from "@/utils/heroes";
 
 import { motion } from "framer-motion";
+import { api } from "@/services/api";
 
 interface HeroesButtonProps {
   heroId: number;
@@ -23,7 +24,7 @@ export function HeroButton({
   const [hero, setHero] = useState<Character | null>(null);
 
   async function fetchHero() {
-    const response = await getCharacter(heroId);
+    const response = await api.getCharacter(heroId);
     const hero = response.data.results[0];
     setHero(hero);
   }
