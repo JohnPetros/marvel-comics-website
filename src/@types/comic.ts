@@ -18,6 +18,11 @@ type Price = {
   price: number;
 };
 
+type Variant = {
+  resourceURI: string;
+  name: string;
+}
+
 type Object = {
   [key: string]: any;
 };
@@ -39,6 +44,7 @@ export interface Comic extends Object {
   pageCount: number;
   format: string;
   prices: Price[];
+  variants: Variant;
   comics: RelatedResource;
   series: RelatedResource;
   events: RelatedResource;
