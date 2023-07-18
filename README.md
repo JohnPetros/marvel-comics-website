@@ -21,7 +21,7 @@
 
 ## 🖥️ About the App
 
-This is a website about the **Marvel Comics** using their API whose full documentation can be find on this oficial [site](https://developer.marvel.com/).
+This is a website about the **Marvel Comics** using their API whose full documentation can be find on their oficial [site](https://developer.marvel.com/).
 
 The motivation for creating this project was to practice the basics of [React Query](https://tanstack.com/query/v3/), which is a powerful state management library and also the features of [Next.js](https://nextjs.org/) Version 13, such as server and client components, file-system based router, dynamic routes, error handling, fetching data etc.
 
