@@ -87,6 +87,16 @@ export function Footer() {
             ))}
           </div>
         </div>
+        <p className="self-center text-white font-semibold flex">
+          <a
+            href="https://github.com/JohnPetros"
+            target="_blank"
+            className="flex items-center gap-2 hover:text-white/70 transition-colors duration-200"
+          >
+            Made by John Petros
+            <Image src="/icons/github.svg" width={24} height={24} alt="" />
+          </a>
+        </p>
       </div>
     </footer>
   );
