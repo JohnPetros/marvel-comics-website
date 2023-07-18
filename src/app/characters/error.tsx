@@ -8,7 +8,7 @@ interface ErrorProps {
 export default function Error({ error }: ErrorProps) {
   return (
     <ErrorComponent
-      title={`404 No characters found`}
+      title={error.message}
       message="Try to click on the Uatu's eye to go back"
       handler={null}
     />
