@@ -18,6 +18,8 @@ type SeriesProps = {
 };
 
 export function Series({ data, index }: SeriesProps) {
+  console.log(data);
+
   const seriesVariants: Variants = {
     offscreen: {
       y: 100,

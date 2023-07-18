@@ -15,12 +15,12 @@ export async function SeriesShowcase() {
   const response = await api.getComics({
     category: "series",
     limit: 9,
-    offset: getRandomOffset(),
+    offset: 1000,
     revalidate: 1000 * 60 * 24, // 1 day
   });
   const series = response.data.results.filter(checkImageAvailability);
 
-  if (series.length)
+  if (series.length && series[0]?.id)
     return (
       <section
         id="series"
