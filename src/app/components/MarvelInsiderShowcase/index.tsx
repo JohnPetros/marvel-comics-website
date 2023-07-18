@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Link } from "../Link";
 import { motion } from "framer-motion";
 
-export function MarvelInserShowcase() {
+export function MarvelInsiderShowcase() {
   return (
     <section
       id="marvel-insider"

@@ -1,4 +1,4 @@
-import { MarvelInserShowcase } from "./components/MarvelInserShowcase";
+import { MarvelInsiderShowcase } from "./components/MarvelInsiderShowcase";
 import { HeroesShowcase } from "./components/HeroesShowcase";
 import { EventsShowcase } from "./components/EventsShowcase";
 import { SeriesShowcase } from "./components/SeriesShowcase";
@@ -8,7 +8,7 @@ import { CreatorsShowcase } from "./components/CreatorsShowcase";
 export default function Home() {
   return (
     <main className="">
-      <MarvelInserShowcase />
+      <MarvelInsiderShowcase />
       <EventsShowcase />
       <HeroesShowcase />
       <SeriesShowcase />
