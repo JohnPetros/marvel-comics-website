@@ -23,11 +23,11 @@ type Variant = {
   name: string
 }
 
-type Object = {
+type ComicObject = {
   [key: string]: any
 }
 
-export interface Comic extends Object {
+export interface Comic extends ComicObject {
   id: number
   title: string
   name: string
