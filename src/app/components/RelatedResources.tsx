@@ -90,7 +90,7 @@ export function RelatedResourcers({
   useEffect(() => {
     relatedResources.current = relatedResourcesKeys
     setActiveResource(relatedResources.current[0])
-  }, [relatedResourcesKeys])
+  }, [])
 
   return (
     <div className="mx-auto mt-8 px-6 md:container md:px-0">
