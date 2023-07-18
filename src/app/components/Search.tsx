@@ -1,9 +1,9 @@
-import { MagnifyingGlass } from "@phosphor-icons/react";
-import { InputHTMLAttributes, LegacyRef } from "react";
+import { MagnifyingGlass } from '@phosphor-icons/react'
+import { InputHTMLAttributes, LegacyRef } from 'react'
 
 interface SearchProps {
-  onClick: () => void;
-  inputRef?: LegacyRef<HTMLInputElement>;
+  onClick: () => void
+  inputRef?: LegacyRef<HTMLInputElement>
 }
 
 export function Search({
@@ -12,7 +12,7 @@ export function Search({
   ...rest
 }: SearchProps & InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <div className="border-b-2 border-black flex items-center group focus-within:border-red-600">
+    <div className="group flex items-center border-b-2 border-black focus-within:border-red-600">
       <button onClick={onClick}>
         <MagnifyingGlass
           size={24}
@@ -24,10 +24,10 @@ export function Search({
         ref={inputRef}
         type="search"
         id="search"
-        className="text-black p-2 uppercase w-full bg-transparent outline-none font-semibold "
+        className="w-full bg-transparent p-2 font-semibold uppercase text-black outline-none "
         placeholder="search"
         {...rest}
       />
     </div>
-  );
+  )
 }

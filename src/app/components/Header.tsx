@@ -1,31 +1,31 @@
-"use client";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
-import { Link } from "./Link";
+'use client'
+import { usePathname } from 'next/navigation'
+import Image from 'next/image'
+import { Link } from './Link'
 
-import Logo from "../../../public/images/logo.svg";
+import Logo from '../../../public/images/logo.svg'
 
 const links = [
   {
-    name: "home",
-    path: "/",
+    name: 'home',
+    path: '/',
   },
   {
-    name: "comics",
-    path: "/comics",
+    name: 'comics',
+    path: '/comics',
   },
   {
-    name: "characters",
-    path: "/characters",
+    name: 'characters',
+    path: '/characters',
   },
-];
+]
 
 export function Header() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <header className="w-full bg-black">
-      <div className="flex flex-col lg:flex-row items-center w-11/12 max-w-[1200px] mx-auto py-6 relative">
+      <div className="relative mx-auto flex w-11/12 max-w-[1200px] flex-col items-center py-6 lg:flex-row">
         <nav className="mt-20 lg:mt-0" aria-label="primary">
           {pathname && (
             <ul className="flex gap-6">
@@ -34,7 +34,7 @@ export function Header() {
                   <Link
                     path={path}
                     isActive={
-                      name === "home"
+                      name === 'home'
                         ? pathname === path
                         : pathname.includes(name)
                     }
@@ -46,10 +46,10 @@ export function Header() {
             </ul>
           )}
         </nav>
-        <div className="w-max absolute left-1/2 -translate-x-2/4 top-3">
-          <Image priority src={Logo} className="w-auto h-auto" alt="Marvel" />
+        <div className="absolute left-1/2 top-3 w-max -translate-x-2/4">
+          <Image priority src={Logo} className="h-auto w-auto" alt="Marvel" />
         </div>
       </div>
     </header>
-  );
+  )
 }

@@ -1,58 +1,58 @@
-"use client";
-import { ReactNode, createContext, useContext, useReducer } from "react";
+'use client'
+import { ReactNode, createContext, useContext, useReducer } from 'react'
 
-import { Order } from "@/@types/order";
+import { Order } from '@/@types/order'
 
 interface CharactersListProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 type CharactersListState = {
-  amount: number;
-  order: Order;
-  search: string;
-};
+  amount: number
+  order: Order
+  search: string
+}
 
 type CharactersListAction =
-  | { type: "setAmount"; payload: number }
-  | { type: "setOrder"; payload: Order }
-  | { type: "setSearch"; payload: string };
+  | { type: 'setAmount'; payload: number }
+  | { type: 'setOrder'; payload: Order }
+  | { type: 'setSearch'; payload: string }
 
 interface CharactersListContextData {
-  state: CharactersListState;
-  dispatch: (action: CharactersListAction) => void;
+  state: CharactersListState
+  dispatch: (action: CharactersListAction) => void
 }
 
 export const CharactersListContext = createContext(
-  {} as CharactersListContextData
-);
+  {} as CharactersListContextData,
+)
 
 function CharactersListReducer(
   state: CharactersListState,
-  action: CharactersListAction
+  action: CharactersListAction,
 ) {
   switch (action.type) {
-    case "setAmount":
-      return { ...state, amount: action.payload };
-    case "setOrder":
-      return { ...state, order: action.payload };
-    case "setSearch":
-      return { ...state, search: action.payload };
+    case 'setAmount':
+      return { ...state, amount: action.payload }
+    case 'setOrder':
+      return { ...state, order: action.payload }
+    case 'setSearch':
+      return { ...state, search: action.payload }
     default:
-      return state;
+      return state
   }
 }
 
 const initialState: CharactersListState = {
   amount: 0,
-  order: "asc",
-  search: "",
-};
+  order: 'asc',
+  search: '',
+}
 
 export function CharactersListProvider({
   children,
 }: CharactersListProviderProps) {
-  const [state, dispatch] = useReducer(CharactersListReducer, initialState);
+  const [state, dispatch] = useReducer(CharactersListReducer, initialState)
 
   return (
     <CharactersListContext.Provider
@@ -63,7 +63,7 @@ export function CharactersListProvider({
     >
       {children}
     </CharactersListContext.Provider>
-  );
+  )
 }
 
-export const useCharactersList = () => useContext(CharactersListContext);
+export const useCharactersList = () => useContext(CharactersListContext)

@@ -1,15 +1,15 @@
-"use client";
-import Image from "next/image";
-import { Link } from "../Link";
-import { Hero } from "./Hero";
-import { Hero as HeroType } from "@/utils/heroes";
-import { Variants, motion } from "framer-motion";
+'use client'
+import Image from 'next/image'
+import { Link } from '../Link'
+import { Hero } from './Hero'
+import { Hero as HeroType } from '@/utils/heroes'
+import { Variants, motion } from 'framer-motion'
 
 type HeroesCarrouselProps = {
-  activeHero: HeroType;
-  activeHeroIndex: number;
-  changeActiveHero: (heroIndex: number) => void;
-};
+  activeHero: HeroType
+  activeHeroIndex: number
+  changeActiveHero: (heroIndex: number) => void
+}
 
 export function HeroesCarousel({
   activeHero,
@@ -23,7 +23,7 @@ export function HeroesCarousel({
     onscreen: {
       opacity: 1,
     },
-  };
+  }
 
   return (
     <motion.div
@@ -31,10 +31,10 @@ export function HeroesCarousel({
       initial="offscreen"
       whileInView="onscreen"
       viewport={{ once: true, amount: 0.3 }}
-      className="h-[750px] relative bg-black/70 lg:h-[540px]"
+      className="relative h-[750px] bg-black/70 lg:h-[540px]"
     >
-      <span className="absolute block top-0 left-0 right-0 bottom-0 bg-black/70 z-30"></span>
-      <div className="absolute top-0 left-0 right-0 bottom-0">
+      <span className="absolute bottom-0 left-0 right-0 top-0 z-30 block bg-black/70"></span>
+      <div className="absolute bottom-0 left-0 right-0 top-0">
         <motion.div
           key={activeHero.id}
           initial={{ opacity: 0 }}
@@ -49,14 +49,14 @@ export function HeroesCarousel({
         </motion.div>
       </div>
 
-      <div className="w-11/12 max-w-[1200px] mx-auto h-full flex flex-col justify-between items-center py-4 lg:flex-row">
+      <div className="mx-auto flex h-full w-11/12 max-w-[1200px] flex-col items-center justify-between py-4 lg:flex-row">
         <div className="z-50">
-          <h2 className="text-white text-4xl leading- font-bold uppercase ">
+          <h2 className="leading- text-4xl font-bold uppercase text-white ">
             Best characters
             <br /> ever made in
             <br /> comics
           </h2>
-          <p className="text-white/90 max-w-md text-sm my-8">
+          <p className="my-8 max-w-md text-sm text-white/90">
             Get hooked on a hearty helping of heroes and villains from the
             humble House of Ideas!
           </p>
@@ -70,5 +70,5 @@ export function HeroesCarousel({
         />
       </div>
     </motion.div>
-  );
+  )
 }

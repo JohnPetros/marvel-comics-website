@@ -1,21 +1,21 @@
-"use client";
-import Image from "next/image";
-import { Pillar } from "./Pillar";
-import { Variants, motion } from "framer-motion";
-import Link from "next/link";
+'use client'
+import Image from 'next/image'
+import { Pillar } from './Pillar'
+import { Variants, motion } from 'framer-motion'
+import Link from 'next/link'
 
 type Thumbnail = {
-  path: string;
-  extension: "jpg" | "png" | "jpeg";
-};
+  path: string
+  extension: 'jpg' | 'png' | 'jpeg'
+}
 
 type EventProps = {
   data: {
-    id: number;
-    thumbnail: Thumbnail;
-  };
-  isYellow?: boolean;
-};
+    id: number
+    thumbnail: Thumbnail
+  }
+  isYellow?: boolean
+}
 
 export function Event({ data, isYellow = false }: EventProps) {
   const eventVariants: Variants = {
@@ -25,7 +25,7 @@ export function Event({ data, isYellow = false }: EventProps) {
     onscreen: {
       opacity: 1,
     },
-  };
+  }
 
   return (
     <motion.div
@@ -38,7 +38,7 @@ export function Event({ data, isYellow = false }: EventProps) {
       <Link
         href={{
           pathname: `comics/${data.id}`,
-          query: { category: "events" },
+          query: { category: 'events' },
         }}
       >
         <div className="flex gap-2">
@@ -58,10 +58,10 @@ export function Event({ data, isYellow = false }: EventProps) {
         </div>
         <a
           href={`/events/${data.id}`}
-          className={`xsm:w-[280px] w-[240px] h-72 p-4 hover:scale-105 transition-all duration-500 grid place-content-center border ${
+          className={`grid h-72 w-[240px] place-content-center border p-4 transition-all duration-500 hover:scale-105 xsm:w-[280px] ${
             isYellow
-              ? `bg-yellow-500 absolute -left-[156px] bottom-14 border-yellow-900`
-              : `bg-red-600 border-red-900`
+              ? `absolute -left-[156px] bottom-14 border-yellow-900 bg-yellow-500`
+              : `border-red-900 bg-red-600`
           }`}
         >
           <Image
@@ -81,5 +81,5 @@ export function Event({ data, isYellow = false }: EventProps) {
         )}
       </Link>
     </motion.div>
-  );
+  )
 }

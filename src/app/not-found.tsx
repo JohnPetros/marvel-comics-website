@@ -1,9 +1,9 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { ErrorComponent } from "./components/ErrorComponent";
+'use client'
+import { useRouter } from 'next/navigation'
+import { ErrorComponent } from './components/ErrorComponent'
 
 export default function NotFound() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <ErrorComponent
@@ -11,5 +11,5 @@ export default function NotFound() {
       message="try to click on the Uatu's eye to go back"
       handler={router.back}
     />
-  );
+  )
 }

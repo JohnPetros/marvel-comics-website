@@ -1,8 +1,8 @@
-"use client";
-import { Variants, motion } from "framer-motion";
+'use client'
+import { Variants, motion } from 'framer-motion'
 interface DetailProps {
-  title: string;
-  description: string | number;
+  title: string
+  description: string | number
 }
 
 export function Detail({ title, description }: DetailProps) {
@@ -15,12 +15,12 @@ export function Detail({ title, description }: DetailProps) {
       opacity: 1,
       y: 0,
     },
-  };
+  }
 
   return (
     <motion.div variants={detailVariants}>
-      <dt className="text-white text-xl capitalize font-bold">{title}</dt>
-      <dd className="text-white text-md capitalize">{description}</dd>
+      <dt className="text-xl font-bold capitalize text-white">{title}</dt>
+      <dd className="text-md capitalize text-white">{description}</dd>
     </motion.div>
-  );
+  )
 }

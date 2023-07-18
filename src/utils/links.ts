@@ -1,42 +1,42 @@
 export const links = [
   {
     id: 1,
-    name: "about Marvel",
-    path: "#",
+    name: 'about Marvel',
+    path: '#',
   },
   {
     id: 2,
-    name: "Help/Faqs",
-    path: "#",
+    name: 'Help/Faqs',
+    path: '#',
   },
   {
     id: 3,
-    name: "Careers",
-    path: "#",
+    name: 'Careers',
+    path: '#',
   },
   {
     id: 4,
-    name: "Interships",
-    path: "#",
+    name: 'Interships',
+    path: '#',
   },
   {
     id: 5,
-    name: "Advertising",
-    path: "#",
+    name: 'Advertising',
+    path: '#',
   },
   {
     id: 6,
-    name: "Disney+",
-    path: "#",
+    name: 'Disney+',
+    path: '#',
   },
   {
     id: 7,
-    name: "Marvelhq.com",
-    path: "#",
+    name: 'Marvelhq.com',
+    path: '#',
   },
   {
     id: 8,
-    name: "Redeem digital comics",
-    path: "#",
+    name: 'Redeem digital comics',
+    path: '#',
   },
-];
+]

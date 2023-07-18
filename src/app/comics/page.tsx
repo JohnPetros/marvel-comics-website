@@ -1,5 +1,5 @@
-import { Header } from "./components/Header";
-import { ComicsList } from "./components/ComicsList";
+import { Header } from './components/Header'
+import { ComicsList } from './components/ComicsList'
 
 export default async function Comics() {
   return (
@@ -7,5 +7,5 @@ export default async function Comics() {
       <Header />
       <ComicsList />
     </div>
-  );
+  )
 }

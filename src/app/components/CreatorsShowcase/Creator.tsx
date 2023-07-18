@@ -1,12 +1,12 @@
-"use client";
-import Image from "next/image";
-import { Variants, motion } from "framer-motion";
+'use client'
+import Image from 'next/image'
+import { Variants, motion } from 'framer-motion'
 
 type CreatorProps = {
-  name: string;
-  image: string;
-  link: string;
-};
+  name: string
+  image: string
+  link: string
+}
 
 export function Creator({ name, image, link }: CreatorProps) {
   const creatorVariants: Variants = {
@@ -21,16 +21,16 @@ export function Creator({ name, image, link }: CreatorProps) {
     },
     hover: {
       scale: 1.1,
-      borderColor: "rgb(239, 68, 68)",
+      borderColor: 'rgb(239, 68, 68)',
       transition: { duration: 0.2 },
     },
-  };
+  }
 
   return (
     <motion.a
       href={link}
       target="_blank"
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col items-center justify-center"
       variants={creatorVariants}
       initial="offscreen"
       whileInView="onscreen"
@@ -39,11 +39,11 @@ export function Creator({ name, image, link }: CreatorProps) {
       <motion.div
         variants={creatorVariants}
         whileHover="hover"
-        className="relative w-48 h-48 rounded-full border-2 border-gray-500 bg-gray-300 p-2 overflow-hidden"
+        className="relative h-48 w-48 overflow-hidden rounded-full border-2 border-gray-500 bg-gray-300 p-2"
       >
         <Image src={`/images/${image}`} alt={name} fill />
       </motion.div>
-      <strong className="text-red-500 mt-5">{name}</strong>
+      <strong className="mt-5 text-red-500">{name}</strong>
     </motion.a>
-  );
+  )
 }

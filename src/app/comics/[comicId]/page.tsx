@@ -1,61 +1,61 @@
-import { ComicInfo } from "./components/ComicInfo";
-import { ComicMoreDetails } from "./components/ComicMoreDetails";
-import { RelatedResourcers } from "../../components/RelatedResources";
-import { Header } from "./components/Header";
+import { ComicInfo } from './components/ComicInfo'
+import { ComicMoreDetails } from './components/ComicMoreDetails'
+import { RelatedResourcers } from '../../components/RelatedResources'
+import { Header } from './components/Header'
 
-import { Category } from "@/@types/comic";
-import { api } from "@/services/api";
+import { Category } from '@/@types/comic'
+import { api } from '@/services/api'
 
 interface ComicDetailsProps {
-  searchParams: { category: Category };
-  params: { comicId: number };
+  searchParams: { category: Category }
+  params: { comicId: number }
 }
 
 type TotalRelatedResource = {
-  comics?: number;
-  series?: number;
-  events?: number;
-  characters?: number;
-};
+  comics?: number
+  series?: number
+  events?: number
+  characters?: number
+}
 
 export default async function ComicDetails({
   params,
   searchParams,
 }: ComicDetailsProps) {
-  const { category } = searchParams;
+  const { category } = searchParams
   const response = await api.getComic({
     category,
     id: params.comicId,
-  });
+  })
 
-  if (response.code === "ResourceNotFound") {
-    throw new Error(`404 Comic not found`);
+  if (response.code === 'ResourceNotFound') {
+    throw new Error(`404 Comic not found`)
   }
 
-  const comic = response.data.results[0];
+  const comic = response.data.results[0]
 
   function getTotalRelatedResources(category: Category): TotalRelatedResource {
-    const { comics, series, events, characters } = comic;
+    const { comics, series, events, characters } = comic
 
     switch (category) {
-      case "series":
+      case 'series':
         return {
           comics: comics.available,
           events: events.available,
           characters: characters.available,
-        };
-      case "events":
+        }
+      case 'events':
         return {
           comics: comics.available,
           series: series.available,
           characters: characters.available,
-        };
+        }
       default:
         return {
           comics: comics.available,
           series: series.available,
           characters: characters.available,
-        };
+        }
     }
   }
 
@@ -65,8 +65,8 @@ export default async function ComicDetails({
         <>
           <Header comicId={comic.id} comicCategory={category} />
           <ComicInfo comic={comic} category={category} />
-          {category === "comics" && <ComicMoreDetails comic={comic} />}
-          {category !== "comics" && (
+          {category === 'comics' && <ComicMoreDetails comic={comic} />}
+          {category !== 'comics' && (
             <RelatedResourcers
               originalResourceId={comic.id}
               originalResource={category}
@@ -76,5 +76,5 @@ export default async function ComicDetails({
         </>
       )}
     </div>
-  );
+  )
 }

@@ -1,71 +1,71 @@
-"use client";
-import { KeyboardEvent, useState } from "react";
-import { useComicsList } from "@/hooks/useComicList";
+'use client'
+import { KeyboardEvent, useState } from 'react'
+import { useComicsList } from '@/hooks/useComicList'
 
-import { Category } from "@/@types/comic";
-import { Order } from "@/@types/order";
+import { Category } from '@/@types/comic'
+import { Order } from '@/@types/order'
 
-import { Button } from "@/app/components/Button";
-import { DropDownMenu } from "@/app/components/DropDownMenu";
-import { Heading } from "@/app/components/Heading";
-import { Search } from "@/app/components/Search";
+import { Button } from '@/app/components/Button'
+import { DropDownMenu } from '@/app/components/DropDownMenu'
+import { Heading } from '@/app/components/Heading'
+import { Search } from '@/app/components/Search'
 
-import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
-const date = new Date();
-const mouth = date.getMonth() + 1;
-const today = date.getDate();
+import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
+const date = new Date()
+const mouth = date.getMonth() + 1
+const today = date.getDate()
 
 export function Header() {
   const {
     state: { amount, category, order, search },
     dispatch,
-  } = useComicsList();
-  const [searchValue, setSearchValue] = useState(search);
+  } = useComicsList()
+  const [searchValue, setSearchValue] = useState(search)
 
   function submitSearch() {
     dispatch({
-      type: "setSearch",
+      type: 'setSearch',
       payload: searchValue.trim().toLocaleLowerCase(),
-    });
+    })
   }
 
   function handleButtonCategoryClick(category: Category) {
-    dispatch({ type: "setCategory", payload: category });
+    dispatch({ type: 'setCategory', payload: category })
   }
 
   function handleButtonOrderClick(order: Order) {
-    dispatch({ type: "setOrder", payload: order });
+    dispatch({ type: 'setOrder', payload: order })
   }
 
   function handleSearchKeyDown({ key }: KeyboardEvent<HTMLInputElement>) {
-    if (key === "Enter") {
-      submitSearch();
+    if (key === 'Enter') {
+      submitSearch()
     }
   }
 
   function handleSearchClick() {
-    submitSearch();
+    submitSearch()
   }
 
   return (
     <div className="container mx-auto space-y-6 px-6 sm:px-0">
-      <div className="flex flex-col sm:flex-row gap-8 sm:gap-0 items-center justify-between">
+      <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:gap-0">
         <Heading title="New this week" subtitle={`On sale ${mouth}/${today}`} />
         <nav className="flex gap-3">
           <Button
             title="Comics"
-            onClick={() => handleButtonCategoryClick("comics")}
-            isActive={category === "comics"}
+            onClick={() => handleButtonCategoryClick('comics')}
+            isActive={category === 'comics'}
           />
           <Button
             title="Series"
-            onClick={() => handleButtonCategoryClick("series")}
-            isActive={category === "series"}
+            onClick={() => handleButtonCategoryClick('series')}
+            isActive={category === 'series'}
           />
           <Button
             title="Events"
-            onClick={() => handleButtonCategoryClick("events")}
-            isActive={category === "events"}
+            onClick={() => handleButtonCategoryClick('events')}
+            isActive={category === 'events'}
           />
         </nav>
       </div>
@@ -78,14 +78,14 @@ export function Header() {
       />
 
       <div className="flex justify-between">
-        <span className="uppercase text-gray-400 text-sm font-bold">
+        <span className="text-sm font-bold uppercase text-gray-400">
           {amount} results
         </span>
 
         <RadixDropdownMenu.Root>
           <RadixDropdownMenu.Trigger>
-            <span className="uppercase text-gray-400 text-sm flex items-center font-bold ">
-              sort by {order === "asc" ? "A-Z" : "Z-A"}
+            <span className="flex items-center text-sm font-bold uppercase text-gray-400 ">
+              sort by {order === 'asc' ? 'A-Z' : 'Z-A'}
             </span>
           </RadixDropdownMenu.Trigger>
 
@@ -93,20 +93,20 @@ export function Header() {
             buttons={[
               {
                 id: 1,
-                title: "A-Z",
-                onClick: () => handleButtonOrderClick("asc"),
-                isActive: order === "asc",
+                title: 'A-Z',
+                onClick: () => handleButtonOrderClick('asc'),
+                isActive: order === 'asc',
               },
               {
                 id: 2,
-                title: "Z-A",
-                onClick: () => handleButtonOrderClick("desc"),
-                isActive: order === "desc",
+                title: 'Z-A',
+                onClick: () => handleButtonOrderClick('desc'),
+                isActive: order === 'desc',
               },
             ]}
           />
         </RadixDropdownMenu.Root>
       </div>
     </div>
-  );
+  )
 }

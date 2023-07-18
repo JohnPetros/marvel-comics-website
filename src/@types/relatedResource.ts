@@ -1,3 +1,3 @@
 export type RelatedResource = {
-  available: number;
-};
+  available: number
+}

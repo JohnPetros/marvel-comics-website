@@ -1,8 +1,8 @@
-import { Player as Animation } from "@lottiefiles/react-lottie-player";
-import Spiner from "../../../public/animations/spinner.json";
+import { Player as Animation } from '@lottiefiles/react-lottie-player'
+import Spiner from '../../../public/animations/spinner.json'
 
 interface SpinnerProps {
-  size: number;
+  size: number
 }
 
 export function Spinner({ size }: SpinnerProps) {
@@ -14,5 +14,5 @@ export function Spinner({ size }: SpinnerProps) {
       src={Spiner}
       style={{ height: `${size}px`, width: `${size}px` }}
     />
-  );
+  )
 }

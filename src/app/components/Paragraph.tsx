@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 
 type ParagraphProps = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 export function Paragraph({ children }: ParagraphProps) {
-  return <p className="text-md text-black/60">{children}</p>;
+  return <p className="text-md text-black/60">{children}</p>
 }

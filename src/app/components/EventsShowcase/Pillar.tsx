@@ -1,10 +1,10 @@
-"use client";
-import { Variants, motion } from "framer-motion";
+'use client'
+import { Variants, motion } from 'framer-motion'
 
 type PillarProps = {
-  color: string;
-  isSmall?: boolean;
-};
+  color: string
+  isSmall?: boolean
+}
 
 export function Pillar({ color, isSmall = false }: PillarProps) {
   const pillarVariants: Variants = {
@@ -20,7 +20,7 @@ export function Pillar({ color, isSmall = false }: PillarProps) {
         delay: 0.2,
       },
     },
-  };
+  }
 
   return (
     <motion.span
@@ -29,10 +29,10 @@ export function Pillar({ color, isSmall = false }: PillarProps) {
       whileInView="onscreen"
       viewport={{ once: true, amount: 0.8 }}
       className={`${
-        isSmall ? "h-12" : "h-32"
-      } xsm:w-16 w-12  bg-${color} border border-${
-        color === "yellow-500" ? "yellow-900" : "black"
+        isSmall ? 'h-12' : 'h-32'
+      } w-12 xsm:w-16  bg-${color} border border-${
+        color === 'yellow-500' ? 'yellow-900' : 'black'
       }`}
     ></motion.span>
-  );
+  )
 }

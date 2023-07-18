@@ -1,24 +1,24 @@
-"use client";
-import Image from "next/image";
-import { Variants, motion } from "framer-motion";
-import Link from "next/link";
+'use client'
+import Image from 'next/image'
+import { Variants, motion } from 'framer-motion'
+import Link from 'next/link'
 
 type Thumbnail = {
-  path: string;
-  extension: "jpg" | "png" | "jpeg";
-};
+  path: string
+  extension: 'jpg' | 'png' | 'jpeg'
+}
 
 type SeriesProps = {
   data: {
-    id: number;
-    title: string;
-    thumbnail: Thumbnail;
-  };
-  index: number;
-};
+    id: number
+    title: string
+    thumbnail: Thumbnail
+  }
+  index: number
+}
 
 export function Series({ data, index }: SeriesProps) {
-  console.log(data);
+  console.log(data)
 
   const seriesVariants: Variants = {
     offscreen: {
@@ -39,7 +39,7 @@ export function Series({ data, index }: SeriesProps) {
         duration: 0.2,
       },
     },
-  };
+  }
 
   return (
     <motion.div
@@ -48,14 +48,14 @@ export function Series({ data, index }: SeriesProps) {
       whileInView="onscreen"
       viewport={{ once: true, amount: 0.8 }}
       whileHover="hover"
-      className="bg-yellow-500 h-96 p-6 flex items-center justify-center cursor-pointer"
+      className="flex h-96 cursor-pointer items-center justify-center bg-yellow-500 p-6"
     >
       <Link
         href={{
           pathname: `comics/${data.id}`,
-          query: { category: "series" },
+          query: { category: 'series' },
         }}
-        className="relative w-full h-full"
+        className="relative h-full w-full"
       >
         <Image
           src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
@@ -64,5 +64,5 @@ export function Series({ data, index }: SeriesProps) {
         />
       </Link>
     </motion.div>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-"use client";
-import { ErrorComponent } from "./components/ErrorComponent";
+'use client'
+import { ErrorComponent } from './components/ErrorComponent'
 
 interface ErrorProps {
-  error: Error;
-  reset: VoidFunction;
+  error: Error
+  reset: VoidFunction
 }
 
 export default function Error({ error, reset }: ErrorProps) {
@@ -13,5 +13,5 @@ export default function Error({ error, reset }: ErrorProps) {
       message="Click on the Uatu's eye to try again"
       handler={reset}
     />
-  );
+  )
 }

@@ -1,15 +1,15 @@
-"use client";
-import { useMemo } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+'use client'
+import { useMemo } from 'react'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
-import { Category, Comic } from "@/@types/comic";
-import { Order } from "@/@types/order";
-import { api } from "@/services/api";
+import { Category, Comic } from '@/@types/comic'
+import { Order } from '@/@types/order'
+import { api } from '@/services/api'
 
 interface useComicsParams {
-  category: Category;
-  order: Order;
-  search: string;
+  category: Category
+  order: Order
+  search: string
 }
 
 export const useComics = ({ category, order, search }: useComicsParams) => {
@@ -21,7 +21,7 @@ export const useComics = ({ category, order, search }: useComicsParams) => {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    ["comics", category, order, search],
+    ['comics', category, order, search],
     ({ pageParam = 0 }) => {
       return api.getComics({
         category,
@@ -29,32 +29,32 @@ export const useComics = ({ category, order, search }: useComicsParams) => {
         search,
         limit: 20,
         offset: pageParam * 20,
-      });
+      })
     },
     {
       getNextPageParam: (lastPage, allPages) => {
-        return lastPage.data.results.length ? allPages.length + 1 : undefined;
+        return lastPage.data.results.length ? allPages.length + 1 : undefined
       },
-    }
-  );
+    },
+  )
 
   if (error) {
-    throw new Error("Error on fetching comics 😢");
+    throw new Error('Error on fetching comics 😢')
   }
 
-  console.log(response?.pages);
+  console.log(response?.pages)
 
   const comics = useMemo(() => {
-    if (!response?.pages || response.pages[0].code === "RequestThrottled") {
-      return [];
+    if (!response?.pages || response.pages[0].code === 'RequestThrottled') {
+      return []
     }
 
     return response.pages.reduce<Comic[]>((allComics, currentPage) => {
-      const comics = currentPage.data.results;
+      const comics = currentPage.data.results
 
-      return [...allComics, ...comics];
-    }, []);
-  }, [isFetching]);
+      return [...allComics, ...comics]
+    }, [])
+  }, [response?.pages])
 
-  return { comics, isLoading, isFetching, fetchNextPage, hasNextPage };
-};
+  return { comics, isLoading, isFetching, fetchNextPage, hasNextPage }
+}

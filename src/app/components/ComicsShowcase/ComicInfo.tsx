@@ -1,6 +1,3 @@
-
 export function ComicInfo() {
-  return (
-    <div>ComicInfo</div>
-  )
+  return <div>ComicInfo</div>
 }

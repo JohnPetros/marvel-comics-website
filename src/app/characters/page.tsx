@@ -1,5 +1,5 @@
-import { CharactersList } from "./components/CharactersList";
-import { Header } from "./components/Header";
+import { CharactersList } from './components/CharactersList'
+import { Header } from './components/Header'
 
 export default async function Characters() {
   return (
@@ -7,5 +7,5 @@ export default async function Characters() {
       <Header />
       <CharactersList />
     </div>
-  );
+  )
 }

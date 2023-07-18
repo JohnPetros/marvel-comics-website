@@ -1,10 +1,10 @@
-"use client";
-import { Variants, motion } from "framer-motion";
+'use client'
+import { Variants, motion } from 'framer-motion'
 
 type HeadingProps = {
-  subtitle: string;
-  title: string;
-};
+  subtitle: string
+  title: string
+}
 
 export function Heading({ subtitle, title }: HeadingProps) {
   const headingVariants: Variants = {
@@ -16,7 +16,7 @@ export function Heading({ subtitle, title }: HeadingProps) {
       opacity: 1,
       y: 0,
     },
-  };
+  }
 
   return (
     <motion.div
@@ -26,12 +26,12 @@ export function Heading({ subtitle, title }: HeadingProps) {
       viewport={{ once: true, amount: 0.8 }}
       transition={{ duration: 0.4 }}
     >
-      <small className="uppercase block text-sm text-red-600 text-center font-bold">
+      <small className="block text-center text-sm font-bold uppercase text-red-600">
         {subtitle}
       </small>
-      <h2 className="uppercase text-black text-4xl text-center mt-2">
+      <h2 className="mt-2 text-center text-4xl uppercase text-black">
         {title}
       </h2>
     </motion.div>
-  );
+  )
 }

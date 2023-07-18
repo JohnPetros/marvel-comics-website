@@ -1,7 +1,7 @@
-import { Thumbnail } from "./thumbnail";
+import { Thumbnail } from './thumbnail'
 
 export type Event = {
-  id: number;
-  title: string;
-  thumbnail: Thumbnail;
-};
+  id: number
+  title: string
+  thumbnail: Thumbnail
+}

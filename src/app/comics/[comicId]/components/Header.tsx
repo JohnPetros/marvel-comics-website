@@ -1,14 +1,14 @@
-"use client";
-import { Category } from "@/@types/comic";
-import { ArrowLeft } from "@phosphor-icons/react";
-import Image from "next/image";
-import Link from "next/link";
+'use client'
+import { Category } from '@/@types/comic'
+import { ArrowLeft } from '@phosphor-icons/react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { FacebookShareButton, TwitterShareButton } from "next-share";
+import { FacebookShareButton, TwitterShareButton } from 'next-share'
 
 interface HeaderProps {
-  comicId: number;
-  comicCategory: Category;
+  comicId: number
+  comicCategory: Category
 }
 
 export function Header({ comicId, comicCategory }: HeaderProps) {
@@ -17,10 +17,10 @@ export function Header({ comicId, comicCategory }: HeaderProps) {
       <div className="container mx-auto flex justify-between">
         <Link
           href={{
-            pathname: "/comics",
+            pathname: '/comics',
             query: { category: comicCategory },
           }}
-          className="flex gap-2 text-sm items-center text-white py-2 px-2 hover:bg-white/30 transition-colors duration-200"
+          className="flex items-center gap-2 px-2 py-2 text-sm text-white transition-colors duration-200 hover:bg-white/30"
         >
           <ArrowLeft
             width={20}
@@ -34,16 +34,16 @@ export function Header({ comicId, comicCategory }: HeaderProps) {
         <div className="flex gap-6">
           <FacebookShareButton
             url={`http://localhost:3000/comics/${comicId}?category=${comicCategory}`}
-            quote={"."}
-            hashtag={"#marvelcomics"}
+            quote={'.'}
+            hashtag={'#marvelcomics'}
             blankTarget
           >
             <Image src="/icons/facebook.svg" width={18} height={18} alt="" />
           </FacebookShareButton>
           <TwitterShareButton
-            url={"https://github.com/next-share"}
+            url={'https://github.com/next-share'}
             title={
-              "next-share is a social share buttons for your next React apps."
+              'next-share is a social share buttons for your next React apps.'
             }
           >
             <Image src="/icons/twitter.svg" width={18} height={18} alt="" />
@@ -51,5 +51,5 @@ export function Header({ comicId, comicCategory }: HeaderProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

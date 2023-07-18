@@ -1,8 +1,8 @@
-"use client";
-import { ErrorComponent } from "../components/ErrorComponent";
+'use client'
+import { ErrorComponent } from '../components/ErrorComponent'
 
 interface ErrorProps {
-  error: Error;
+  error: Error
 }
 
 export default function Error({ error }: ErrorProps) {
@@ -12,5 +12,5 @@ export default function Error({ error }: ErrorProps) {
       message="Try to click on the Uatu's eye to go back"
       handler={null}
     />
-  );
+  )
 }

@@ -1,12 +1,12 @@
-"use client";
-import { ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ComicsListProvider } from "@/hooks/useComicList";
-import { CharactersListProvider } from "@/hooks/useCharactersList";
+'use client'
+import { ReactNode } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ComicsListProvider } from '@/hooks/useComicList'
+import { CharactersListProvider } from '@/hooks/useCharactersList'
 
 interface ProvidersProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const queryClient = new QueryClient({
@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
       // staleTime: 1000 * 60 * 30
     },
   },
-});
+})
 
 export function Providers({ children }: ProvidersProps) {
   return (
@@ -26,5 +26,5 @@ export function Providers({ children }: ProvidersProps) {
       </ComicsListProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  );
+  )
 }
