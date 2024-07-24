@@ -76,19 +76,19 @@ The motivation for creating this project was to practice the basics of [React Qu
 
 This app was developed using the following technologies:
 
-✔️ **[ReactJs](https://react.dev/)**
+- **[ReactJs](https://react.dev/)**
 
-✔️ **[Next.js](https://nextjs.org/)**
+- **[Next.js](https://nextjs.org/)**
 
-✔️ **[TypeScript](https://www.typescriptlang.org/)**
+- **[TypeScript](https://www.typescriptlang.org/)**
 
-✔️ **[Framer Motion](https://www.framer.com/motion/)**
+- **[Framer Motion](https://www.framer.com/motion/)**
 
-✔️ **[TailwindCSS](https://tailwindcss.com/)**
+- **[TailwindCSS](https://tailwindcss.com/)**
 
-✔️ **[RadixUi](https://www.radix-ui.com/)**
+- **[RadixUi](https://www.radix-ui.com/)**
 
-✔️ **[Lottie](https://lottiefiles.com/)**
+- **[Lottie](https://lottiefiles.com/)**
 
 ---
 
